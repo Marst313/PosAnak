@@ -1,0 +1,46 @@
+.Sample input,
+.Sample button {
+  font: inherit;
+}
+
+.Sample__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.Sample header {
+  background-color: #323639;
+  padding: 20px;
+  color: white;
+}
+.Sample__container__content {
+  display: flex;
+  max-width: 100%;
+  flex-basis: 420px;
+  flex-direction: column;
+  flex-grow: 100;
+  align-items: stretch;
+}
+.react-calendar__tile--active {
+  @apply bg-lightGreen;
+  color: white;
+  border-radius: 5px;
+}
+
+.Sample__container__content .react-calendar {
+  margin: 0 auto;
+  @apply rounded-xl text-sm border-none text-darkGreen;
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  @apply text-darkGreen hover:rounded-md;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  @apply text-darkGreen;
+}
+
+.react-calendar__navigation {
+  @apply bg-lightGreen text-white rounded-xl overflow-hidden;
+}
