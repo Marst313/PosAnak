@@ -54,6 +54,7 @@ module.exports = {
         darkGreen: '#036346',
         lightGreen: '#57C9A7',
         coldWhite: '#F3F5F9',
+        grey: '#D9D9D9',
       },
     },
   },
