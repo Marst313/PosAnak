@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import logo from '../images/logo-posyandu.png';
 import profilePict from '../images/contohProfile.jpeg';
@@ -76,13 +76,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         <hr />
 
         {/* Profile */}
-        <div className="flex flex-col justify-center items-center my-5 gap-3 ">
+        <Link className="flex flex-col justify-center items-center my-5 gap-3 hover:bg-lightGreen/10" to="profile">
           <div className="p-1 border-lightGreen border rounded-full">
             <img src={profilePict} alt="gambar profile" className="rounded-full w-32 h-32 " />
           </div>
           <h2 className="text-2xl ">Sumarni</h2>
           <h5>Sumarni@gmail.com</h5>
-        </div>
+        </Link>
 
         <hr />
 

@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import './css/style.css';
 
 // Import pages
-import { Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, ProtectedRoute } from './pages/';
+import { Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, Profiles, ProtectedRoute } from './pages/';
 import SharedLayout from './partials/SharedLayout';
 
 function App() {
@@ -29,6 +29,7 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="berita" element={<Berita />} />
+          <Route path="profile" element={<Profiles />} />
           <Route path="kegiatan" element={<Kegiatan />} />
           <Route path="dataanak" element={<DataAnak />} />
         </Route>

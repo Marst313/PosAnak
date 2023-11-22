@@ -5,6 +5,7 @@ import Error from './Error';
 import Kegiatan from './Kegiatan';
 import Landing from './Landing';
 import Login from './Login';
+import Profiles from './Profiles';
 import ProtectedRoute from './ProtectedRoute';
 
-export { Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, ProtectedRoute };
+export { Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, Profiles, ProtectedRoute };

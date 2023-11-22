@@ -10,8 +10,8 @@ const Berita = () => {
         <Link className="font-light text-darkGreen text-xl hover:text-opacity-80">Selengkapnya {`>>`} </Link>
       </div>
 
-      <ul className="flex gap-3 flex-wrap">
-        <li className="bg-white w-1/3 border-grey rounded-lg p-2 border max-w-xs">
+      <ul className="flex  flex-wrap justify-between gap-5">
+        <li className="bg-white w-[30%] border-grey rounded-lg p-2 border max-w-xs">
           <div className="flex flex-col gap-2 ">
             <img src={BeritaImg} alt="gambar berita" className="rounded-md" />
             <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ const Berita = () => {
           </div>
         </li>
 
-        <li className="bg-white  w-1/3 border-grey rounded-lg p-2 border max-w-xs">
+        <li className="bg-white  w-[30%] border-grey rounded-lg p-2 border max-w-xs">
           <div className="flex flex-col gap-2 ">
             <img src={BeritaImg} alt="gambar berita" className="rounded-md" />
             <div className="flex items-center gap-2">
@@ -47,7 +47,7 @@ const Berita = () => {
           </div>
         </li>
 
-        <li className="bg-white w-1/3  border-grey rounded-lg p-2 border max-w-xs">
+        <li className="bg-white w-[30%]  border-grey rounded-lg p-2 border max-w-xs">
           <div className="flex flex-col gap-2 ">
             <img src={BeritaImg} alt="gambar berita" className="rounded-md" />
             <div className="flex items-center gap-2">
