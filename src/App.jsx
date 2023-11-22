@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import './css/style.css';
 
 // Import pages
-import Dashboard from './pages/Dashboard';
+import { Dashboard, Error, Login, ProtectedRoute } from './pages/';
 
 function App() {
   const location = useLocation();
@@ -18,7 +18,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </>
   );
