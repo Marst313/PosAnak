@@ -150,3 +150,17 @@ input[type='search']::-webkit-search-results-decoration {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.active-nav {
+  @apply text-lg flex gap-3 items-center px-5 py-1;
+}
+.active-nav p {
+  @apply text-opacity-100;
+}
+
+.nav {
+  @apply text-base flex gap-3 items-center hover:bg-lightGreen transition-all  rounded-md px-5 py-1;
+}
+.nav p {
+  @apply text-opacity-60;
+}

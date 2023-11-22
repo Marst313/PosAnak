@@ -100,11 +100,17 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Dashboard */}
               {navLinks.map((item) => {
                 return (
-                  <NavLink key={item.id} className={`block text-darkGreen truncate transition duration-150 py-3 px-5 text-darkGreen-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100  `} to={item.path}>
-                    <li className="flex items-center gap-3">
-                      <img src={item.icon} alt="" /> {item.name}
-                    </li>
-                  </NavLink>
+                  <li className=" block text-darkGreen truncate transition duration-150 py-1   ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100" key={item.id}>
+                    <NavLink
+                      className={({ isActive }) => {
+                        return isActive ? 'active-nav' : 'nav';
+                      }}
+                      to={item.path}
+                    >
+                      <img src={item.icon} alt="" className="" />
+                      <p>{item.name}</p>
+                    </NavLink>
+                  </li>
                 );
               })}
             </ul>

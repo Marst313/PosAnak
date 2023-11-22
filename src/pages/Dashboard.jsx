@@ -8,36 +8,28 @@ import Schedule from '../partials/dashboard/Schedule';
 import ScheduleRight from '../partials/dashboard/ScheduleRight';
 import Berita from '../partials/dashboard/Berita';
 
-function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+function Dashboard({ setSidebarOpen, sidebarOpen }) {
   return (
-    <div className="flex h-screen overflow-hidden bg-coldWhite">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+    <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+      {/*  Site header */}
+      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <main>
+        <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
+          {/* Welcome banner */}
+          <WelcomeBanner />
 
-        <main>
-          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
-            {/* Welcome banner */}
-            <WelcomeBanner />
+          <Calender />
+        </div>
 
-            <Calender />
-          </div>
+        <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative ">
+          <Schedule />
 
-          <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative ">
-            <Schedule />
+          <ScheduleRight />
 
-            <ScheduleRight />
-
-            <Berita />
-          </div>
-        </main>
-      </div>
+          <Berita />
+        </div>
+      </main>
     </div>
   );
 }

@@ -4,7 +4,8 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import './css/style.css';
 
 // Import pages
-import { Dashboard, Error, Login, ProtectedRoute } from './pages/';
+import { Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, ProtectedRoute } from './pages/';
+import SharedLayout from './partials/SharedLayout';
 
 function App() {
   const location = useLocation();
@@ -19,13 +20,20 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <SharedLayout />
             </ProtectedRoute>
           }
-        ></Route>
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="berita" element={<Berita />} />
+          <Route path="kegiatan" element={<Kegiatan />} />
+          <Route path="dataanak" element={<DataAnak />} />
+        </Route>
+
+        <Route path="/landing" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error />} />
       </Routes>
