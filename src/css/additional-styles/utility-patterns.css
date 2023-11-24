@@ -164,3 +164,11 @@ input[type='search']::-webkit-search-results-decoration {
 .nav p {
   @apply text-opacity-60;
 }
+
+.circle-landing {
+  box-shadow: 5px 5px 150px rgba(250, 250, 250, 1);
+}
+
+.landing-section {
+  box-shadow: inset 0px -25px 35px -14px #ffffff, inset 0px -25px 35px -14px rgba(255, 255, 255, 0.7);
+}

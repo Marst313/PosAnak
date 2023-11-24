@@ -5,7 +5,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
 
   return (
     <header>
-      <div className="px-4 sm:px-6 lg:px-8 mt-5 lg:mt-0">
+      <div className="px-4 sm:px-6 lg:px-8 mt-5 lg:mt-0 lg:hidden">
         <div className="flex items-center justify-between -mb-px">
           {/* Header: Left side */}
           <div className="flex">

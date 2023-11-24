@@ -4,8 +4,9 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import './css/style.css';
 
 // Import pages
-import { Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, Profiles, ProtectedRoute } from './pages/';
-import SharedLayout from './partials/SharedLayout';
+import { Activities, Article, Berita, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, Profiles, ProtectedRoute, SingleBerita } from './pages/';
+import SharedLayout from './user/SharedLayout';
+import SharedLayoutLanding from './landing/SharedLayoutLanding';
 
 function App() {
   const location = useLocation();
@@ -20,7 +21,7 @@ function App() {
     <>
       <Routes>
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <SharedLayout />
@@ -29,12 +30,17 @@ function App() {
         >
           <Route index element={<Dashboard />} />
           <Route path="berita" element={<Berita />} />
+          <Route path="berita/:id" element={<SingleBerita />} />
           <Route path="profile" element={<Profiles />} />
           <Route path="kegiatan" element={<Kegiatan />} />
           <Route path="dataanak" element={<DataAnak />} />
         </Route>
 
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/" element={<SharedLayoutLanding />}>
+          <Route index element={<Landing />} />
+          <Route path="activities" element={<Activities />} />
+          <Route path="article" element={<Article />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error />} />
       </Routes>

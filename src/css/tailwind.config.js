@@ -35,6 +35,7 @@ module.exports = {
       borderWidth: {
         3: '3px',
       },
+
       minWidth: {
         36: '9rem',
         44: '11rem',
@@ -55,6 +56,9 @@ module.exports = {
         lightGreen: '#57C9A7',
         coldWhite: '#F3F5F9',
         grey: '#D9D9D9',
+        greenPrimary: '#239674',
+        greenStabilo: '#06E2A0',
+        navBlack: '#2D364',
       },
     },
   },

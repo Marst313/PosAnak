@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
-import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
-import Calender from '../partials/dashboard/Calender';
-import Schedule from '../partials/dashboard/Schedule';
-import ScheduleRight from '../partials/dashboard/ScheduleRight';
-import Berita from '../partials/dashboard/Berita';
+import WelcomeBanner from '../user/dashboard/WelcomeBanner';
+import Calender from '../user/dashboard/Calender';
+import Schedule from '../user/dashboard/Schedule';
+import ScheduleRight from '../user/dashboard/ScheduleRight';
+import Berita from '../user/dashboard/Berita';
 
-function Dashboard({ setSidebarOpen, sidebarOpen }) {
+function Dashboard() {
   return (
-    <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-      {/*  Site header */}
-      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
+    <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <main>
         <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
           {/* Welcome banner */}
@@ -30,7 +25,7 @@ function Dashboard({ setSidebarOpen, sidebarOpen }) {
           <Berita />
         </div>
       </main>
-    </div>
+    </section>
   );
 }
 

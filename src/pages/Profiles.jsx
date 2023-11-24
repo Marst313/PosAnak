@@ -4,7 +4,7 @@ import logoEdit from '../images/edit.svg';
 
 const Profiles = () => {
   return (
-    <div className="relative flex flex-col  bg-white ml-10 mr-10  w-2/3 rounded-3xl px-20 h-fit pb-14">
+    <section className="relative flex flex-col  bg-white ml-10 mr-10  w-2/3 rounded-3xl px-20 h-fit pb-14">
       <div
         className="px-4 sm:px-6 lg:px-0 
        mt-5 lg:mt-0 pt-10 flex  items-start justify-between mb-10"
@@ -46,7 +46,7 @@ const Profiles = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

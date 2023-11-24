@@ -8,7 +8,7 @@ export const navLinks = [
   {
     id: 1,
     name: 'Dashboard',
-    path: '/',
+    path: '/dashboard',
     icon: dashboard,
   },
   {
@@ -32,7 +32,58 @@ export const navLinks = [
   {
     id: 5,
     name: 'Keluar',
-    path: '/landing',
+    path: '/',
     icon: logout,
+  },
+];
+
+export const tableHeader = [
+  {
+    name: 'NIK',
+  },
+  {
+    name: 'NAMA',
+  },
+  {
+    name: 'TANGGAL LAHIR',
+  },
+  {
+    name: 'UMUR',
+  },
+];
+
+export const dummyData = [
+  {
+    tanggalLahir: '22/01/2023',
+    umur: '10 Bulan',
+    nik: '12345678',
+    nama: 'Budi',
+  },
+  {
+    tanggalLahir: '22/02/2023',
+    umur: '9 Bulan',
+    nik: '23456789',
+    nama: 'Slamet',
+  },
+  {
+    tanggalLahir: '22/03/2023',
+    umur: '8 Bulan',
+    nik: '345678901',
+    nama: 'Joko',
+  },
+];
+
+export const navLinksLanding = [
+  {
+    name: 'Home',
+    path: '/',
+  },
+  {
+    name: 'Kegiatan',
+    path: 'activities',
+  },
+  {
+    name: 'Berita',
+    path: 'article',
   },
 ];
