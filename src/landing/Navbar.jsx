@@ -6,11 +6,13 @@ import { navLinksLanding } from '../utils/link';
 const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
   return (
-    <nav className="bg-white  shadow-lg z-20 relative">
+    <nav className="bg-white z-20 relative">
       <div className="flex  justify-between  xl:px-60  items-center p-4  ">
-        <Link className="flex items-center ">
+        <Link className="flex items-center" to="/">
           <img src={logoPosyandu} className="h-8" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold ml-3">Posyandu</span>
+          <h1 className="text-2xl lg:text-3xl ml-3">
+            <span className="text-lightGreen">Pos</span>yandu
+          </h1>
         </Link>
 
         <button className="lg:hidden" onClick={() => setOpenNav(true)} type="button">
@@ -21,8 +23,8 @@ const Navbar = () => {
 
         {/* MOBILE VIEW */}
         {openNav && (
-          <ul className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm h-screen w-screen flex flex-col items-center justify-center lg:hidden">
-            <div className="flex flex-col gap-5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm h-screen w-screen  items-center justify-center  relative">
+          <ul className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm  flex flex-col items-center justify-center lg:hidden h-screen w-screen">
+            <div className="flex flex-col gap-5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm   items-center justify-center h-screen w-screen relative">
               <button className="absolute top-0 right-0 p-4" onClick={() => setOpenNav(false)} type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 256 256">
                   <path fill="currentColor" d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z" />
@@ -33,7 +35,7 @@ const Navbar = () => {
                   <li key={item.name}>
                     <NavLink
                       className={({ isActive }) => {
-                        return isActive ? 'text-greenStabilo' : 'text-navBlack';
+                        return isActive ? 'text-greenStabilo' : 'text-darkGreen';
                       }}
                       to={item.path}
                     >
@@ -43,8 +45,12 @@ const Navbar = () => {
                 );
               })}
 
-              <button className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 h-10 ">Masuk</button>
-              <button className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary hover:border hover:text-greenPrimary py-2 w-32 h-10">Daftar</button>
+              <Link className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 h-10 text-center" to="/login">
+                Masuk
+              </Link>
+              <Link className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary hover:border hover:text-greenPrimary py-2 w-32 h-10 text-center" to="/daftar">
+                Daftar
+              </Link>
             </div>
           </ul>
         )}
@@ -55,7 +61,7 @@ const Navbar = () => {
               <li key={item.name}>
                 <NavLink
                   className={({ isActive }) => {
-                    return isActive ? 'text-greenPrimary' : 'text-navBlack';
+                    return isActive ? 'text-greenPrimary' : 'text-darkGreen';
                   }}
                   to={item.path}
                 >
@@ -66,9 +72,13 @@ const Navbar = () => {
           })}
         </ul>
 
-        <div className="lg:flex gap-3  hidden   ">
-          <button className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 ">Masuk</button>
-          <button className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary hover:border hover:text-greenPrimary py-2 w-32 ">Daftar</button>
+        <div className="lg:flex gap-3 hidden">
+          <Link className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 text-center" to="login">
+            Masuk
+          </Link>
+          <Link className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary text-center hover:border hover:text-greenPrimary py-2 w-32" to="login">
+            Daftar
+          </Link>
         </div>
       </div>
     </nav>

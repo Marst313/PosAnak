@@ -172,3 +172,6 @@ input[type='search']::-webkit-search-results-decoration {
 .landing-section {
   box-shadow: inset 0px -25px 35px -14px #ffffff, inset 0px -25px 35px -14px rgba(255, 255, 255, 0.7);
 }
+.shadow-custom {
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+}

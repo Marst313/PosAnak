@@ -5,7 +5,7 @@ import logoAirdrop from '../images/landing/airdrop.svg';
 
 const Landing = () => {
   return (
-    <section className={`relative flex-1 px-4 sm:px-6 lg:px-10 flex flex-col h-screen  bg-[url('/images/group.png')] bg-no-repeat  bg-cover bg-center -mt-[4.6rem]`}>
+    <section className={`relative flex-1 px-4 sm:px-6  flex flex-col h-screen  bg-[url('/images/group.png')] bg-no-repeat  bg-cover bg-center -mt-[4.6rem] bg-white`}>
       <div className="xl:px-48 mt-32">
         <h1 className="text-darkGreen font-semibold text-[70px] max-w-2xl">
           <span className="text-lightGreen">Menuju</span> Hidup yang Lebih Baik
