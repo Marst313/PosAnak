@@ -7,7 +7,7 @@ const TambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
       <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative">
         <h1 className="text-darkGreen font-medium text-2xl">Tambah Kegiatan</h1>
 
-        <form className="flex flex-col justify-center gap-3 ">
+        <form className="flex flex-col justify-center gap-3 mt-5 ">
           <div className="w-full  flex flex-col text-darkGreen gap-2">
             <label htmlFor="judulkegiatan" className="font-light">
               Judul Kegiatan

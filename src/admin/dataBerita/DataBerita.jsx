@@ -14,10 +14,10 @@ const DataBerita = () => {
       <div className="flex gap-5 justify-between">
         <SearchBerita />
 
-        <button className=" bg-lightGreen flex items-center px-5 gap-2 text-white rounded-full">
+        <Link className=" bg-lightGreen flex items-center px-5 gap-2 text-white rounded-full whitespace-nowrap" to="/dashboard/tambahBerita">
           <img src={union} alt="icon tambah" className="w-5 h-5" />
           Tambah Berita
-        </button>
+        </Link>
       </div>
 
       <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">

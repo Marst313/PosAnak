@@ -149,7 +149,6 @@ export const dummyData = [
 export const dummyDataAnak = [
   {
     tanggalLahir: '22/01/2023',
-    umur: '10 Bulan',
     nik: '12345678',
     nama: 'Wardi',
     umur: '10 Bulan',
@@ -157,7 +156,6 @@ export const dummyDataAnak = [
   },
   {
     tanggalLahir: '22/01/2023',
-    umur: '10 Bulan',
     nik: '12345678',
     nama: 'Yono',
     umur: '3 Bulan',
@@ -165,7 +163,6 @@ export const dummyDataAnak = [
   },
   {
     tanggalLahir: '22/01/2023',
-    umur: '10 Bulan',
     nik: '12345678',
     nama: 'Budi',
     umur: '10 Bulan',

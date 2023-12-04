@@ -29,8 +29,6 @@ function Dashboard() {
           <Schedule />
 
           <ScheduleRight />
-
-          <Berita />
         </div>
       </main>
     </section>

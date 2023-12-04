@@ -6,7 +6,7 @@ import './css/style.css';
 // Import pages
 
 import { Activities, BeritaLanding, Daftar, Landing, Login, SharedLayoutLanding } from './landing/';
-import { DataAnakAdmin, DataBerita, DataKegiatan, DataKeluarga } from './admin';
+import { DataAnakAdmin, DataBerita, DataKegiatan, DataKeluarga, Editor } from './admin';
 import { Berita, Dashboard, DataAnak, Kegiatan, Profiles, SingleBerita } from './user';
 
 import { Error, ProtectedRoute, SharedLayout } from './components';
@@ -37,6 +37,7 @@ function App() {
             <Route index path="menu" element={<Dashboard />} />
 
             <Route path="berita" element={<Berita />} />
+            <Route path="tambahBerita" element={<Editor />} />
             <Route path="berita/:id" element={<SingleBerita />} />
             <Route path="profile" element={<Profiles />} />
             <Route path="kegiatan" element={<Kegiatan />} />

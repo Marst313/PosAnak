@@ -5,9 +5,11 @@ import { useGlobalUser } from '../contexts/userContext';
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(true);
 
-  const { data } = useGlobalUser();
+  // const { data } = useGlobalUser();
+  const data = true;
 
-  if (!data.email) {
+  // if (!data.email) {
+  if (!data) {
     return <Navigate to="/" />;
   }
   return children;
