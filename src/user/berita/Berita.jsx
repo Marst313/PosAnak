@@ -1,7 +1,7 @@
 import React from 'react';
-import Search from '../user/berita/Search';
-import heroImg from '../images/dashboard/image5.png';
-import iconWaktu from '../images/clock.svg';
+import Search from './Search';
+import heroImg from '../../images/dashboard/image5.png';
+import iconWaktu from '../../images/clock.svg';
 import { Link } from 'react-router-dom';
 
 const Berita = () => {
@@ -12,7 +12,7 @@ const Berita = () => {
 
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <li className=" p-3 rounded-2xl border-grey border">
-            <Link className="bg-white" to={`/berita/1`}>
+            <Link className="bg-white" to={`/dashboard/berita/1`}>
               <img src={heroImg} alt="hero img" />
 
               <div className="p-5">

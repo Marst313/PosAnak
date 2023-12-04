@@ -1,10 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import heroLogin from '../images/hero-login.png';
+import axios from 'axios';
 
 import logoPosyandu from '../images/logo-posyandu.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useGlobalUser } from '../contexts/userContext';
 
 const Login = () => {
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+  const { setData, data } = useGlobalUser();
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, password } = user;
+
+    axios
+      .post('http://localhost:3001/login', { email, password })
+      .then((result) => {
+        if (result.data.status === 'Success') {
+          const { email, name, role } = result.data;
+
+          navigate('/dashboard/menu');
+          setData({ email, name, role });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <section className="px-5 flex  overflow-hidden">
       <div className="w-full h-screen lg:mt-0 lg:w-1/2  flex lg:items-center justify-center flex-col gap-10  ">
@@ -17,18 +50,34 @@ const Login = () => {
         <div className="self-start lg:self-center  ">
           <h5 className="font-medium text-3xl">Masuk</h5>
 
-          <form className="mt-5 w-full ">
+          <form className="mt-5 w-full" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label htmlFor="email" className="block mb-2 text-sm  text-darkGreen font-light ">
                 Email
               </label>
-              <input type="email" id="email" className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5" required={true} />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5"
+                required={true}
+                value={user.email}
+                onChange={handleChange}
+              />
             </div>
             <div className="mb-5">
               <label htmlFor="password" className="block mb-2 text-sm font-light text-darkGreen dark:text-white">
                 Kata Sandi
               </label>
-              <input type="password" id="password" className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5" required={true} />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5"
+                value={user.password}
+                required={true}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="w-full flex items-center justify-between">

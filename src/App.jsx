@@ -4,10 +4,13 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import './css/style.css';
 
 // Import pages
-import { Activities, Article, Berita, Daftar, Dashboard, DataAnak, Error, Kegiatan, Landing, Login, Profiles, ProtectedRoute, SingleBerita } from './pages/';
-import SharedLayout from './user/SharedLayout';
-import SharedLayoutLanding from './landing/SharedLayoutLanding';
-import { UserProvider } from './contexts/user';
+
+import { Activities, BeritaLanding, Daftar, Landing, Login, SharedLayoutLanding } from './landing/';
+import { DataAnakAdmin, DataBerita, DataKegiatan, DataKeluarga } from './admin';
+import { Berita, Dashboard, DataAnak, Kegiatan, Profiles, SingleBerita } from './user';
+
+import { Error, ProtectedRoute, SharedLayout } from './components';
+import { UserProvider } from './contexts/userContext';
 
 function App() {
   const location = useLocation();
@@ -22,7 +25,7 @@ function App() {
     <>
       <UserProvider>
         <Routes>
-          {/* Dashboard User */}
+          {/* Dashboard */}
           <Route
             path="/dashboard"
             element={
@@ -31,19 +34,26 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Dashboard />} />
+            <Route index path="menu" element={<Dashboard />} />
+
             <Route path="berita" element={<Berita />} />
             <Route path="berita/:id" element={<SingleBerita />} />
             <Route path="profile" element={<Profiles />} />
             <Route path="kegiatan" element={<Kegiatan />} />
-            <Route path="dataanak" element={<DataAnak />} />
+            <Route path="anak" element={<DataAnak />} />
+
+            <Route path="dataanak" element={<DataAnakAdmin />} />
+            <Route path="databerita" element={<DataBerita />} />
+            <Route path="tambahberita" element={<DataBerita />} />
+
+            <Route path="datakegiatan" element={<DataKegiatan />} />
+            <Route path="datakeluarga" element={<DataKeluarga />} />
           </Route>
-          {/* Dashboard User */}
 
           <Route path="/" element={<SharedLayoutLanding />}>
             <Route index element={<Landing />} />
             <Route path="activities" element={<Activities />} />
-            <Route path="article" element={<Article />} />
+            <Route path="article" element={<BeritaLanding />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/daftar" element={<Daftar />} />

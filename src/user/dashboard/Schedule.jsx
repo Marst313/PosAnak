@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Schedule = () => {
+const Schedule = ({ style }) => {
   return (
-    <ul className="bg-white p-10 flex flex-col float-left gap-5  2xl:w-2/3 rounded-3xl h-fit ">
+    <ul className={`bg-white p-10 flex flex-col float-left gap-5  2xl:w-2/3 rounded-3xl h-fit ${style && style}`}>
       <li className="flex float-left p-5 bg-coldWhite gap-5 justify-between">
         <div className="flex flex-col gap-3">
           <h3 className="font-semibold text-2xl"> Imunisasi Bayi dan Balita</h3>

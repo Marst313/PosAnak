@@ -1,9 +1,9 @@
 import React from 'react';
-import heroSingleBerita from '../images/hero-berita.png';
-import share from '../images/Share.svg';
-import shareSosmed from '../images/share-sosmed.svg';
-import shareFb from '../images/share-fb.svg';
-import calender from '../images/calender.svg';
+import heroSingleBerita from '../../images/hero-berita.png';
+import share from '../../images/Share.svg';
+import shareSosmed from '../../images/share-sosmed.svg';
+import shareFb from '../../images/share-fb.svg';
+import calender from '../../images/calender.svg';
 
 const SingleBerita = () => {
   return (

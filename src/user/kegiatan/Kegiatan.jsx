@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchKegiatan from '../user/kegiatan/SearchKegiatan';
-import JadwalKegiatan from '../user/kegiatan/JadwalKegiatan';
+import SearchKegiatan from './SearchKegiatan';
+import JadwalKegiatan from './JadwalKegiatan';
 
 const Kegiatan = () => {
   return (

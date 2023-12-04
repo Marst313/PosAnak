@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 
-import WelcomeBanner from '../user/dashboard/WelcomeBanner';
-import Calender from '../user/dashboard/Calender';
-import Schedule from '../user/dashboard/Schedule';
-import ScheduleRight from '../user/dashboard/ScheduleRight';
-import Berita from '../user/dashboard/Berita';
+import WelcomeBanner from './WelcomeBanner';
+import Calender from './Calender';
+import Schedule from './Schedule';
+import ScheduleRight from './ScheduleRight';
+import Berita from './Berita';
+
+import { useGlobalUser } from '../../contexts/userContext';
+import { DashboardAdmin } from '../../admin';
 
 function Dashboard() {
+  const { data } = useGlobalUser();
+
+  if (data.role === 'admin') {
+    return <DashboardAdmin />;
+  }
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <main>

@@ -3,11 +3,18 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import logo from '../images/logo-posyandu.png';
 import profilePict from '../images/contohProfile.jpeg';
-import { navLinks } from '../utils/link';
+import { navLinks, navLinksAdmin } from '../utils/link';
+import { useGlobalUser } from '../contexts/userContext';
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const trigger = useRef(null);
   const sidebar = useRef(null);
+
+  const {
+    data: { email, name, role },
+  } = useGlobalUser();
+
+  const admin = 'admin';
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true');
@@ -80,8 +87,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <div className="p-1 border-lightGreen border rounded-full">
             <img src={profilePict} alt="gambar profile" className="rounded-full w-32 h-32 " />
           </div>
-          <h2 className="text-2xl ">Sumarni</h2>
-          <h5>Sumarni@gmail.com</h5>
+          <h2 className="text-2xl capitalize">{name}</h2>
+          <h5>{email}</h5>
         </Link>
 
         <hr />
@@ -96,24 +103,46 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </span>
               <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">Menu</span>
             </h3>
-            <ul className="mt-3">
-              {/* Dashboard */}
-              {navLinks.map((item) => {
-                return (
-                  <li className=" block text-darkGreen truncate transition duration-150 py-1   ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100" key={item.id}>
-                    <NavLink
-                      className={({ isActive }) => {
-                        return isActive ? 'active-nav' : 'nav';
-                      }}
-                      to={item.path}
-                    >
-                      <img src={item.icon} alt="" className="" />
-                      <p>{item.name}</p>
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </ul>
+
+            {role === 'admin' ? (
+              <ul className="mt-3">
+                {/* SIDEBAR */}
+                {navLinksAdmin.map((item) => {
+                  return (
+                    <li className=" block text-darkGreen truncate transition duration-150 py-1   ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100" key={item.id}>
+                      <NavLink
+                        className={({ isActive }) => {
+                          return isActive ? 'active-nav' : 'nav';
+                        }}
+                        to={item.path}
+                      >
+                        <img src={item.icon} alt="" className="" />
+                        <p>{item.name}</p>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <ul className="mt-3">
+                {/* SIDEBAR */}
+                {navLinks.map((item) => {
+                  return (
+                    <li className=" block text-darkGreen truncate transition duration-150 py-1   ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100" key={item.id}>
+                      <NavLink
+                        className={({ isActive }) => {
+                          return isActive ? 'active-nav' : 'nav';
+                        }}
+                        to={item.path}
+                      >
+                        <img src={item.icon} alt="" className="" />
+                        <p>{item.name}</p>
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         </div>
 

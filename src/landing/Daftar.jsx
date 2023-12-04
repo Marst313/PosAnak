@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import heroLogin from '../images/hero-login.png';
+import axios from 'axios';
 
 import logoPosyandu from '../images/logo-posyandu.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Daftar = () => {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, password } = user;
+
+    axios
+      .post('http://localhost:3001/register', { name, email, password })
+      .then((result) => {
+        navigate('/login');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <section className="px-5 flex  overflow-hidden">
       <div className="w-full h-screen lg:mt-0 lg:w-1/2  flex lg:items-center justify-center flex-col gap-10  ">
@@ -17,24 +44,45 @@ const Daftar = () => {
         <div className="self-start lg:self-center  ">
           <h5 className="font-medium text-3xl">Daftar</h5>
 
-          <form className="mt-5 w-full">
+          <form className="mt-5 w-full" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label htmlFor="nama" className="block mb-2 text-sm  text-darkGreen font-light ">
                 Nama
               </label>
-              <input type="name" id="nama" className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5" required="true" />
+              <input
+                type="name"
+                id="nama"
+                name="name"
+                className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5"
+                required={true}
+                onChange={handleChange}
+              />
             </div>
             <div className="mb-5">
               <label htmlFor="email" className="block mb-2 text-sm  text-darkGreen font-light ">
                 Email
               </label>
-              <input type="email" id="email" className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5" required="true" />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5"
+                required={true}
+                onChange={handleChange}
+              />
             </div>
             <div className="mb-5">
               <label htmlFor="password" className="block mb-2 text-sm font-light text-darkGreen dark:text-white">
                 Kata Sandi
               </label>
-              <input type="password" id="password" className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5" required="true" />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="bg-gray-50 border border-grey text-gray-900 text-sm rounded-lg focus:ring-greenStabilo focus:border-greenStabilo block w-full p-2.5"
+                required={true}
+                onChange={handleChange}
+              />
             </div>
 
             <div className="w-full flex items-center justify-between">
@@ -48,7 +96,7 @@ const Daftar = () => {
               </button>
 
               <p className="text-xs whitespace-nowrap text-darkGreen ml-3">
-                Tidak mempunyai akun?{' '}
+                Tidak mempunyai akun?
                 <Link className="text-greenStabilo text-lg ml-2" to="/login">
                   Masuk
                 </Link>

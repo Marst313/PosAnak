@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useGlobalContext } from '../contexts/user';
+import { useGlobalUser } from '../contexts/userContext';
 
 const ProtectedRoute = ({ children }) => {
-  const data = useGlobalContext();
   const [user, setUser] = useState(true);
 
-  console.log(data);
+  const { data } = useGlobalUser();
 
-  if (!user) {
+  if (!data.email) {
     return <Navigate to="/" />;
   }
   return children;
