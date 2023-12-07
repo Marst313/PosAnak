@@ -8,6 +8,7 @@ import Berita from './Berita';
 
 import { useGlobalUser } from '../../contexts/userContext';
 import { DashboardAdmin } from '../../admin';
+import TableAnak from '../dataanak/TableAnak';
 
 function Dashboard() {
   const { data } = useGlobalUser();
@@ -26,9 +27,11 @@ function Dashboard() {
         </div>
 
         <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative ">
-          <Schedule />
+          <Schedule style="mb-10" />
 
           <ScheduleRight />
+
+          <TableAnak />
         </div>
       </main>
     </section>

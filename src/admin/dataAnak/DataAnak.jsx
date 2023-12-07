@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import union from '../../images/Union.svg';
 import iconExcel from '../../images/iconExcel.svg';
@@ -6,10 +6,17 @@ import SearchDataAnak from './SearchDataAnak';
 import TabelDataAnak from './TabelDataAnak';
 import Charts from '../../user/dataanak/Charts';
 import TambahDataAnak from './TambahDataAnak';
+import { useSelector } from 'react-redux';
 
 const DataAnak = () => {
   const [graphShow, setGraphShow] = useState(false);
   const [tambahDataAnak, setTambahDataAnak] = useState(false);
+
+  const { dataAnak, isLoading } = useSelector((store) => store.kids);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
@@ -29,7 +36,7 @@ const DataAnak = () => {
         </div>
 
         {graphShow && <Charts />}
-        <TabelDataAnak graphShow={graphShow} setGraphShow={setGraphShow} />
+        <TabelDataAnak dataAnak={dataAnak.records} graphShow={graphShow} setGraphShow={setGraphShow} />
       </section>
       <TambahDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} />
     </>

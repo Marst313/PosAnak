@@ -5,7 +5,7 @@ import './css/style.css';
 
 // Import pages
 
-import { Activities, BeritaLanding, Daftar, Landing, Login, SharedLayoutLanding } from './landing/';
+import { Activities, BeritaLanding, Daftar, Landing, Login, OpenSingleBerita, SemuaBerita, SharedLayoutLanding } from './landing/';
 import { DataAnakAdmin, DataBerita, DataKegiatan, DataKeluarga, Editor } from './admin';
 import { Berita, Dashboard, DataAnak, Kegiatan, Profiles, SingleBerita } from './user';
 
@@ -55,6 +55,8 @@ function App() {
             <Route index element={<Landing />} />
             <Route path="activities" element={<Activities />} />
             <Route path="article" element={<BeritaLanding />} />
+            <Route path="semuaBerita" element={<SemuaBerita />} />
+            <Route path="berita/:id" element={<OpenSingleBerita />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/daftar" element={<Daftar />} />

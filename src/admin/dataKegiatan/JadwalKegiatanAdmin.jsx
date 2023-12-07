@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import iconEdit from '../../images/editJadwalKegiatanAdmin.svg';
+import iconDelete from '../../images/deleteIconWhite.svg';
+import iconEditPencil from '../../images/Pencil.svg';
 
 const JadwalKegiatanAdmin = () => {
+  const [openSetting, setOpenSetting] = useState(false);
+  const settingRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingRef.current && !settingRef.current.contains(event.target)) {
+        setOpenSetting(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleEditClick = (event) => {
+    // Menghentikan event propagation agar tidak mencapai handleClickOutside
+    event.stopPropagation();
+
+    // Membuka atau menutup modal saat ikon edit diklik
+    setOpenSetting((prevOpenSetting) => !prevOpenSetting);
+  };
+
   return (
     <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
       <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
@@ -35,7 +62,7 @@ const JadwalKegiatanAdmin = () => {
             </div>
           </div>
           <button>
-            <img src={iconEdit} alt="" />
+            <img src={iconEdit} alt="setting logo" />
           </button>
         </div>
       </li>
@@ -46,7 +73,7 @@ const JadwalKegiatanAdmin = () => {
           <p className="font-light">Kegiatan imunisasi bayi dan balita</p>
         </div>
 
-        <div className="bg-coldWhite flex items-center justify-between font-light gap-5">
+        <div className="bg-coldWhite flex items-center justify-between font-light gap-5 relative">
           <div>
             <div className="flex items-center gap-2 justify-between">
               <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 512 512">
@@ -68,8 +95,20 @@ const JadwalKegiatanAdmin = () => {
               <p>Senin 12/12/2025</p>
             </div>
           </div>
-          <button>
-            <img src={iconEdit} alt="" />
+
+          <div className={`bg-white p-5 absolute  flex-col right-0 gap-2 ${openSetting ? 'flex' : 'hidden'} modal-edit`} ref={settingRef}>
+            <button type="button" className="bg-yellowPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between">
+              Ubah
+              <img src={iconEditPencil} alt="edit icon" />
+            </button>
+            <button type="button" className="bg-redPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between">
+              Hapus
+              <img src={iconDelete} alt="delete icon" />
+            </button>
+          </div>
+
+          <button type="button" onClick={handleEditClick}>
+            <img src={iconEdit} alt="setting logo" />
           </button>
         </div>
       </li>

@@ -59,6 +59,8 @@ module.exports = {
         greenPrimary: '#239674',
         greenStabilo: '#06E2A0',
         navBlack: '#2D364',
+        yellowPrimary: '#F9A319',
+        redPrimary: '#FF0000',
       },
     },
   },

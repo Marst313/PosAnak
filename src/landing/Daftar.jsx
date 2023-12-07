@@ -10,7 +10,15 @@ const Daftar = () => {
     name: '',
     email: '',
     password: '',
+    role: 'user',
   });
+  const [message, setMessage] = useState({
+    text: '',
+    msg: false,
+    status: 0,
+  });
+  const [checked, setChecked] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -20,27 +28,54 @@ const Daftar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password } = user;
+    const { name, email, password, role } = user;
 
     axios
-      .post('http://localhost:3001/register', { name, email, password })
+      .post('http://localhost:3000/register', { name, email, password, role })
       .then((result) => {
-        navigate('/login');
+        if (result.status === 200) {
+          setMessage({ text: 'Success created account', msg: true, status: 200 });
+        }
       })
       .catch((err) => {
-        console.log(err);
+        setMessage({ text: err.response.data.message, msg: true, status: 400 });
       });
   };
 
   return (
-    <section className="px-5 flex  overflow-hidden">
-      <div className="w-full h-screen lg:mt-0 lg:w-1/2  flex lg:items-center justify-center flex-col gap-10  ">
+    <section className="px-5 flex  overflow-hidden relative">
+      <div className="w-full h-screen lg:mt-0 lg:w-1/2  flex lg:items-center justify-center flex-col gap-6 ">
         <div className="flex items-center">
           <img src={logoPosyandu} className=" h-10 lg:h-20" alt="Flowbite Logo" />
           <h1 className="text-5xl lg:text-6xl ml-3 font-bold">
-            <span className="text-lightGreen">Pos</span>yandu
+            <span className="text-lightGreen">Pos</span>anak
           </h1>
         </div>
+
+        <div className="flex items-center bg-greenPrimary rounded-full  py-2 text-white font-semibold text-sm justify-between w-60 px-2">
+          <label
+            htmlFor="role"
+            className={`px-8 py-2 rounded-full w-32 text-center cursor-pointer transition-all ${checked && 'bg-lightGreen'} duration-500`}
+            onClick={() => {
+              setChecked(true);
+              setUser({ ...user, role: 'admin' });
+            }}
+          >
+            Wali
+          </label>
+          <input type="checkbox" id="role" className="appearance-none role" />
+          <label
+            htmlFor="role"
+            className={`${!checked && 'bg-lightGreen'} px-8 py-2 rounded-full w-32 text-center cursor-pointer transition-all duration-500`}
+            onClick={() => {
+              setChecked(false);
+              setUser({ ...user, role: 'user' });
+            }}
+          >
+            Kader
+          </label>
+        </div>
+
         <div className="self-start lg:self-center  ">
           <h5 className="font-medium text-3xl">Daftar</h5>
 
@@ -109,8 +144,65 @@ const Daftar = () => {
       <div className="w-1/2 hidden lg:flex items-center justify-end">
         <img src={heroLogin} alt="hero login image" className=" lg:h-[40rem]" />
       </div>
+
+      {message.msg === true && (
+        <div
+          className={`${
+            message.status === 400
+              ? 'p-4 text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400'
+              : 'p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800 '
+          } absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit`}
+        >
+          <div className="flex items-center">
+            <svg className="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span className="sr-only">Info</span>
+            <h3 className="text-lg font-medium">Warning !</h3>
+          </div>
+          <div className="mt-2 mb-4 text-sm">{message.text}</div>
+
+          <button
+            type="button"
+            className={`${
+              message.status === 400
+                ? 'text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
+                : 'text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'
+            } `}
+            onClick={() => {
+              setMessage({ msg: false, text: '', status: 0 });
+              if (message.status === 200) {
+                navigate('/login');
+              }
+            }}
+          >
+            Okay
+          </button>
+        </div>
+      )}
     </section>
   );
 };
 
 export default Daftar;
+
+{
+  /* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-fit w-fit">
+  <div className="flex items-center">
+    <svg className="flex-shrink-0 w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+    </svg>
+    <span className="sr-only">Info</span>
+    <h3 className="text-lg font-medium">Success !</h3>
+  </div>
+  <div className="mt-2 mb-4 text-sm">{message.text}</div>
+
+  <button
+    type="button"
+    className="text-white bg-green-800 hover:bg-green-900 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+    onClick={() => setMessage({ msg: false, text: '' })}
+  >
+    Okay
+  </button>
+</div>; */
+}

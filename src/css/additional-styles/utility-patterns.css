@@ -240,3 +240,26 @@ input[type='search']::-webkit-search-results-decoration {
 .ql-editor {
   min-height: 100px;
 }
+
+/* Inisialisasi gaya SVG */
+.initial-svg {
+  display: inline-block;
+}
+
+/* Gaya SVG untuk hover */
+.hover-svg {
+  display: none;
+}
+
+/* Menunjukkan SVG di atas ketika tombol dihover */
+button:hover .initial-svg {
+  display: none;
+}
+
+button:hover .hover-svg {
+  display: inline-block;
+}
+
+.role {
+  display: none;
+}

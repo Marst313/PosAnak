@@ -11,7 +11,7 @@ const Navbar = () => {
         <Link className="flex items-center" to="/">
           <img src={logoPosyandu} className="h-8" alt="Flowbite Logo" />
           <h1 className="text-2xl lg:text-3xl ml-3">
-            <span className="text-lightGreen">Pos</span>yandu
+            <span className="text-lightGreen">Pos</span>anak
           </h1>
         </Link>
 
@@ -45,10 +45,10 @@ const Navbar = () => {
                 );
               })}
 
-              <Link className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 h-10 text-center" to="/login">
+              <Link className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 h-10 text-center" to="login">
                 Masuk
               </Link>
-              <Link className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary hover:border hover:text-greenPrimary py-2 w-32 h-10 text-center" to="/daftar">
+              <Link className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary hover:border hover:text-greenPrimary py-2 w-32 h-10 text-center" to="daftar">
                 Daftar
               </Link>
             </div>
@@ -76,7 +76,7 @@ const Navbar = () => {
           <Link className="border-greenPrimary border whitespace-nowrap py-2 rounded-full text-greenPrimary font-semibold hover:bg-greenPrimary hover:text-white w-32 text-center" to="login">
             Masuk
           </Link>
-          <Link className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary text-center hover:border hover:text-greenPrimary py-2 w-32" to="login">
+          <Link className="bg-greenPrimary rounded-full text-white font-semibold whitespace-nowrap hover:bg-white hover:border-greenPrimary text-center hover:border hover:text-greenPrimary py-2 w-32" to="daftar">
             Daftar
           </Link>
         </div>

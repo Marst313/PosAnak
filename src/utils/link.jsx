@@ -47,9 +47,9 @@ export const navLinksAdmin = [
   },
   {
     id: 2,
-    name: 'Data Berita',
-    path: 'databerita',
-    icon: berita,
+    name: 'Data Anak',
+    path: 'dataanak',
+    icon: dataAnak,
   },
   {
     id: 3,
@@ -65,10 +65,11 @@ export const navLinksAdmin = [
   },
   {
     id: 5,
-    name: 'Data Anak',
-    path: 'dataanak',
-    icon: dataAnak,
+    name: 'Data Berita',
+    path: 'databerita',
+    icon: berita,
   },
+
   {
     id: 6,
     name: 'Keluar',

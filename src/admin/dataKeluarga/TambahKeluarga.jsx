@@ -5,35 +5,37 @@ const TambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
   return (
     <div className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${tambahKeluarga ? 'flex' : 'hidden'}`}>
       <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative mx-auto ">
-        <h1 className="text-darkGreen font-medium text-2xl">Tambah Kegiatan</h1>
+        <h1 className="text-darkGreen font-medium text-2xl">Tambah Keluarga</h1>
 
-        <form className="flex flex-col justify-center gap-3 ">
-          <div className="w-full  flex flex-col text-darkGreen gap-2">
-            <label htmlFor="judulkegiatan" className="font-light">
-              Judul Kegiatan
-            </label>
-            <input type="text" name="judulkegiatan" id="judulkegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
-          </div>
+        <form className="flex flex-col justify-center gap-10 mt-5">
+          <div className="grid md:grid-cols-2 md:gap-6">
+            <div className="w-full  flex flex-col text-darkGreen gap-2">
+              <label htmlFor="noKartuKeluarga" className="font-light">
+                No Kartu Keluarga
+              </label>
+              <input type="text" name="noKartuKeluarga" id="noKartuKeluarga" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
+            </div>
 
-          <div className="w-full  flex flex-col text-darkGreen gap-2">
-            <label htmlFor="deskripsiKegiatan" className="font-light">
-              Deskripsi Kegiatan
-            </label>
-            <input type="text" name="deskripsiKegiatan" id="deskripsiKegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
+            <div className="w-full  flex flex-col text-darkGreen gap-2">
+              <label htmlFor="nikKepalaKeluarga" className="font-light">
+                NIK Kepala Keluarga
+              </label>
+              <input type="text" name="nikKepalaKeluarga" id="nikKepalaKeluarga" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="w-full  flex flex-col text-darkGreen gap-2">
-              <label htmlFor="tanggalKegiatan" className="font-light">
-                Tanggal Kegiatan
+              <label htmlFor="namaKepalaKeluarga" className="font-light">
+                Nama Kepala Keluarga
               </label>
-              <input type="date" name="tanggalKegiatan" id="tanggalKegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
+              <input type="text" name="namaKepalaKeluarga" id="namaKepalaKeluarga" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
             </div>
             <div className="w-full  flex flex-col text-darkGreen gap-2">
-              <label htmlFor="waktuKegiatan" className="font-light">
-                Waktu Kegiatan
+              <label htmlFor="jumlahAnggotaKeluarga" className="font-light">
+                Jumlah Anggota Keluarga
               </label>
-              <input type="time" name="waktuKegiatan" id="waktuKegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" />
+              <input type="number" name="jumlahAnggotaKeluarga" id="jumlahAnggotaKeluarga" className="focus:outline-none focus:ring-0 border-grey rounded-lg remove-arrow" />
             </div>
           </div>
 

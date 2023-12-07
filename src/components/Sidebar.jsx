@@ -75,7 +75,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <NavLink end to="/dashboard" className="flex items-center justify-center w-full gap-5">
             <img src={logo} alt="logo poysandu" width="32px" />
             <h1 className="text-2xl lg:text-3xl">
-              <span className="text-lightGreen">Pos</span>yandu
+              <span className="text-lightGreen">Pos</span>anak
             </h1>
           </NavLink>
         </div>

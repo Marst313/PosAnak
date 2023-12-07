@@ -25,7 +25,7 @@ const Login = () => {
     const { email, password } = user;
 
     axios
-      .post('http://localhost:3001/login', { email, password })
+      .post('http://localhost:3000/login', { email, password })
       .then((result) => {
         if (result.data.status === 'Success') {
           const { email, name, role } = result.data;
@@ -44,7 +44,7 @@ const Login = () => {
         <div className="flex items-center">
           <img src={logoPosyandu} className=" h-10 lg:h-20" alt="Flowbite Logo" />
           <h1 className="text-5xl lg:text-6xl ml-3 font-bold">
-            <span className="text-lightGreen">Pos</span>yandu
+            <span className="text-lightGreen">Pos</span>anak
           </h1>
         </div>
         <div className="self-start lg:self-center  ">
