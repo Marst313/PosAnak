@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
+
 import SearchKeluarga from './SearchDataKeluarga';
 
 import union from '../../images/Union.svg';
 import iconExcel from '../../images/iconExcel.svg';
 import TableKeluarga from './TableKeluarga';
 import TambahKeluarga from './TambahKeluarga';
+import { useSelector } from 'react-redux';
 
 const DataKeluarga = () => {
   const [tambahKeluarga, setTambahKeluarga] = useState(false);
+  const { dataKeluarga, isLoading } = useSelector((store) => store.family);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <>
@@ -25,7 +32,7 @@ const DataKeluarga = () => {
             Excel
           </button>
         </div>
-        <TableKeluarga />
+        <TableKeluarga dataKeluarga={dataKeluarga.records} />
       </section>
       <TambahKeluarga tambahKeluarga={tambahKeluarga} setTambahKeluarga={setTambahKeluarga} />
     </>

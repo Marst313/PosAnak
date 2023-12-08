@@ -4,14 +4,15 @@ import { Outlet } from 'react-router-dom';
 import Header from '../user/dashboard/Header';
 import { useDispatch } from 'react-redux';
 import { getDataAnak } from '../features/kids/kids';
+import { getDataKeluarga } from '../features/family/family';
 
 const SharedLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDataAnak());
+    dispatch(getDataKeluarga());
   }, []);
 
   return (

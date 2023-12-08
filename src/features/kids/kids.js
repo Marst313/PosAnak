@@ -4,10 +4,6 @@ import { customFetchAnak } from '../../utils/axios';
 const initialState = {
   dataAnak: [],
   singleDataAnak: [],
-  nama: '',
-  nik: '',
-  tanggalLahir: '',
-  namaIbu: '',
   isLoading: true,
   message: '',
   graphShow: false,
@@ -71,12 +67,7 @@ export const kidSlice = createSlice({
   name: 'kids',
   initialState,
   reducers: {
-    setDataAnak(state, { payload }) {
-      /*      state.nama = payload.nama;
-      state.nik = payload.nik;
-      state.tanggalLahir = payload.tanggalLahir;
-      state.namaIbu = payload.namaIbu; */
-    },
+    setDataAnak(state, { payload }) {},
     setGraph(state, { payload }) {
       state.graphShow = !state.graphShow;
     },
