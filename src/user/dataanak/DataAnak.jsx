@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchAnak from './SearchAnak';
 import logoExcel from '../../images/dataanak/excel.svg';
 import TableAnak from './TableAnak';
-import Charts from './Charts';
+import Charts from '../../components/Charts';
 
 const DataAnak = () => {
   const [showGraph, setShowGraph] = useState(false);

@@ -3,12 +3,14 @@ import { customFetchAnak } from '../../utils/axios';
 
 const initialState = {
   dataAnak: [],
+  singleDataAnak: [],
   nama: '',
   nik: '',
   tanggalLahir: '',
   namaIbu: '',
   isLoading: true,
   message: '',
+  graphShow: false,
 };
 const anakThunk = async (data, thunkAPI) => {
   try {
@@ -23,7 +25,6 @@ const anakThunk = async (data, thunkAPI) => {
 const newAnakThunk = async (data, thunkAPI) => {
   try {
     const resp = await customFetchAnak.post('', data);
-    console.log(resp);
 
     return resp.data;
   } catch (error) {
@@ -31,8 +32,40 @@ const newAnakThunk = async (data, thunkAPI) => {
   }
 };
 
-export const getDataAnak = createAsyncThunk('getDataAnak', anakThunk);
-export const newDataAnak = createAsyncThunk('newDataAnak', newAnakThunk);
+const deleteAnakThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchAnak.delete(data);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+const singleAnakThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchAnak.get(`/${data}`);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+const updateAnakThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchAnak.patch('', data);
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+export const getDataAnak = createAsyncThunk('getAllAnak', anakThunk);
+export const getSingleDataAnak = createAsyncThunk('getSingleAnak', singleAnakThunk);
+export const newDataAnak = createAsyncThunk('newAnak', newAnakThunk);
+export const deleteDataAnak = createAsyncThunk('deleteAnak', deleteAnakThunk);
+export const updateDataAnak = createAsyncThunk('updateAnak', updateAnakThunk);
 
 export const kidSlice = createSlice({
   name: 'kids',
@@ -43,6 +76,9 @@ export const kidSlice = createSlice({
       state.nik = payload.nik;
       state.tanggalLahir = payload.tanggalLahir;
       state.namaIbu = payload.namaIbu; */
+    },
+    setGraph(state, { payload }) {
+      state.graphShow = !state.graphShow;
     },
   },
   extraReducers: (builder) => {
@@ -66,9 +102,43 @@ export const kidSlice = createSlice({
       })
       .addCase(newDataAnak.rejected, (state) => {
         state.isLoading = false;
+      })
+      .addCase(deleteDataAnak.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteDataAnak.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.message = 'Success delete data.';
+      })
+      .addCase(deleteDataAnak.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getSingleDataAnak.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingleDataAnak.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.singleDataAnak = payload;
+
+        state.message = 'Success get single data.';
+      })
+      .addCase(getSingleDataAnak.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateDataAnak.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateDataAnak.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.singleDataAnak = payload;
+
+        state.message = 'Success updating data.';
+      })
+      .addCase(updateDataAnak.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });
 
-export const { setDataAnak } = kidSlice.actions;
+export const { setDataAnak, setGraph } = kidSlice.actions;
 export default kidSlice.reducer;

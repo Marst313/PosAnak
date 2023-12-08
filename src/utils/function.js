@@ -18,3 +18,14 @@ export const convertUsia = (tanggalLahir) => {
 
   return `${umur} ${format}`;
 };
+
+export const parseStringJson = (string) => {
+  try {
+    const jsonString = string.replace(/'/g, '"');
+    const correctedJsonString = jsonString.replace(/(\w+):/g, '"$1":');
+    const result = JSON.parse(correctedJsonString);
+    return result;
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+  }
+};

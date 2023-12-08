@@ -1,15 +1,12 @@
 import React from 'react';
 
-import { dummyDataAnak, tableHeaderDataAnak } from '../../utils/link';
+import { tableHeaderDataAnak } from '../../utils/link';
 
-import logoDelete from '../../images/dataanak/delete.svg';
-import logoEdit from '../../images/dataanak/editAnak.svg';
 import logoPanah from '../../images/dataanak/Vector.svg';
-import logoGraph from '../../images/dataanak/graph-anak.svg';
 import logoUser from '../../images/dataanak/User.svg';
-import { convertUsia } from '../../utils/function';
+import SingleDataAnak from './SingleDataAnak';
 
-const TabelDataAnak = ({ style, setGraphShow, graphShow, dataAnak }) => {
+const TabelDataAnak = ({ style, dataAnak }) => {
   return (
     <div className={`relative w-full  overflow-x-auto sm:rounded-lg mt-5  ${style && style}`}>
       <table className="w-full text-sm text-left rtl:text-right text-greenPrimary bg-white shadow-md rounded-lg">
@@ -38,35 +35,7 @@ const TabelDataAnak = ({ style, setGraphShow, graphShow, dataAnak }) => {
 
         <tbody>
           {dataAnak.map((child, index) => {
-            const { nik, nama, tanggalLahir, namaIbu } = child.fields;
-            const [year, month, day] = tanggalLahir.split('-');
-            const formattedDate = `${day}/${month}/${year}`;
-
-            const usia = convertUsia(formattedDate);
-
-            return (
-              <tr key={index} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-lightGreen/30 ">
-                <th scope="row" className="px-6 py-4 ">
-                  {index + 1}
-                </th>
-                <td className="px-6 py-4">{nik}</td>
-                <td className="px-6 py-4">{nama}</td>
-                <td className="px-6 py-4 ">{formattedDate}</td>
-                <td className="px-6 py-4 whitespace-nowrap w-fit">{usia}</td>
-                <td className="px-6 py-4 whitespace-nowrap w-fit">{namaIbu} </td>
-                <td className="items-start  py-4 flex gap-2 px-4  ">
-                  <button type="button">
-                    <img src={logoDelete} alt="logo delete" />
-                  </button>
-                  <button type="button">
-                    <img src={logoEdit} alt="logo edit" />
-                  </button>
-                  <button type="button" onClick={() => setGraphShow(!graphShow)}>
-                    <img src={logoGraph} alt="logo graph" />
-                  </button>
-                </td>
-              </tr>
-            );
+            return <SingleDataAnak key={index} child={child} index={index} />;
           })}
         </tbody>
       </table>

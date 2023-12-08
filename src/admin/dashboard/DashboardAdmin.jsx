@@ -3,15 +3,8 @@ import Calender from '../../user/dashboard/Calender';
 import Schedule from '../../user/dashboard/Schedule';
 import ScheduleRight from '../../user/dashboard/ScheduleRight';
 import TableKeluarga from '../dataKeluarga/TableKeluarga';
-import { getDataAnak } from '../../features/kids/kids';
-import { useDispatch } from 'react-redux';
 
 const DashboardAdmin = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getDataAnak());
-  }, []);
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden pb-5">
       <div className="px-4 sm:px-6 lg:px-8 mt-5 flex flex-col gap-5">

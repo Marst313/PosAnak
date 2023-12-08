@@ -5,7 +5,7 @@ import { useContext } from 'react';
 export const UserPosyanduContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [data, setData] = useState({ name: '', email: '', role: '' });
+  const [data, setData] = useState({ name: '', email: '', role: 'admin' });
 
   return <UserPosyanduContext.Provider value={{ setData, data }}>{children}</UserPosyanduContext.Provider>;
 };

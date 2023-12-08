@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { newDataAnak } from '../../features/kids/kids';
+import { getDataAnak, newDataAnak } from '../../features/kids/kids';
 import iconClose from '../../images/iconClose.svg';
 
 const AnakModal = ({ tambahDataAnak, setTambahDataAnak }) => {
@@ -13,24 +13,34 @@ const AnakModal = ({ tambahDataAnak, setTambahDataAnak }) => {
     tanggalLahir: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { nama, nik, namaIbu, tanggalLahir } = newAnak;
 
-    console.log(newAnak);
     if (nama === '' || nik === '' || namaIbu === '' || tanggalLahir === '') {
       console.log('Fill all the fields !');
     } else {
       const dataBaru = {
         records: [
           {
-            fields: newAnak,
+            fields: {
+              ...newAnak,
+              height: 0,
+              weight: 0,
+              child_growth: `[{\n  "date": "${new Date().toLocaleDateString('af-ZA')}",\n  "height": 0,\n  "weight": 0\n}]\n`,
+            },
           },
         ],
       };
 
-      dispatch(newDataAnak(dataBaru));
-      setNewAnak({ nama: '', nik: '', namaIbu: '', tanggalLahir: '' });
+      try {
+        await dispatch(newDataAnak(dataBaru));
+        await dispatch(getDataAnak());
+        setTambahDataAnak(false);
+        setNewAnak({ nama: '', nik: '', namaIbu: '', tanggalLahir: '' });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

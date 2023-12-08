@@ -4,20 +4,28 @@ import union from '../../images/Union.svg';
 import iconExcel from '../../images/iconExcel.svg';
 import SearchDataAnak from './SearchDataAnak';
 import TabelDataAnak from './TabelDataAnak';
-import Charts from '../../user/dataanak/Charts';
+import Charts from '../../components/Charts';
 import TambahDataAnak from './TambahDataAnak';
 import { useSelector } from 'react-redux';
+import { parseStringJson } from '../../utils/function';
 
 const DataAnak = () => {
-  const [graphShow, setGraphShow] = useState(false);
   const [tambahDataAnak, setTambahDataAnak] = useState(false);
+  const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
 
-  const { dataAnak, isLoading } = useSelector((store) => store.kids);
+  const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector((store) => store.kids);
+
+  useEffect(() => {
+    if (graphShow && singleDataAnak?.fields?.child_growth) {
+      const result = parseStringJson(singleDataAnak.fields.child_growth);
+
+      setDataPertumbuhan(result);
+    }
+  }, [graphShow, singleDataAnak]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-
   return (
     <>
       <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
@@ -35,10 +43,10 @@ const DataAnak = () => {
           </button>
         </div>
 
-        {graphShow && <Charts />}
-        <TabelDataAnak dataAnak={dataAnak.records} graphShow={graphShow} setGraphShow={setGraphShow} />
+        {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}
+        <TabelDataAnak dataAnak={dataAnak.records} graphShow={graphShow} />
       </section>
-      <TambahDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} />
+      <TambahDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} dataPertumbuhan={dataPertumbuhan} />
     </>
   );
 };
