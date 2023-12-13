@@ -6,7 +6,7 @@ import logoPanah from '../../images/dataanak/Vector.svg';
 import logoUser from '../../images/dataanak/User.svg';
 import SingleDataAnak from './SingleDataAnak';
 
-const TabelDataAnak = ({ style, dataAnak }) => {
+const TabelDataAnak = ({ style, dataAnak, tambahDataAnak, setTambahDataAnak }) => {
   return (
     <div className={`relative w-full  overflow-x-auto sm:rounded-lg mt-5  ${style && style}`}>
       <table className="w-full text-sm text-left rtl:text-right text-greenPrimary bg-white shadow-md rounded-lg">
@@ -35,7 +35,7 @@ const TabelDataAnak = ({ style, dataAnak }) => {
 
         <tbody>
           {dataAnak.map((child, index) => {
-            return <SingleDataAnak key={index} child={child} index={index} />;
+            return <SingleDataAnak key={index} tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} child={child} index={index} />;
           })}
         </tbody>
       </table>

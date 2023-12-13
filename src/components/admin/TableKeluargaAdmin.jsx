@@ -1,9 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { tableHeaderKeluarga } from '../../utils/link';
+import SingleKeluarga from './SingleKeluarga';
 
-import SingleKeluarga from '../../components/admin/SingleKeluarga';
+const TableKeluargaAdmin = ({ style }) => {
+  const { dataKeluarga, isLoading } = useSelector((store) => store.family);
 
-const TableKeluarga = ({ style, dataKeluarga }) => {
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div className={`relative w-full  overflow-x-auto sm:rounded-lg mt-5  ${style}`}>
       <table className="w-full text-sm text-left rtl:text-right text-greenPrimary bg-white shadow-md rounded-lg">
@@ -29,7 +36,7 @@ const TableKeluarga = ({ style, dataKeluarga }) => {
         </thead>
 
         <tbody>
-          {dataKeluarga?.map((child, index) => {
+          {dataKeluarga?.records?.map((child, index) => {
             return <SingleKeluarga child={child} key={index} index={index} />;
           })}
         </tbody>
@@ -38,4 +45,4 @@ const TableKeluarga = ({ style, dataKeluarga }) => {
   );
 };
 
-export default TableKeluarga;
+export default TableKeluargaAdmin;

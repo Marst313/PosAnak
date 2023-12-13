@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
-import SearchKeluarga from './SearchDataKeluarga';
-
 import union from '../../images/Union.svg';
 import iconExcel from '../../images/iconExcel.svg';
 import TableKeluarga from './TableKeluarga';
 import TambahKeluarga from './TambahKeluarga';
 import { useSelector } from 'react-redux';
+import SearchBar from '../../components/admin/SearchBar';
 
 const DataKeluarga = () => {
   const [tambahKeluarga, setTambahKeluarga] = useState(false);
@@ -20,7 +19,7 @@ const DataKeluarga = () => {
     <>
       <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
         <div className="flex  justify-between">
-          <SearchKeluarga />
+          <SearchBar />
 
           <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setTambahKeluarga(true)}>
             <img src={union} alt="" className="w-5 h-5" />

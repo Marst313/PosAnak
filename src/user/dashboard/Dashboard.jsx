@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import WelcomeBanner from './WelcomeBanner';
 import Calender from './Calender';
@@ -9,9 +9,15 @@ import Berita from './Berita';
 import { useGlobalUser } from '../../contexts/userContext';
 import { DashboardAdmin } from '../../admin';
 import TableAnak from '../dataanak/TableAnak';
+import { useSelector } from 'react-redux';
 
 function Dashboard() {
   const { data } = useGlobalUser();
+  const { dataAnak } = useSelector((store) => store.kids);
+  const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (data.role === 'admin') {
     return <DashboardAdmin />;
@@ -26,12 +32,12 @@ function Dashboard() {
           <Calender />
         </div>
 
-        <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative ">
-          <Schedule style="mb-10" />
+        <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative flex  flex-col lg:block ">
+          <Schedule style="mb-10" dataKegiatan={dataKegiatan} />
 
           <ScheduleRight />
 
-          <TableAnak />
+          <TableAnak dataAnak={dataAnak.records} />
         </div>
       </main>
     </section>

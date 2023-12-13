@@ -13,7 +13,10 @@ const FilterKegiatan = () => {
 
         <div className="flex flex-col gap-3">
           <label htmlFor="kategori">Kategori</label>
-          <input type="date" id="kategori" className="rounded-md border border-grey focus:ring-0 focus:outline-none" />
+          <select name="" id="" className="rounded-md border border-grey focus:ring-0 focus:outline-none ">
+            <option value="">Balita</option>
+            <option value="">Bayi</option>
+          </select>
         </div>
 
         <div className="flex flex-col gap-3">

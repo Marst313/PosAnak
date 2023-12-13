@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import union from '../../images/Union.svg';
 import iconExcel from '../../images/iconExcel.svg';
-import SearchDataAnak from './SearchDataAnak';
 import TabelDataAnak from './TabelDataAnak';
 import Charts from '../../components/Charts';
 import TambahDataAnak from './TambahDataAnak';
 import { useSelector } from 'react-redux';
 import { parseStringJson } from '../../utils/function';
+import SearchBar from '../../components/admin/SearchBar';
 
 const DataAnak = () => {
   const [tambahDataAnak, setTambahDataAnak] = useState(false);
@@ -30,7 +30,7 @@ const DataAnak = () => {
     <>
       <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
         <div className="flex gap-5 justify-between">
-          <SearchDataAnak />
+          <SearchBar />
 
           <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setTambahDataAnak(true)}>
             <img src={union} alt="" className="w-5 h-5" />
@@ -44,7 +44,7 @@ const DataAnak = () => {
         </div>
 
         {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}
-        <TabelDataAnak dataAnak={dataAnak.records} graphShow={graphShow} />
+        <TabelDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataAnak={dataAnak.records} graphShow={graphShow} />
       </section>
       <TambahDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} dataPertumbuhan={dataPertumbuhan} />
     </>

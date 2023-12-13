@@ -7,6 +7,7 @@ const initialState = {
   isLoading: true,
   message: '',
   graphShow: false,
+  edit: false,
 };
 const anakThunk = async (data, thunkAPI) => {
   try {
@@ -69,7 +70,10 @@ export const kidSlice = createSlice({
   reducers: {
     setDataAnak(state, { payload }) {},
     setGraph(state, { payload }) {
-      state.graphShow = !state.graphShow;
+      state.graphShow = payload;
+    },
+    setEditAnak(state, { payload }) {
+      state.edit = payload;
     },
   },
   extraReducers: (builder) => {
@@ -131,5 +135,5 @@ export const kidSlice = createSlice({
   },
 });
 
-export const { setDataAnak, setGraph } = kidSlice.actions;
+export const { setDataAnak, setGraph, setEditAnak } = kidSlice.actions;
 export default kidSlice.reducer;

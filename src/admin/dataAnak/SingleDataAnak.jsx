@@ -4,14 +4,13 @@ import logoDelete from '../../images/dataanak/delete.svg';
 import logoEdit from '../../images/dataanak/editAnak.svg';
 import { convertUsia } from '../../utils/function';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteDataAnak, getDataAnak, getSingleDataAnak, setGraph } from '../../features/kids/kids';
+import { deleteDataAnak, getDataAnak, getSingleDataAnak, setEditAnak, setGraph } from '../../features/kids/kids';
 
-const SingleDataAnak = ({ child, index }) => {
-  const [popUp, setPopUp] = useState(false);
-
+const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => {
   const { graphShow } = useSelector((store) => store.kids);
-
   const dispatch = useDispatch();
+
+  const [popUp, setPopUp] = useState(false);
 
   const { nik, nama, tanggalLahir, namaIbu } = child.fields;
   const [year, month, day] = tanggalLahir.split('-');
@@ -30,6 +29,11 @@ const SingleDataAnak = ({ child, index }) => {
 
   const openModal = () => {
     setPopUp(true);
+  };
+  const handleEdit = (id) => {
+    setTambahDataAnak(true);
+    dispatch(setEditAnak(true));
+    dispatch(getSingleDataAnak(id));
   };
 
   const handleGraphShow = async () => {
@@ -59,7 +63,7 @@ const SingleDataAnak = ({ child, index }) => {
           <img src={logoDelete} alt="logo delete" />
         </button>
         <button type="button">
-          <img src={logoEdit} alt="logo edit" />
+          <img src={logoEdit} alt="logo edit" onClick={() => handleEdit(child.id)} />
         </button>
         <button type="button" onClick={handleGraphShow}>
           <img src={logoGraph} alt="logo graph" />

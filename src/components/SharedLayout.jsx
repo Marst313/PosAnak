@@ -5,6 +5,7 @@ import Header from '../user/dashboard/Header';
 import { useDispatch } from 'react-redux';
 import { getDataAnak } from '../features/kids/kids';
 import { getDataKeluarga } from '../features/family/family';
+import { getDataKegiatan } from '../features/activity/activity';
 
 const SharedLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -13,6 +14,7 @@ const SharedLayout = () => {
   useEffect(() => {
     dispatch(getDataAnak());
     dispatch(getDataKeluarga());
+    dispatch(getDataKegiatan());
   }, []);
 
   return (

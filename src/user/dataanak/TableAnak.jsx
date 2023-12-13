@@ -1,14 +1,28 @@
 import React from 'react';
 import { dummyData, tableHeader } from '../../utils/link';
 
-import logoDelete from '../../images/dataanak/delete.svg';
-import logoEdit from '../../images/dataanak/editAnak.svg';
 import logoGraph from '../../images/dataanak/graph-anak.svg';
 import logoPanah from '../../images/dataanak/Vector.svg';
 import logoUser from '../../images/dataanak/User.svg';
+import { convertUsia } from '../../utils/function';
+import { useDispatch } from 'react-redux';
+import { setGraph } from '../../features/kids/kids';
+import { getSingleDataAnak } from '../../features/kids/kids';
 
-const TableAnak = ({ style, setShowGraph, showGraph, dataAnak }) => {
-  console.log(dataAnak);
+const TableAnak = ({ style, graphShow, dataAnak }) => {
+  const dispatch = useDispatch();
+  const handleClick = async (id) => {
+    await dispatch(setGraph(!graphShow));
+
+    try {
+      if (!graphShow) {
+        await dispatch(getSingleDataAnak(id));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className={`relative lg:w-[35rem] xl:w-fit overflow-x-auto sm:rounded-lg mt-5  ${style}`}>
       <table className="w-3/4 text-sm text-left rtl:text-right text-greenPrimary bg-white shadow-md rounded-lg">
@@ -36,18 +50,23 @@ const TableAnak = ({ style, setShowGraph, showGraph, dataAnak }) => {
         </thead>
 
         <tbody>
-          {dummyData.map((child, index) => {
+          {dataAnak.map((child, index) => {
+            const { nama, nik, tanggalLahir } = child.fields;
+            const [year, month, day] = tanggalLahir.split('-');
+            const formattedDate = `${day}/${month}/${year}`;
+            const usia = convertUsia(formattedDate);
+
             return (
-              <tr key={child.nik} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-lightGreen/30 ">
+              <tr key={child.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-lightGreen/30 ">
                 <th scope="row" className="px-6 py-4 ">
                   {index + 1}
                 </th>
-                <td className="px-6 py-4">{child.nik}</td>
-                <td className="px-6 py-4">{child.nama}</td>
-                <td className="px-6 py-4">{child.tanggalLahir}</td>
-                <td className="px-6 py-4 whitespace-nowrap w-fit">{child.umur}</td>
+                <td className="px-6 py-4">{nik}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{nama}</td>
+                <td className="px-6 py-4">{tanggalLahir}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{usia}</td>
                 <td className="items-start justify-center py-4 flex gap-2 px-4  ">
-                  <button type="button" onClick={() => setShowGraph(!showGraph)}>
+                  <button type="button" onClick={() => handleClick(child.id)}>
                     <img src={logoGraph} alt="logo graph" />
                   </button>
                 </td>

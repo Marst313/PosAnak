@@ -5,7 +5,6 @@ import SearchBerita from './SearchBerita';
 import union from '../../images/Union.svg';
 import heroImg from '../../images/dashboard/image5.png';
 import iconWaktu from '../../images/clock.svg';
-import iconDelete from '../../images/deleteIcon.svg';
 
 const DataBerita = () => {
   return (

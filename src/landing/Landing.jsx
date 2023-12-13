@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logoHospital from '../images/landing/hospital.svg';
 import logoPeople from '../images/landing/people.svg';
 import logoAirdrop from '../images/landing/airdrop.svg';
+import { useDispatch } from 'react-redux';
+import { getDataKegiatan } from '../features/activity/activity';
 
 const Landing = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDataKegiatan());
+  }, []);
+
   return (
     <section className={`relative flex-1 px-4 sm:px-6  flex flex-col h-screen  bg-[url('/images/group.png')] bg-no-repeat  bg-cover bg-center -mt-[4.6rem] bg-white`}>
       <div className="xl:px-48 mt-32">
