@@ -3,7 +3,7 @@ import iconClose from '../../images/iconClose.svg';
 import { useDispatch } from 'react-redux';
 import { getDataKeluarga, newDataKeluarga } from '../../features/family/family';
 
-const TambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
+const ModalTambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
   const dispatch = useDispatch();
 
   const [newKeluarga, setNewKeluarga] = useState({
@@ -99,4 +99,4 @@ const TambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
   );
 };
 
-export default TambahKeluarga;
+export default ModalTambahKeluarga;

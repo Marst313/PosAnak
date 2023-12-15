@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import logoGraph from '../../images/dataanak/graph-anak.svg';
 import logoDelete from '../../images/dataanak/delete.svg';
 import logoEdit from '../../images/dataanak/editAnak.svg';
+
 import { convertUsia } from '../../utils/function';
-import { useDispatch, useSelector } from 'react-redux';
 import { deleteDataAnak, getDataAnak, getSingleDataAnak, setEditAnak, setGraph } from '../../features/kids/kids';
 
 const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => {

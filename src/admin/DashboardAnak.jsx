@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import union from '../../images/Union.svg';
-import iconExcel from '../../images/iconExcel.svg';
-import TabelDataAnak from './TabelDataAnak';
-import Charts from '../../components/Charts';
-import TambahDataAnak from './TambahDataAnak';
+import union from '../images/Union.svg';
+import iconExcel from '../images/iconExcel.svg';
+import Charts from '../components/Charts';
 import { useSelector } from 'react-redux';
-import { parseStringJson } from '../../utils/function';
-import SearchBar from '../../components/admin/SearchBar';
+import { parseStringJson } from '../utils/function';
+import { NewDataAnak, SearchBar, TableAnakAdmin } from '../components/admin/';
 
-const DataAnak = () => {
+const DashboardAnak = () => {
   const [tambahDataAnak, setTambahDataAnak] = useState(false);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
 
@@ -44,11 +42,11 @@ const DataAnak = () => {
         </div>
 
         {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}
-        <TabelDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataAnak={dataAnak.records} graphShow={graphShow} />
+        <TableAnakAdmin tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataAnak={dataAnak.records} graphShow={graphShow} />
       </section>
-      <TambahDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} dataPertumbuhan={dataPertumbuhan} />
+      <NewDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} dataPertumbuhan={dataPertumbuhan} />
     </>
   );
 };
 
-export default DataAnak;
+export default DashboardAnak;

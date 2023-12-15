@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-import SearchBerita from './SearchBerita';
-import union from '../../images/Union.svg';
-import heroImg from '../../images/dashboard/image5.png';
-import iconWaktu from '../../images/clock.svg';
+import union from '../images/Union.svg';
+import heroImg from '../images/dashboard/image5.png';
+import iconWaktu from '../images/clock.svg';
+import { SearchBar } from '../components/admin';
 
-const DataBerita = () => {
+const DashboardBerita = () => {
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
       <div className="flex gap-5 justify-between">
-        <SearchBerita />
+        <SearchBar />
 
         <Link className=" bg-lightGreen flex items-center px-5 gap-2 text-white rounded-full whitespace-nowrap" to="/dashboard/tambahBerita">
           <img src={union} alt="icon tambah" className="w-5 h-5" />
@@ -113,4 +113,4 @@ const DataBerita = () => {
   );
 };
 
-export default DataBerita;
+export default DashboardBerita;

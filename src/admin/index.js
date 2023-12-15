@@ -1,8 +1,8 @@
-import DashboardAdmin from './dashboard/DashboardAdmin';
-import DataBerita from './dataBerita/DataBerita';
-import DataKegiatan from './dataKegiatan/DataKegiatan';
-import DataKeluarga from './dataKeluarga/DataKeluarga';
-import DataAnakAdmin from './dataAnak/DataAnak';
-import Editor from './dataBerita/Editor';
+import DashboardAdmin from './DashboardAdmin';
+import DashboardKegiatan from './DashboardKegiatan';
+import Editor from './Editor';
+import DashboardAnak from './DashboardAnak';
+import DashboardKeluarga from './DashboardKeluarga';
+import DashboardBerita from './DashboardBerita';
 
-export { DataAnakAdmin, DashboardAdmin, DataBerita, DataKegiatan, DataKeluarga, Editor };
+export { DashboardAdmin, DashboardBerita, DashboardKegiatan, DashboardAnak, DashboardKeluarga, Editor };

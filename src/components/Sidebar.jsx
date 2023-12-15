@@ -4,17 +4,13 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import logo from '../images/logo-posyandu.png';
 import profilePict from '../images/contohProfile.jpeg';
 import { navLinks, navLinksAdmin } from '../utils/link';
-import { useGlobalUser } from '../contexts/userContext';
+import { useSelector } from 'react-redux';
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
-  const {
-    data: { email, name, role },
-  } = useGlobalUser();
-
-  const admin = 'admin';
+  const { email, name, role } = useSelector((store) => store.user);
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true');

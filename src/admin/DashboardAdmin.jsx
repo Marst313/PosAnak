@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Calender from '../../user/dashboard/Calender';
-import ScheduleRight from '../../user/dashboard/ScheduleRight';
-import TableKeluarga from '../dataKeluarga/TableKeluarga';
+import Calender from '../user/dashboard/Calender';
+import ScheduleRight from '../user/dashboard/ScheduleRight';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDataKeluarga } from '../../features/family/family';
-import JadwalKegiatanAdmin from '../dataKegiatan/JadwalKegiatanAdmin';
-import TableKeluargaAdmin from '../../components/admin/TableKeluargaAdmin';
+import { getDataKeluarga } from '../features/family/family';
+import { SingleJadwalKegiatan, TableKeluargaAdmin } from '../components/admin';
 
 const DashboardAdmin = () => {
   const { dataKeluarga, isLoading } = useSelector((store) => store.family);
@@ -51,7 +49,13 @@ const DashboardAdmin = () => {
 
           <ScheduleRight />
 
-          <JadwalKegiatanAdmin dataKegiatan={dataKegiatan} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />
+          <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
+            <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
+
+            {dataKegiatan.map((item) => {
+              return <SingleJadwalKegiatan key={item.id} item={item} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />;
+            })}
+          </ul>
         </div>
       </div>
     </section>

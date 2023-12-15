@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getDataAnak, newDataAnak, setEditAnak, updateDataAnak } from '../../features/kids/kids';
 import iconClose from '../../images/iconClose.svg';
 
-const AnakModal = ({ tambahDataAnak, setTambahDataAnak }) => {
+const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
   const dispatch = useDispatch();
   const { singleDataAnak, edit } = useSelector((store) => store.kids);
   const [newAnak, setNewAnak] = useState({
@@ -130,4 +131,4 @@ const AnakModal = ({ tambahDataAnak, setTambahDataAnak }) => {
   );
 };
 
-export default AnakModal;
+export default ModalTambahAnak;

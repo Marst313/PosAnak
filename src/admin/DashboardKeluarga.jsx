@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-
-import union from '../../images/Union.svg';
-import iconExcel from '../../images/iconExcel.svg';
-import TableKeluarga from './TableKeluarga';
-import TambahKeluarga from './TambahKeluarga';
 import { useSelector } from 'react-redux';
-import SearchBar from '../../components/admin/SearchBar';
 
-const DataKeluarga = () => {
+import union from '../images/Union.svg';
+import iconExcel from '../images/iconExcel.svg';
+
+import { ModalTambahKeluarga, SearchBar, TableKeluargaAdmin } from '../components/admin/';
+
+const DashboardKeluarga = () => {
   const [tambahKeluarga, setTambahKeluarga] = useState(false);
   const { dataKeluarga, isLoading } = useSelector((store) => store.family);
 
@@ -31,11 +30,11 @@ const DataKeluarga = () => {
             Excel
           </button>
         </div>
-        <TableKeluarga dataKeluarga={dataKeluarga.records} />
+        <TableKeluargaAdmin dataKeluarga={dataKeluarga.records} />
       </section>
-      <TambahKeluarga tambahKeluarga={tambahKeluarga} setTambahKeluarga={setTambahKeluarga} />
+      <ModalTambahKeluarga tambahKeluarga={tambahKeluarga} setTambahKeluarga={setTambahKeluarga} />
     </>
   );
 };
 
-export default DataKeluarga;
+export default DashboardKeluarga;

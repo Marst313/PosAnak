@@ -4,16 +4,17 @@ import axios from 'axios';
 
 import logoPosyandu from '../images/logo-posyandu.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { useGlobalUser } from '../contexts/userContext';
+import { useDispatch } from 'react-redux';
+import { setDataUser } from '../features/users/user';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
-  const { setData, data } = useGlobalUser();
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +32,7 @@ const Login = () => {
           const { email, name, role } = result.data;
 
           navigate('/dashboard/menu');
-          setData({ email, name, role });
+          dispatch(setDataUser({ email: email, name: name, role: role }));
         }
       })
       .catch((err) => {

@@ -3,7 +3,8 @@ import iconClose from '../../images/iconClose.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleDataAnak, updateDataAnak } from '../../features/kids/kids';
 import { parseStringJson } from '../../utils/function';
-const PerkembanganModal = ({ tambahDataAnak, setTambahDataAnak, dataPertumbuhan }) => {
+
+const ModalPerkembanganAnak = ({ tambahDataAnak, setTambahDataAnak, dataPertumbuhan }) => {
   const dispatch = useDispatch();
 
   const { singleDataAnak } = useSelector((store) => store.kids);
@@ -99,4 +100,4 @@ const PerkembanganModal = ({ tambahDataAnak, setTambahDataAnak, dataPertumbuhan 
   );
 };
 
-export default PerkembanganModal;
+export default ModalPerkembanganAnak;

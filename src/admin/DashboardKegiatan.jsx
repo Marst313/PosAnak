@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import union from '../../images/Union.svg';
-import iconExcel from '../../images/iconExcel.svg';
-import JadwalKegiatanAdmin from './JadwalKegiatanAdmin';
-import TambahKegiatan from './TambahKegiatan';
-import { useSelector } from 'react-redux';
-import SearchBar from '../../components/admin/SearchBar';
+import union from '../images/Union.svg';
+import iconExcel from '../images/iconExcel.svg';
 
-const DataKegiatan = () => {
+import { useSelector } from 'react-redux';
+import SearchBar from '../components/admin/SearchBar';
+import { SingleJadwalKegiatan, ModalTambahKegiatan } from '../components/admin';
+
+const DashboardKegiatan = () => {
   const [newKegiatan, setNewKegiatan] = useState(false);
   const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
 
@@ -32,11 +32,17 @@ const DataKegiatan = () => {
           </button>
         </div>
 
-        <JadwalKegiatanAdmin dataKegiatan={dataKegiatan} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />
+        <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
+          <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
+
+          {dataKegiatan.map((item) => {
+            return <SingleJadwalKegiatan key={item.id} item={item} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />;
+          })}
+        </ul>
       </section>
-      <TambahKegiatan newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />
+      <ModalTambahKegiatan newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />
     </>
   );
 };
 
-export default DataKegiatan;
+export default DashboardKegiatan;

@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import SingleJadwalKegiatan from './SingleJadwalKegiatan';
+import React from 'react';
 
-const JadwalKegiatanAdmin = ({ dataKegiatan, newKegiatan, setNewKegiatan }) => {
+const TableKegiatanAdmin = () => {
   return (
     <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
       <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
@@ -13,4 +12,4 @@ const JadwalKegiatanAdmin = ({ dataKegiatan, newKegiatan, setNewKegiatan }) => {
   );
 };
 
-export default JadwalKegiatanAdmin;
+export default TableKegiatanAdmin;

@@ -2,29 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import iconEdit from '../../images/editJadwalKegiatanAdmin.svg';
 import iconDelete from '../../images/deleteIconWhite.svg';
 import iconEditPencil from '../../images/Pencil.svg';
-import { converDateId, convertTime } from '../../utils/function';
 import { useDispatch } from 'react-redux';
 import { deleteDataKegiatan, getDataKegiatan, getSingleDataKegiatan, setEditKegiatan } from '../../features/activity/activity';
+import { converDateId, convertTime } from '../../utils/function';
 
 const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
   const dispatch = useDispatch();
-  const [openSetting, setOpenSetting] = useState(false);
   const settingRef = useRef(null);
 
+  const [openSetting, setOpenSetting] = useState(false);
   const { date, description, title, waktuMulai, waktuSelesai } = item.fields;
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (settingRef.current && !settingRef.current.contains(event.target)) {
-        setOpenSetting(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
 
   const handleDelete = async (id) => {
     try {
@@ -48,6 +35,20 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
     // Membuka atau menutup modal saat ikon edit diklik
     setOpenSetting((prevOpenSetting) => !prevOpenSetting);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingRef.current && !settingRef.current.contains(event.target)) {
+        setOpenSetting(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <li className="flex float-left p-5 bg-coldWhite gap-5 justify-between">

@@ -4,7 +4,7 @@ import { convertHoursToSecond, convertTime } from '../../utils/function';
 import { getDataKegiatan, newDataKegiatan, setEditKegiatan, updateDataKegiatan } from '../../features/activity/activity';
 import { useDispatch, useSelector } from 'react-redux';
 
-const TambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
+const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
   const dispatch = useDispatch();
   const { singleDataKegiatan, edit } = useSelector((store) => store.activity);
   const [dataKegiatan, setDataKegiatan] = useState({
@@ -153,4 +153,4 @@ const TambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
   );
 };
 
-export default TambahKegiatan;
+export default ModalTambahKegiatan;

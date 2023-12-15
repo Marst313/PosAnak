@@ -6,20 +6,19 @@ import Schedule from './Schedule';
 import ScheduleRight from './ScheduleRight';
 import Berita from './Berita';
 
-import { useGlobalUser } from '../../contexts/userContext';
 import { DashboardAdmin } from '../../admin';
 import TableAnak from '../dataanak/TableAnak';
 import { useSelector } from 'react-redux';
 
 function Dashboard() {
-  const { data } = useGlobalUser();
+  const { role, name, email } = useSelector((store) => store.user);
   const { dataAnak } = useSelector((store) => store.kids);
   const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (data.role === 'admin') {
+  if (role === 'admin') {
     return <DashboardAdmin />;
   }
   return (

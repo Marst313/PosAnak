@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import EditorToolbar, { modules, formats } from './QuillToolbar';
-import logoSend from '../../images/send.svg';
+import logoSend from '../images/send.svg';
 import { useDispatch } from 'react-redux';
-import { newDataBerita } from '../../features/news/news';
+import { newDataBerita } from '../features/news/news';
 
 export const Editor = () => {
   const [state, setState] = React.useState({ value: null });
@@ -14,7 +14,6 @@ export const Editor = () => {
   const dispatch = useDispatch();
   const handleChange = (value) => {
     setState({ value });
-    console.log(value);
   };
 
   const handleImageChange = (e) => {
@@ -40,8 +39,6 @@ export const Editor = () => {
         },
       ],
     };
-
-    console.log(newData);
 
     dispatch(newDataBerita(newData));
   };
