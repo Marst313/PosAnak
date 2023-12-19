@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react';
-
-import WelcomeBanner from './WelcomeBanner';
-import Calender from './Calender';
-import Schedule from './Schedule';
-import ScheduleRight from './ScheduleRight';
-import Berita from './Berita';
-
-import { DashboardAdmin } from '../../admin';
-import TableAnak from '../dataanak/TableAnak';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-function Dashboard() {
+import { DashboardAdmin } from '../admin';
+import { WelcomeBanner, JadwalKegiatanUser, TableAnakUser } from '../components/user/';
+import { Calender, ScheduleRight } from '../components/';
+
+const DashboardUser = () => {
   const { role, name, email } = useSelector((store) => store.user);
   const { dataAnak } = useSelector((store) => store.kids);
   const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
@@ -21,6 +16,7 @@ function Dashboard() {
   if (role === 'admin') {
     return <DashboardAdmin />;
   }
+
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <main>
@@ -32,15 +28,15 @@ function Dashboard() {
         </div>
 
         <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative flex  flex-col lg:block ">
-          <Schedule style="mb-10" dataKegiatan={dataKegiatan} />
+          <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
 
           <ScheduleRight />
 
-          <TableAnak dataAnak={dataAnak.records} />
+          <TableAnakUser dataAnak={dataAnak.records} />
         </div>
       </main>
     </section>
   );
-}
+};
 
-export default Dashboard;
+export default DashboardUser;

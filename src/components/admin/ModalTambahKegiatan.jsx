@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import emailjs from 'emailjs-com';
+import { useDispatch, useSelector } from 'react-redux';
+
 import iconClose from '../../images/iconClose.svg';
 import { convertHoursToSecond, convertTime } from '../../utils/function';
 import { getDataKegiatan, newDataKegiatan, setEditKegiatan, updateDataKegiatan } from '../../features/activity/activity';
-import { useDispatch, useSelector } from 'react-redux';
 
 const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
   const dispatch = useDispatch();
   const { singleDataKegiatan, edit } = useSelector((store) => store.activity);
+
+  const [emailNotif, setEmailNotif] = useState([]);
   const [dataKegiatan, setDataKegiatan] = useState({
     judulKegiatan: '',
     deskripsiKegiatan: '',
@@ -45,7 +49,17 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
         await dispatch(getDataKegiatan());
         setNewKegiatan(false);
         dispatch(setEditKegiatan(false));
+
+        const templateParams = {
+          to_emails: ['karmadharmanalendra@gmail.com', 'dlegoinyoman9@gmail.com'],
+          subject: dataKegiatan.judulKegiatan,
+          message: `Kegiatan baru ${dataKegiatan.tanggalKegiatan} ${dataKegiatan.deskripsiKegiatan}`,
+        };
+        console.log('templateParams:', templateParams);
+
+        const response = await emailjs.send('service_8hwnbfh', 'template_0zl93ag', templateParams, 'L2lmR-Rk9UAg8fOOY');
       }
+
       if (edit) {
         const updatedData = {
           records: [

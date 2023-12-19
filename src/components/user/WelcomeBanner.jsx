@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import heroImgDashboard from '../../images/hero-dashboard.png';
 
-function WelcomeBanner() {
+const WelcomeBanner = () => {
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
@@ -42,6 +42,6 @@ function WelcomeBanner() {
       <img src={heroImgDashboard} alt="hero image dashboard" className=" hidden 2xl:flex w-52" />
     </div>
   );
-}
+};
 
 export default WelcomeBanner;

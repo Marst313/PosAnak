@@ -7,6 +7,10 @@ const initialState = {
   isLoading: true,
   message: '',
   edit: false,
+  filterWaktu: '',
+  filterKategori: '',
+  filterNamaKegiatan: '',
+  searchKegiatan: '',
 };
 const kegiatanThunk = async (data, thunkAPI) => {
   try {
@@ -72,6 +76,14 @@ export const activitySlice = createSlice({
     setGraph(state, { payload }) {},
     setEditKegiatan(state, { payload }) {
       state.edit = payload;
+    },
+    setFilterKegiatan(state, { payload }) {
+      state.filterKategori = payload.kategori.toLowerCase();
+      state.filterNamaKegiatan = payload.namaKegiatan.toLowerCase();
+      state.filterWaktu = payload.waktu.toLowerCase();
+    },
+    setSearchKegiatan(state, { payload }) {
+      state.searchKegiatan = payload.toLowerCase();
     },
   },
   extraReducers: (builder) => {
@@ -139,5 +151,5 @@ export const activitySlice = createSlice({
   },
 });
 
-export const { setGraph, setEditKegiatan } = activitySlice.actions;
+export const { setGraph, setEditKegiatan, setFilterKegiatan, setSearchKegiatan } = activitySlice.actions;
 export default activitySlice.reducer;

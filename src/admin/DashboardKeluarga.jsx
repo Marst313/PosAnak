@@ -18,7 +18,7 @@ const DashboardKeluarga = () => {
     <>
       <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
         <div className="flex  justify-between">
-          <SearchBar />
+          <SearchBar data="keluarga" />
 
           <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setTambahKeluarga(true)}>
             <img src={union} alt="" className="w-5 h-5" />

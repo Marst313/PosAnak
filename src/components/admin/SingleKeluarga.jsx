@@ -25,7 +25,7 @@ const SingleKeluarga = ({ index, child }) => {
       </th>
       <td className="px-6 py-4">{noKK}</td>
       <td className="px-6 py-4">{nikKepalaKeluarga}</td>
-      <td className="px-6 py-4 ">{namaKepalaKeluarga}</td>
+      <td className="px-6 py-4 capitalize">{namaKepalaKeluarga}</td>
       <td className="px-6 py-4 whitespace-nowrap w-fit ">{anggota} Orang</td>
       <td className="items-start  py-4 flex gap-2 px-4  ">
         <button type="button" onClick={handleDeleteKeluarga}>

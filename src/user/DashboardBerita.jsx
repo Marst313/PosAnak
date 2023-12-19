@@ -1,14 +1,15 @@
 import React from 'react';
-import Search from './Search';
-import heroImg from '../../images/dashboard/image5.png';
-import iconWaktu from '../../images/clock.svg';
 import { Link } from 'react-router-dom';
 
-const Berita = () => {
+import heroImg from '../images/dashboard/image5.png';
+import iconWaktu from '../images/clock.svg';
+import { SearchBarUser } from '../components/user/';
+
+const DashboardBerita = () => {
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <div className="px-4 sm:px-6 lg:px-8 mt-5 ">
-        <Search />
+        <SearchBarUser />
 
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <li className=" p-3 rounded-2xl border-grey border">
@@ -30,4 +31,4 @@ const Berita = () => {
   );
 };
 
-export default Berita;
+export default DashboardBerita;

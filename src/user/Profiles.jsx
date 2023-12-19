@@ -1,6 +1,6 @@
 import React from 'react';
-import profile from '../../images/contohProfile.jpeg';
-import logoEdit from '../../images/edit.svg';
+import profile from '../images/contohProfile.jpeg';
+import logoEdit from '../images/edit.svg';
 
 const Profiles = () => {
   return (

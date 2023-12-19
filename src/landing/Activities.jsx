@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logoCalender from '../images/calender.svg';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { getDataKegiatan } from '../features/activity/activity';
 import FilterKegiatan from './FilterKegiatan';
 import FooterLanding from './FooterLanding';
-import { useSelector } from 'react-redux';
 import { converDateId, convertTime } from '../utils/function';
 
 const Activities = () => {
-  const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+  const { dataKegiatan, isLoading, filterWaktu, filterNamaKegiatan, filterKategori } = useSelector((store) => store.activity);
+
+  useEffect(() => {
+    if ((filterWaktu === '') & (filterNamaKegiatan === '') & (filterKategori === '')) {
+      setData(dataKegiatan);
+    }
+
+    const filteredData = dataKegiatan
+      .filter((item) => item.fields.title.toLowerCase().includes(filterNamaKegiatan))
+      .filter((item) => item.fields.description.toLowerCase().includes(filterKategori))
+      .filter((item) => item.fields.date.toLowerCase().includes(filterWaktu));
+
+    setData(filteredData);
+  }, [filterWaktu, filterNamaKegiatan, filterKategori]);
+
+  // ! Initialize data kegiatan
+  useEffect(() => {
+    setData(dataKegiatan);
+  }, [dataKegiatan]);
+
+  useEffect(() => {
+    if (dataKegiatan.length === 0) {
+      dispatch(getDataKegiatan());
+    }
+  }, []);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -18,8 +45,7 @@ const Activities = () => {
       <FilterKegiatan />
 
       <ul className="w-full flex flex-col gap-5">
-        {dataKegiatan.map((kegiatan) => {
-          console.log(kegiatan);
+        {data.map((kegiatan) => {
           const { date, description, title, waktuMulai, waktuSelesai } = kegiatan.fields;
 
           return (

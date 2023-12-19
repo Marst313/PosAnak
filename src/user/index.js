@@ -1,8 +1,8 @@
-import Berita from './berita/Berita';
-import Dashboard from './dashboard/Dashboard';
-import SingleBerita from './berita/SingleBerita';
-import Profiles from './dashboard/Profiles';
-import Kegiatan from './kegiatan/Kegiatan';
-import DataAnak from './dataanak/DataAnak';
+import DashboardUser from './DashboardUser';
+import DashboardBeritaUser from './DashboardBerita';
+import DashboardAnakUser from './DashboardAnak';
+import DashboardKegiatanUser from './DashboardKegiatan';
+import Profiles from './Profiles';
+import SingleBerita from './SingleBeritaUser';
 
-export { Berita, Dashboard, DataAnak, Kegiatan, Profiles, SingleBerita };
+export { DashboardUser, DashboardAnakUser, DashboardKegiatanUser, DashboardBeritaUser, Profiles, SingleBerita };

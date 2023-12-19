@@ -7,6 +7,7 @@ const initialState = {
   isLoading: true,
   message: '',
   edit: false,
+  searchKeluarga: '',
 };
 const keluargaThunk = async (data, thunkAPI) => {
   try {
@@ -69,6 +70,9 @@ export const familySlice = createSlice({
   initialState,
   reducers: {
     setGraph(state, { payload }) {},
+    setSearchKeluarga(state, { payload }) {
+      state.searchKeluarga = payload.toLowerCase();
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -106,5 +110,5 @@ export const familySlice = createSlice({
   },
 });
 
-export const { setGraph } = familySlice.actions;
+export const { setGraph, setSearchKeluarga } = familySlice.actions;
 export default familySlice.reducer;

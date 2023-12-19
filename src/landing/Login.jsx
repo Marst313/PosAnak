@@ -6,6 +6,7 @@ import logoPosyandu from '../images/logo-posyandu.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setDataUser } from '../features/users/user';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,18 +26,17 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = user;
 
-    axios
-      .post('http://localhost:3000/login', { email, password })
-      .then((result) => {
-        if (result.data.status === 'Success') {
-          const { email, name, role } = result.data;
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
 
-          navigate('/dashboard/menu');
-          dispatch(setDataUser({ email: email, name: name, role: role }));
-        }
+        dispatch(setDataUser({ token: user.accessToken, email: user.email, uuid: user.uid }));
+        navigate('/dashboard/menu');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
       });
   };
   return (

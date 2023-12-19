@@ -28,7 +28,7 @@ const DashboardAnak = () => {
     <>
       <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
         <div className="flex gap-5 justify-between">
-          <SearchBar />
+          <SearchBar data="anak" />
 
           <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setTambahDataAnak(true)}>
             <img src={union} alt="" className="w-5 h-5" />

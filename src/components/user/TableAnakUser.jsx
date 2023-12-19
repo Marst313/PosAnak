@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setGraph } from '../../features/kids/kids';
 import { getSingleDataAnak } from '../../features/kids/kids';
 
-const TableAnak = ({ style, graphShow, dataAnak }) => {
+const TableAnakUser = ({ style, graphShow, dataAnak }) => {
   const dispatch = useDispatch();
   const handleClick = async (id) => {
     await dispatch(setGraph(!graphShow));
@@ -50,7 +50,7 @@ const TableAnak = ({ style, graphShow, dataAnak }) => {
         </thead>
 
         <tbody>
-          {dataAnak.map((child, index) => {
+          {dataAnak?.map((child, index) => {
             const { nama, nik, tanggalLahir } = child.fields;
             const [year, month, day] = tanggalLahir.split('-');
             const formattedDate = `${day}/${month}/${year}`;
@@ -79,4 +79,4 @@ const TableAnak = ({ style, graphShow, dataAnak }) => {
   );
 };
 
-export default TableAnak;
+export default TableAnakUser;

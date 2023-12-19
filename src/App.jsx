@@ -8,7 +8,7 @@ import './css/style.css';
 import { Activities, BeritaLanding, Daftar, Landing, Login, OpenSingleBerita, SemuaBerita, SharedLayoutLanding } from './landing/';
 
 import { DashboardKegiatan, DashboardKeluarga, Editor, DashboardAnak, DashboardBerita } from './admin';
-import { Berita, Dashboard, DataAnak, Kegiatan, Profiles, SingleBerita } from './user';
+import { DashboardAnakUser, DashboardBeritaUser, DashboardKegiatanUser, DashboardUser, Profiles, SingleBerita } from './user';
 
 import { Error, ProtectedRoute, SharedLayout } from './components';
 
@@ -33,14 +33,14 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index path="menu" element={<Dashboard />} />
+          <Route index path="menu" element={<DashboardUser />} />
 
-          <Route path="berita" element={<Berita />} />
+          <Route path="berita" element={<DashboardBeritaUser />} />
           <Route path="tambahBerita" element={<Editor />} />
           <Route path="berita/:id" element={<SingleBerita />} />
           <Route path="profile" element={<Profiles />} />
-          <Route path="kegiatan" element={<Kegiatan />} />
-          <Route path="anak" element={<DataAnak />} />
+          <Route path="kegiatan" element={<DashboardKegiatanUser />} />
+          <Route path="anak" element={<DashboardAnakUser />} />
 
           <Route path="dataanak" element={<DashboardAnak />} />
           <Route path="databerita" element={<DashboardBerita />} />

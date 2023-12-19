@@ -56,10 +56,10 @@ const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => 
         {index + 1}
       </th>
       <td className="px-6 py-4">{nik}</td>
-      <td className="px-6 py-4 whitespace-nowrap">{nama}</td>
+      <td className="px-6 py-4 whitespace-nowrap capitalize">{nama}</td>
       <td className="px-6 py-4 ">{formattedDate}</td>
       <td className="px-6 py-4 whitespace-nowrap w-fit">{usia}</td>
-      <td className="px-6 py-4 whitespace-nowrap w-fit">{namaIbu} </td>
+      <td className="px-6 py-4 whitespace-nowrap w-fit capitalize">{namaIbu} </td>
       <td className="  py-4 flex gap-2 px-4  items-center justify-center ">
         <button type="button" onClick={openModal}>
           <img src={logoDelete} alt="logo delete" />

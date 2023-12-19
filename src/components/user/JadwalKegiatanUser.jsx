@@ -1,7 +1,7 @@
 import React from 'react';
 import { converDateId, convertTime } from '../../utils/function';
 
-const Schedule = ({ style, dataKegiatan }) => {
+const JadwalKegiatanUser = ({ style, dataKegiatan }) => {
   return (
     <ul className={`bg-white p-10 flex flex-col float-left gap-5  2xl:w-2/3 rounded-3xl h-fit ${style && style}`}>
       {dataKegiatan.map((item) => {
@@ -44,4 +44,4 @@ const Schedule = ({ style, dataKegiatan }) => {
   );
 };
 
-export default Schedule;
+export default JadwalKegiatanUser;

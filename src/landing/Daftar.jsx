@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import heroLogin from '../images/hero-login.png';
 import axios from 'axios';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 import logoPosyandu from '../images/logo-posyandu.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Daftar = () => {
+  const auth = getAuth();
+
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -30,15 +34,14 @@ const Daftar = () => {
     e.preventDefault();
     const { name, email, password, role } = user;
 
-    axios
-      .post('http://localhost:3000/register', { name, email, password, role })
-      .then((result) => {
-        if (result.status === 200) {
-          setMessage({ text: 'Success created account', msg: true, status: 200 });
-        }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setMessage({ ...message, text: 'Success created account', msg: true, status: 200 });
+        navigate('/login');
       })
-      .catch((err) => {
-        setMessage({ text: err.response.data.message, msg: true, status: 400 });
+      .catch((error) => {
+        setMessage({ ...message, text: error.message, msg: false, status: 400 });
       });
   };
 
