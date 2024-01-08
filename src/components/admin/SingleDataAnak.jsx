@@ -44,7 +44,7 @@ const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => 
         await dispatch(getSingleDataAnak(child.id));
       }
 
-      await dispatch(setGraph(child.id));
+      await dispatch(setGraph(!graphShow));
     } catch (error) {
       console.log(error);
     }

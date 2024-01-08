@@ -9,6 +9,7 @@ const DashboardAdmin = () => {
   const { dataKeluarga, isLoading } = useSelector((store) => store.family);
   const { dataAnak } = useSelector((store) => store.kids);
   const { dataKegiatan } = useSelector((store) => store.activity);
+  const { email } = useSelector((store) => store.user);
   const [newKegiatan, setNewKegiatan] = useState(false);
   const [dashboard, setDashboard] = useState(true);
   const [countAnak, setCountAnak] = useState({ balita: 0, bayi: 0 });
@@ -43,7 +44,7 @@ const DashboardAdmin = () => {
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden pb-5">
       <div className="px-4 sm:px-6 lg:px-8 mt-5 flex flex-col gap-5">
-        <h1 className="text-darkGreen font-semibold text-4xl">Selamat Pagi, Sumarni!</h1>
+        <h1 className="text-darkGreen font-semibold text-4xl">Selamat Pagi, {email.split('@gmail.com')[0]}!</h1>
 
         <div className="mt-5 flex justify-between  w-full ">
           <ul className="bg-white p-5 flex justify-around h-fit  float-left items-center rounded-lg w-full  gap-5 flex-col lg:flex-row 2xl:w-2/3 ">

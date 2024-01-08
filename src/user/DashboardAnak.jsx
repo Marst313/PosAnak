@@ -24,10 +24,10 @@ const DashboardAnak = () => {
 
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5 ">
-      <div className="flex w-3/4 gap-3">
+      <div className="flex w-full h-fit  gap-3">
         <SearchBarUser />
 
-        <button className="flex items-center gap-2 border-lightGreen border px-7 py-2 rounded-full">
+        <button className="flex items-center gap-2 border-lightGreen border px-7 py-2 rounded-full h-fit">
           <img src={logoExcel} alt="" />
           Excel
         </button>

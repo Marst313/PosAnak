@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import heroLogin from '../images/hero-login.png';
+import heroLogin from '../images/hero-login2.png';
 import axios from 'axios';
 
 import logoPosyandu from '../images/logo-posyandu.png';
@@ -32,6 +32,7 @@ const Login = () => {
         const user = userCredential.user;
 
         dispatch(setDataUser({ token: user.accessToken, email: user.email, uuid: user.uid }));
+
         navigate('/dashboard/menu');
       })
       .catch((error) => {

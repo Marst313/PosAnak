@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import heroImgDashboard from '../../images/hero-dashboard.png';
+import { useSelector } from 'react-redux';
 
 const WelcomeBanner = () => {
   const [greeting, setGreeting] = useState('');
+  const { email } = useSelector((store) => store.user);
 
   useEffect(() => {
     const getGreeting = () => {
@@ -25,7 +27,9 @@ const WelcomeBanner = () => {
   return (
     <div className="flex bg-white rounded-3xl  float-left gap-3 2xl:w-2/3 ">
       <div className="p-6">
-        <h1 className="text-2xl md:text-3xl  font-bold mb-1">{greeting}, Sumarni! 👋</h1>
+        <h1 className="text-2xl md:text-3xl  font-bold mb-1">
+          {greeting}, {email.split('@gmail.com')[0]}! 👋
+        </h1>
         <p className="text-opacity-50 max-w-md">"Kesehatan adalah harta yang paling berharga, tetapi tidak ada yang menyadarinya sampai ia hilang."</p>
         <p className="text-opacity-50 ">-William Shakespeare</p>
 

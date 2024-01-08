@@ -53,7 +53,7 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
   return (
     <li className="flex float-left p-5 bg-coldWhite gap-5 justify-between">
       <div className="flex flex-col gap-3">
-        <h3 className="font-semibold text-2xl">{title}</h3>
+        <h3 className="font-semibold text-2xl ">{title.slice(0, 60)}</h3>
         <p className="font-light">{description}</p>
       </div>
 
@@ -65,7 +65,7 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
               <path fill="none" stroke="#036346" strokeLinecap="round" strokeLinejoin="round" strokeWidth={32} d="M256 128v144h96" />
             </svg>
 
-            <p>
+            <p className="whitespace-nowrap">
               {convertTime(waktuMulai)} - <span>{convertTime(waktuSelesai)} WIB</span>
             </p>
           </div>
@@ -78,7 +78,7 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
               />
             </svg>
 
-            <p>{converDateId(date)}</p>
+            <p className="whitespace-nowrap">{converDateId(date)}</p>
           </div>
         </div>
 

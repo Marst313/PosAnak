@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import heroLogin from '../images/hero-login.png';
+import heroLogin from '../images/hero-login2.png';
 import axios from 'axios';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
@@ -14,7 +14,7 @@ const Daftar = () => {
     name: '',
     email: '',
     password: '',
-    role: 'user',
+    role: '',
   });
   const [message, setMessage] = useState({
     text: '',
@@ -30,19 +30,18 @@ const Daftar = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password, role } = user;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setMessage({ ...message, text: 'Success created account', msg: true, status: 200 });
-        navigate('/login');
-      })
-      .catch((error) => {
-        setMessage({ ...message, text: error.message, msg: false, status: 400 });
-      });
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      setMessage({ ...message, text: 'Success created account', msg: true, status: 200 });
+    } catch (error) {
+      setMessage({ ...message, text: error.message, msg: false, status: 400 });
+    }
   };
 
   return (

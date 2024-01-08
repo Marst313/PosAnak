@@ -10,8 +10,8 @@ const JadwalKegiatanUser = ({ style, dataKegiatan }) => {
         return (
           <li className="flex float-left p-5 bg-coldWhite gap-5 justify-between" key={item.id}>
             <div className="flex flex-col gap-3">
-              <h3 className="font-semibold text-2xl">{title}</h3>
-              <p className="font-light">{description}</p>
+              <h3 className="font-semibold text-2xl max-w-lg line-clamp-6">{title}</h3>
+              <p className="font-light max-w-sm">{description}</p>
             </div>
 
             <div className="bg-coldWhite flex items-center justify-between font-light flex-col">
@@ -34,7 +34,7 @@ const JadwalKegiatanUser = ({ style, dataKegiatan }) => {
                   />
                 </svg>
 
-                <p>{converDateId(date)}</p>
+                <p className="whitespace-nowrap">{converDateId(date)}</p>
               </div>
             </div>
           </li>

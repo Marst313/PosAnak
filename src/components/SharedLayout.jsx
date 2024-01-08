@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getDataAnak } from '../features/kids/kids';
 import { getDataKeluarga } from '../features/family/family';
 import { getDataKegiatan } from '../features/activity/activity';
+import { getDataBerita } from '../features/news/news';
 
 const SharedLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -15,6 +16,7 @@ const SharedLayout = () => {
     dispatch(getDataAnak());
     dispatch(getDataKeluarga());
     dispatch(getDataKegiatan());
+    dispatch(getDataBerita());
   }, []);
 
   return (

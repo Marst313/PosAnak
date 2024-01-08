@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllDataUser } from '../features/users/user';
 
 const ProtectedRoute = ({ children }) => {
-  const [user, setUser] = useState(true);
+  const { token, uuid, email } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
-  const { token, uuid } = useSelector((store) => store.user);
+  useEffect(() => {
+    dispatch(getAllDataUser());
+  }, []);
 
   if (!token) {
     return <Navigate to="/" />;

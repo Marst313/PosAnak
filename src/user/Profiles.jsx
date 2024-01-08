@@ -1,51 +1,188 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import profile from '../images/contohProfile.jpeg';
 import logoEdit from '../images/edit.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Profiles = () => {
+  const dispatch = useDispatch();
+  const { allUser, uuid, isLoading, singleUser } = useSelector((store) => store.user);
+  const [edit, setEdit] = useState(false);
+  const [dataProfile, setDataProfile] = useState({
+    nik: '',
+    name: '',
+    email: '',
+    noHp: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setDataProfile({ ...dataProfile, [name]: value });
+  };
+
+  useEffect(() => {
+    const data = allUser?.records?.filter((item) => item.fields.uuid === uuid);
+    const { nik, name, noHp, role, email } = data[0].fields;
+
+    setDataProfile({ ...dataProfile, nik: nik || '', name: name || '', noHp: noHp || '', email: email || '' });
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
-    <section className="relative flex flex-col  bg-white ml-10 mr-10  w-2/3 rounded-3xl px-20 h-fit pb-14">
-      <div
-        className="px-4 sm:px-6 lg:px-0 
+    <section className="relative flex flex-col  bg-white ml-10 mr-10  w-full rounded-3xl px-20 pb-14 overflow-auto">
+      {edit ? (
+        <div
+          className="px-4 sm:px-6 lg:px-0 
+    mt-5 lg:mt-0 pt-10 flex flex-col  items-start justify-between mb-10"
+        >
+          <h1 className="text-2xl font-semibold">Edit Profiles</h1>
+
+          <div className="flex items-center mt-20 gap-10">
+            <img src={profile} alt="image" className="rounded-full p-1 border border-lightGreen w-44 h-44 " />
+
+            <button type="button" className="bg-yellowPrimary text-white px-5 py-2 rounded-full border hover:border-greenPrimary flex items-center gap-3 hover:bg-white hover:text-greenPrimary transition-all duration-500">
+              <svg className="fill-current" width={24} height={24} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M11.9997 13.3333C13.4724 13.3333 14.6663 12.1394 14.6663 10.6667C14.6663 9.19391 13.4724 8 11.9997 8C10.5269 8 9.33301 9.19391 9.33301 10.6667C9.33301 12.1394 10.5269 13.3333 11.9997 13.3333Z"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M17.3337 2.66602H12.0003C5.33366 2.66602 2.66699 5.33268 2.66699 11.9993V19.9993C2.66699 26.666 5.33366 29.3327 12.0003 29.3327H20.0003C26.667 29.3327 29.3337 26.666 29.3337 19.9993V13.3327"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M25.5195 3.45288L20.6795 8.29288C20.4929 8.47955 20.3062 8.83955 20.2795 9.10622L20.0129 10.9595C19.9195 11.6262 20.3862 12.0929 21.0529 11.9995L22.9062 11.7329C23.1595 11.6929 23.5329 11.5195 23.7195 11.3329L28.5595 6.49288C29.3995 5.65288 29.7862 4.69288 28.5595 3.46622C27.3195 2.21288 26.3595 2.61288 25.5195 3.45288Z"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeMiterlimit={10}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M24.8271 4.14648C25.2405 5.61315 26.3871 6.75982 27.8538 7.17315" stroke="white" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M3.55957 25.2661L10.1329 20.8528C11.1862 20.1461 12.7062 20.2261 13.6529 21.0394L14.0929 21.4261C15.1329 22.3194 16.8129 22.3194 17.8529 21.4261L23.3996 16.6661C24.4396 15.7728 26.1196 15.7728 27.1596 16.6661L29.3329 18.5328"
+                  stroke="white"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Unggah Foto
+            </button>
+          </div>
+
+          <hr className="border w-full my-5" />
+
+          <h1 className="text-2xl font-semibold">Edit Informasi</h1>
+
+          <div className="mt-5   flex justify-between gap-5">
+            <div className="flex flex-col w-full">
+              <label htmlFor="nik">NIK</label>
+              <input type="number" id="nik" className="rounded-xl focus:ring-0 border-grey" name="nik" value={dataProfile.nik} onChange={handleChange} />
+            </div>
+
+            <div className="flex flex-col w-full">
+              <label htmlFor="nama">Nama</label>
+              <input type="text" id="nama" name="name" value={dataProfile.name} className="rounded-xl focus:ring-0 border-grey" onChange={handleChange} />
+            </div>
+          </div>
+
+          <div className="mt-5   flex justify-between gap-5">
+            <div className="flex flex-col w-full">
+              <label htmlFor="email">Email</label>
+              <input type="text" id="email" name="email" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.email} onChange={handleChange} />
+            </div>
+
+            <div className="flex flex-col w-full">
+              <label htmlFor="nohp">No HP</label>
+              <input type="text" id="nohp" name="noHp" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.noHp} onChange={handleChange} />
+            </div>
+          </div>
+
+          <hr className="border w-full my-5" />
+
+          <h1 className="text-2xl font-semibold">Ubah Kata Sandi</h1>
+
+          <div className="mt-5   flex justify-between gap-5">
+            <div className="flex flex-col w-full">
+              <label htmlFor="password">Kata Sandi Baru</label>
+              <input type="password" id="password" className="rounded-xl focus:ring-0 border-grey" name="password" />
+            </div>
+
+            <div className="flex flex-col w-full">
+              <label htmlFor="kataSandiBaru">Konfirmasi Kata Sandi Baru</label>
+              <input type="password" id="kataSandiBaru" name="passwordConfirm" className="rounded-xl focus:ring-0 border-grey" />
+            </div>
+          </div>
+
+          <button type="button" className="mx-auto mt-5 bg-lightGreen text-white px-10 py-2 rounded-full border hover:bg-white hover:border-greenPrimary hover:text-greenPrimary transition-all duration-500">
+            Simpan
+          </button>
+        </div>
+      ) : (
+        <>
+          <div
+            className="px-4 sm:px-6 lg:px-0 
        mt-5 lg:mt-0 pt-10 flex  items-start justify-between mb-10"
-      >
-        <h1 className="text-2xl font-semibold">Informasi Profiles</h1>
+          >
+            <h1 className="text-2xl font-semibold">Informasi Profiles</h1>
 
-        <img src={profile} alt="" className="rounded-full p-1 border border-lightGreen w-44 h-44 mt-10" />
-        <button type="button" className="flex bg-[#F9A319] px-5 py-2 text-white gap-3 rounded-3xl font-semibold">
-          <img src={logoEdit} alt="logo edit" className="text-white" />
-          Edit
-        </button>
-      </div>
-      <hr />
-
-      <div className="mt-5">
-        <h1 className="text-2xl font-semibold">Informasi Profiles</h1>
-
-        <div className="mt-5   flex justify-between gap-5">
-          <div className="flex flex-col w-full">
-            <label htmlFor="nik">NIK</label>
-            <input type="text" id="nik" className="rounded-xl focus:ring-0 border-grey" />
+            <img src={profile} alt="hero image" className="rounded-full p-1 border border-lightGreen w-44 h-44 mt-10" />
+            <button type="button" onClick={() => setEdit(true)} className="flex bg-[#F9A319] px-5 py-2 text-white gap-3 rounded-3xl font-semibold hover:bg-white border hover:border-greenPrimary hover:text-greenPrimary transition-all">
+              <svg width={24} className="fill-current" height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13" stroke="#FFFFFF" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M16.0399 3.02025L8.15988 10.9003C7.85988 11.2003 7.55988 11.7903 7.49988 12.2203L7.06988 15.2303C6.90988 16.3203 7.67988 17.0803 8.76988 16.9303L11.7799 16.5003C12.1999 16.4403 12.7899 16.1403 13.0999 15.8403L20.9799 7.96025C22.3399 6.60025 22.9799 5.02025 20.9799 3.02025C18.9799 1.02025 17.3999 1.66025 16.0399 3.02025Z"
+                  stroke="#FFFFFF"
+                  strokeMiterlimit={10}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M14.9102 4.15039C15.5802 6.54039 17.4502 8.41039 19.8502 9.09039" stroke="#FFFFFF" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Edit
+            </button>
           </div>
+          <hr />
 
-          <div className="flex flex-col w-full">
-            <label htmlFor="nama">Nama</label>
-            <input type="text" id="nama" className="rounded-xl focus:ring-0 border-grey" />
-          </div>
-        </div>
+          <div className="mt-5">
+            <h1 className="text-2xl font-semibold">Informasi Profiles</h1>
 
-        <div className="mt-5   flex justify-between gap-5">
-          <div className="flex flex-col w-full">
-            <label htmlFor="email">Email</label>
-            <input type="text" id="email" className="rounded-xl focus:ring-0 border-grey" />
-          </div>
+            <div className="mt-5   flex justify-between gap-5">
+              <div className="flex flex-col w-full">
+                <label htmlFor="nik">NIK</label>
+                <input type="text" id="nik" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.nik} disabled />
+              </div>
 
-          <div className="flex flex-col w-full">
-            <label htmlFor="nohp">No HP</label>
-            <input type="text" id="nohp" className="rounded-xl focus:ring-0 border-grey" />
+              <div className="flex flex-col w-full">
+                <label htmlFor="nama">Nama</label>
+                <input type="text" id="nama" value={dataProfile.name} className="rounded-xl focus:ring-0 border-grey" disabled />
+              </div>
+            </div>
+
+            <div className="mt-5   flex justify-between gap-5">
+              <div className="flex flex-col w-full">
+                <label htmlFor="email">Email</label>
+                <input type="text" id="email" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.email} disabled />
+              </div>
+
+              <div className="flex flex-col w-full">
+                <label htmlFor="nohp">No HP</label>
+                <input type="text" id="nohp" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.noHp} disabled />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </section>
   );
 };
