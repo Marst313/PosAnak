@@ -15,8 +15,6 @@ const DashboardBerita = () => {
     setDataBerita(data.records);
   }, [isLoading]);
 
-  console.log(dataBerita);
-
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -28,7 +26,6 @@ const DashboardBerita = () => {
 
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {dataBerita.map((item) => {
-            console.log(item);
             return (
               <li key={item.id} className=" p-3 rounded-2xl border-grey border">
                 <Link className="bg-white" to={`/dashboard/berita/${item.id}`}>
