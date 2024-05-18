@@ -33,7 +33,7 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
       records: [
         {
           fields: {
-            title: dataKegiatan.deskripsiKegiatan,
+            title: dataKegiatan.judulKegiatan,
             date: dataKegiatan.tanggalKegiatan,
             description: dataKegiatan.deskripsiKegiatan,
             waktuMulai: convertHoursToSecond(dataKegiatan.waktuMulai),
