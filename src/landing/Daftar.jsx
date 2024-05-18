@@ -78,7 +78,7 @@ const Daftar = () => {
           </label>
         </div>
 
-        <div className="self-start lg:self-center  ">
+        <div className="self-start lg:self-center w-full lg:w-1/2  ">
           <h5 className="font-medium text-3xl">Daftar</h5>
 
           <form className="mt-5 w-full" onSubmit={handleSubmit}>
@@ -122,19 +122,19 @@ const Daftar = () => {
               />
             </div>
 
-            <div className="w-full flex items-center justify-between">
-              <button type="submit" className="text-white bg-greenPrimary  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm w-full sm:w-auto px-3 py-2 text-center flex items-center gap-5 pl-7">
+            <div className="w-40 lg:w-full lg:flex items-center justify-between">
+              <button type="submit" className="text-white bg-greenPrimary  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-lg w-full px-3 py-2 text-center flex items-center gap-5 pl-7">
                 Daftar
-                <div className="rounded-full bg-lightGreen w-10 h-10 flex items-center justify-center">
+                <div className="rounded-full bg-lightGreen lg:ml-5 w-10 h-10 flex items-center justify-center">
                   <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.49006 13.2628L7.21165 11.9986L11.6506 7.55966H0.5V5.71307H11.6506L7.21165 1.28125L8.49006 0.00994253L15.1165 6.63636L8.49006 13.2628Z" fill="white" />
                   </svg>
                 </div>
               </button>
 
-              <p className="text-xs whitespace-nowrap text-darkGreen ml-3">
+              <p className="text-xs whitespace-nowrap text-darkGreen ml-3 mt-3">
                 Tidak mempunyai akun?
-                <Link className="text-greenStabilo text-lg ml-2" to="/login">
+                <Link className="text-greenStabilo text-xs ml-2" to="/login">
                   Masuk
                 </Link>
               </p>

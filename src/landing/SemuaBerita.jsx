@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import FooterLanding from './FooterLanding';
+import React from "react";
+import { Link } from "react-router-dom";
+import FooterLanding from "./FooterLanding";
 
-import heroImg from '../images/dashboard/image5.png';
-import logoCalender from '../images/calender.svg';
-import Pagination from './Pagination';
+import heroImg from "../images/dashboard/image5.png";
+import logoCalender from "../images/calender.svg";
+import Pagination from "./Pagination";
 const SemuaBerita = () => {
   return (
     <div className="relative  px-4 sm:px-6  flex xl:px-60 mt-5 gap-3 flex-col pb-40 overflow-x-hidden items-center">
@@ -18,9 +18,21 @@ const SemuaBerita = () => {
                 <img src={logoCalender} alt="" />
                 <p>Senin 12/12/2025 19.60 WIB</p>
               </div>
-              <h1 className="text-3xl line-clamp-2 font-medium">Lorem ipsum dolor sit amet consectetur. Ultrices mauris at aliquam scelerisque ac tellus a.</h1>
+              <h1 className="text-3xl line-clamp-2 font-medium">
+                Pemantauan Tumbuh Kembang Anak
+              </h1>
 
-              <p className="font-light text-sm">Lorem ipsum dolor sit amet consectetur. Viverra at turpis nunc ac eget pharetra commodo purus integer. Lorem massa lacus condimentum in. Ornare malesuada id massa quis nibh.</p>
+              <p className="font-light line-clamp-4 text-sm">
+                Proses pemantauan pertumbuhan di Posyandu melibatkan pencatatan
+                data tinggi, berat, dan lingkar kepala anak secara berkala. Ibu
+                atau pengasuh anak dapat memanfaatkan Posyandu sebagai sumber
+                informasi yang handal untuk memahami perkembangan anak mereka.
+                Bagian kunci dari panduan ini adalah memberikan pemahaman
+                tentang jenis data yang dikumpulkan, bagaimana data tersebut
+                digunakan, dan bagaimana ibu atau pengasuh anak dapat terlibat
+                secara aktif dalam kegiatan Posyandu untuk memastikan pemantauan
+                pertumbuhan anak yang optimal.
+              </p>
             </div>
           </Link>
         </li>
@@ -34,9 +46,21 @@ const SemuaBerita = () => {
                 <img src={logoCalender} alt="" />
                 <p>Senin 12/12/2025 19.60 WIB</p>
               </div>
-              <h1 className="text-3xl line-clamp-2 font-medium">Lorem ipsum dolor sit amet consectetur. Ultrices mauris at aliquam scelerisque ac tellus a.</h1>
+              <h1 className="text-3xl line-clamp-2 font-medium">
+                Pemantauan Tumbuh Kembang Anak
+              </h1>
 
-              <p className="font-light text-sm">Lorem ipsum dolor sit amet consectetur. Viverra at turpis nunc ac eget pharetra commodo purus integer. Lorem massa lacus condimentum in. Ornare malesuada id massa quis nibh.</p>
+              <p className="font-light line-clamp-4 text-sm">
+                Proses pemantauan pertumbuhan di Posyandu melibatkan pencatatan
+                data tinggi, berat, dan lingkar kepala anak secara berkala. Ibu
+                atau pengasuh anak dapat memanfaatkan Posyandu sebagai sumber
+                informasi yang handal untuk memahami perkembangan anak mereka.
+                Bagian kunci dari panduan ini adalah memberikan pemahaman
+                tentang jenis data yang dikumpulkan, bagaimana data tersebut
+                digunakan, dan bagaimana ibu atau pengasuh anak dapat terlibat
+                secara aktif dalam kegiatan Posyandu untuk memastikan pemantauan
+                pertumbuhan anak yang optimal.
+              </p>
             </div>
           </Link>
         </li>
