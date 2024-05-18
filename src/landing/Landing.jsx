@@ -6,7 +6,7 @@ import logoAirdrop from "../images/landing/airdrop.svg";
 const Landing = () => {
   return (
     <section
-      className={`relative flex-1 px-4 sm:px-6  flex flex-col h-full lg:bg-[url('/images/group.png')] bg-no-repeat  bg-cover bg-center -mt-[4.6rem] bg-white `}
+      className={`relative flex-1 px-4 sm:px-6  flex flex-col h-screen lg:bg-[url('/images/group.png')] bg-no-repeat  bg-cover bg-center -mt-[4.6rem] bg-white `}
     >
       <div className="xl:px-48 mt-28 pb-20 lg:pb-0">
         <h1 className="text-darkGreen font-semibold text-5xl lg:text-[5.2rem] max-w-2xl">
