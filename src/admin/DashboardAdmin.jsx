@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Calender from '../components/Calender';
-import { ScheduleRight } from '../components/';
+import { Loading, ScheduleRight } from '../components/';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataKeluarga } from '../features/family/family';
 import { SingleJadwalKegiatan, TableKeluargaAdmin } from '../components/admin';
@@ -38,7 +38,7 @@ const DashboardAdmin = () => {
   };
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

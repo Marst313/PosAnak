@@ -6,6 +6,7 @@ import Charts from '../components/Charts';
 import { useSelector } from 'react-redux';
 import { parseStringJson } from '../utils/function';
 import { NewDataAnak, SearchBar, TableAnakAdmin } from '../components/admin/';
+import { Loading } from '../components';
 
 const DashboardAnak = () => {
   const [tambahDataAnak, setTambahDataAnak] = useState(false);
@@ -22,7 +23,7 @@ const DashboardAnak = () => {
   }, [graphShow, singleDataAnak]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
   return (
     <>

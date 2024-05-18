@@ -2,12 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { JadwalKegiatanUser, SearchBarUser } from '../components/user';
+import Loading from '../components/Loading';
 
 const DashboardKegiatan = () => {
   const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

@@ -6,6 +6,7 @@ import iconExcel from '../images/iconExcel.svg';
 import { useSelector } from 'react-redux';
 import SearchBar from '../components/admin/SearchBar';
 import { SingleJadwalKegiatan, ModalTambahKegiatan } from '../components/admin';
+import { Loading } from '../components';
 
 const DashboardKegiatan = () => {
   const [newKegiatan, setNewKegiatan] = useState(false);
@@ -23,7 +24,7 @@ const DashboardKegiatan = () => {
   }, [dataKegiatan]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
