@@ -6,6 +6,7 @@ import { getDataKegiatan } from '../features/activity/activity';
 import FilterKegiatan from './FilterKegiatan';
 import FooterLanding from './FooterLanding';
 import { converDateId, convertTime } from '../utils/function';
+import { Loading } from '../components';
 
 const Activities = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const Activities = () => {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
