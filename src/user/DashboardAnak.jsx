@@ -6,6 +6,7 @@ import TableAnak from '../components/user/TableAnakUser';
 import Charts from '../components/Charts';
 import { parseStringJson } from '../utils/function';
 import { SearchBarUser } from '../components/user';
+import Loading from '../components/Loading';
 const DashboardAnak = () => {
   const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector((store) => store.kids);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
@@ -19,7 +20,7 @@ const DashboardAnak = () => {
   }, [graphShow, singleDataAnak]);
 
   if (isLoading) {
-    return <h1>Loading....</h1>;
+    return <Loading />;
   }
 
   return (

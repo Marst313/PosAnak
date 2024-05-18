@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 
 import { DashboardAdmin } from '../admin';
 import { WelcomeBanner, JadwalKegiatanUser, TableAnakUser } from '../components/user/';
-import { Calender, ScheduleRight } from '../components/';
+import { Calender, Loading, ScheduleRight } from '../components/';
 
 const DashboardUser = () => {
   const { role, name, email } = useSelector((store) => store.user);
   const { dataAnak } = useSelector((store) => store.kids);
   const { dataKegiatan, isLoading } = useSelector((store) => store.activity);
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   if (role === 'admin') {

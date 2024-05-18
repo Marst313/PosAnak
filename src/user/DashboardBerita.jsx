@@ -6,6 +6,7 @@ import heroImg from '../images/dashboard/image5.png';
 import iconWaktu from '../images/clock.svg';
 import { SearchBarUser } from '../components/user/';
 import { countPostNewsDateCreated } from '../utils/function';
+import Loading from '../components/Loading';
 
 const DashboardBerita = () => {
   const { data, isLoading } = useSelector((store) => store.news);
@@ -16,7 +17,7 @@ const DashboardBerita = () => {
   }, [isLoading]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
