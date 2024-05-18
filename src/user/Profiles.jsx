@@ -22,10 +22,15 @@ const Profiles = () => {
   };
 
   useEffect(() => {
-    const data = allUser?.records?.filter((item) => item.fields.uuid === uuid);
-    const { nik, name, noHp, role, email } = data[0].fields;
+    console.log(singleUser);
+    // const data = allUser?.records?.find((item) => {
+    //   console.log(item.fields.uuid, uuid);
+    //   item.fields?.uuid === uuid;
+    // });
 
-    setDataProfile({ ...dataProfile, nik: nik || '', name: name || '', noHp: noHp || '', email: email || '' });
+    // const { nik, name, noHp, role, email } = data[0]?.fields;
+
+    // setDataProfile({ ...dataProfile, nik: nik || '', name: name || '', noHp: noHp || '', email: email || '' });
   }, [isLoading]);
 
   if (isLoading) {
