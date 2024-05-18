@@ -5,13 +5,14 @@ import union from '../images/Union.svg';
 import iconExcel from '../images/iconExcel.svg';
 
 import { ModalTambahKeluarga, SearchBar, TableKeluargaAdmin } from '../components/admin/';
+import { Loading } from '../components';
 
 const DashboardKeluarga = () => {
   const [tambahKeluarga, setTambahKeluarga] = useState(false);
   const { dataKeluarga, isLoading } = useSelector((store) => store.family);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (

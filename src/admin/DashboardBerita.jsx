@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import union from '../images/Union.svg';
 import { SearchBar, SingleDataBerita } from '../components/admin';
 import { getDataBerita, setEditBerita } from '../features/news/news';
+import { Loading } from '../components';
 
 const DashboardBerita = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const DashboardBerita = () => {
   }, [data]);
 
   useEffect(() => {
-    const searchData = data.records?.filter((item) => item.fields.title.toLowerCase().includes(searchBerita));
+    const searchData = data.records?.filter((item) => item.fields.title?.toLowerCase().includes(searchBerita));
 
     setDataBerita(searchData);
   }, [searchBerita]);
@@ -26,7 +27,7 @@ const DashboardBerita = () => {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
