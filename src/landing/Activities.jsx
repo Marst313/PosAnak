@@ -1,26 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import logoCalender from '../images/calender.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import logoCalender from "../images/calender.svg";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getDataKegiatan } from '../features/activity/activity';
-import FilterKegiatan from './FilterKegiatan';
-import FooterLanding from './FooterLanding';
-import { converDateId, convertTime } from '../utils/function';
-import { Loading } from '../components';
+import { getDataKegiatan } from "../features/activity/activity";
+import FilterKegiatan from "./FilterKegiatan";
+import FooterLanding from "./FooterLanding";
+import { converDateId, convertTime } from "../utils/function";
+import { Loading } from "../components";
 
 const Activities = () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const { dataKegiatan, isLoading, filterWaktu, filterNamaKegiatan, filterKategori } = useSelector((store) => store.activity);
+  const {
+    dataKegiatan,
+    isLoading,
+    filterWaktu,
+    filterNamaKegiatan,
+    filterKategori,
+  } = useSelector((store) => store.activity);
 
   useEffect(() => {
-    if ((filterWaktu === '') & (filterNamaKegiatan === '') & (filterKategori === '')) {
+    if (
+      (filterWaktu === "") &
+      (filterNamaKegiatan === "") &
+      (filterKategori === "")
+    ) {
       setData(dataKegiatan);
     }
 
     const filteredData = dataKegiatan
-      .filter((item) => item.fields.title.toLowerCase().includes(filterNamaKegiatan))
-      .filter((item) => item.fields.description.toLowerCase().includes(filterKategori))
+      .filter((item) =>
+        item.fields.title.toLowerCase().includes(filterNamaKegiatan)
+      )
+      .filter((item) =>
+        item.fields.description.toLowerCase().includes(filterKategori)
+      )
       .filter((item) => item.fields.date.toLowerCase().includes(filterWaktu));
 
     setData(filteredData);
@@ -47,10 +61,14 @@ const Activities = () => {
 
       <ul className="w-full flex flex-col gap-5">
         {data.map((kegiatan) => {
-          const { date, description, title, waktuMulai, waktuSelesai } = kegiatan.fields;
+          const { date, description, title, waktuMulai, waktuSelesai } =
+            kegiatan.fields;
 
           return (
-            <li key={kegiatan.id} className="p-5 bg-white w-full rounded-lg shadow-custom">
+            <li
+              key={kegiatan.id}
+              className="p-5 bg-white w-full rounded-lg shadow-custom"
+            >
               <h5 className="font-semibold">{title}</h5>
               <p className="text-sm font-light mt-2">{description}</p>
 
@@ -64,7 +82,6 @@ const Activities = () => {
           );
         })}
       </ul>
-
       <FooterLanding />
     </div>
   );
