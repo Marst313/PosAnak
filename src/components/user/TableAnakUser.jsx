@@ -25,7 +25,7 @@ const TableAnakUser = ({ style, graphShow, dataAnak }) => {
 
   return (
     <div
-      className={`relative lg:w-[35rem] xl:w-fit overflow-x-auto sm:rounded-lg mt-5  ${style}`}
+      className={`relative lg:w-[35rem] xl:w-fit overflow-x-auto rounded-lg mt-5  ${style}`}
     >
       <table className="w-3/4 text-sm text-left rtl:text-right overflow-x-auto text-greenPrimary bg-white shadow-md rounded-lg">
         <thead className="text-xs  uppercase text-greenPrimary border-b-2 border-grey ">

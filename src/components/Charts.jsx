@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 const Charts = ({ dataPertumbuhan }) => {
   const { height: Tinggi, weight: Berat } = dataPertumbuhan;
   return (
-    <ResponsiveContainer width="75%" height="50%" className={`bg-white rounded-2xl p-5 my-5  pb-10 `}>
+    <ResponsiveContainer width="100%" height="50%" className={`bg-white rounded-2xl p-5 my-5 pb-10 `}>
       <h1 className="text-2xl text-darkGreen font-bold ">Perkembangan Anak</h1>
       <LineChart
         width={500}

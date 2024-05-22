@@ -2,7 +2,7 @@ import React from 'react';
 
 const ScheduleRight = () => {
   return (
-    <div className="float-right hidden xl:block rounded-3xl bg-white shadow-xl lg:w-[20rem] p-10 h-fit ">
+    <div className="lg:float-right xl:block rounded-3xl bg-white shadow-xl lg:w-[20rem] p-10 h-fit ">
       <h1 className="text-darkGreen text-lg font-bold mb-5">Jadwal</h1>
       {/*    */}
       <ul className="flex flex-col gap-16">
@@ -16,7 +16,7 @@ const ScheduleRight = () => {
           </svg>
           <div className="border-b border bg-grey w-10/12"></div>
 
-          <div className="bg-lightGreen absolute translate-x-1/2 mt-16 py-3 px-5 rounded-lg ">
+          <div className="bg-lightGreen absolute translate-x-1/2 mt-16 py-3 px-3 lg:px-5 rounded-lg ">
             <p className="text-white">Imunisasi Balita</p>
             <p className="text-white font-thin">09.00 - 10.00 WIB</p>
           </div>

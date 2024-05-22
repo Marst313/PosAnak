@@ -56,7 +56,7 @@ const Activities = () => {
   }
 
   return (
-    <div className="relative  px-4 sm:px-6 flex xl:px-60 mt-10 gap-5 flex-col lg:flex-row pb-40 overflow-x-hidden">
+    <div className="relative px-4 sm:px-6 flex xl:px-60 mt-10 gap-5 flex-col lg:flex-row pb-40 overflow-x-hidden">
       <FilterKegiatan />
 
       <ul className="w-full flex flex-col gap-5">
