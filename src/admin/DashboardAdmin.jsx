@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Calender from '../components/Calender';
-import { Loading, ScheduleRight } from '../components/';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDataKeluarga } from '../features/family/family';
-import { SingleJadwalKegiatan, TableKeluargaAdmin } from '../components/admin';
+import React, { useEffect, useState } from "react";
+import Calender from "../components/Calender";
+import { Loading, ScheduleRight } from "../components/";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataKeluarga } from "../features/family/family";
+import { SingleJadwalKegiatan, TableKeluargaAdmin } from "../components/admin";
+import { JadwalKegiatanUser, TableAnakUser } from "../components/user/";
 
 const DashboardAdmin = () => {
   const { dataKeluarga, isLoading } = useSelector((store) => store.family);
@@ -29,9 +30,15 @@ const DashboardAdmin = () => {
     bayiCutoffDate.setFullYear(bayiCutoffDate.getFullYear() - 3); // Subtract 3 year
 
     // Filter balita and bayi based on their birth dates
-    const balita = dataAnak?.filter((child) => new Date(child.fields?.tanggalLahir) >= balitaCutoffDate && new Date(child.fields?.tanggalLahir) < bayiCutoffDate);
+    const balita = dataAnak?.filter(
+      (child) =>
+        new Date(child.fields?.tanggalLahir) >= balitaCutoffDate &&
+        new Date(child.fields?.tanggalLahir) < bayiCutoffDate
+    );
 
-    const bayi = dataAnak?.filter((child) => new Date(child.fields?.tanggalLahir) >= bayiCutoffDate);
+    const bayi = dataAnak?.filter(
+      (child) => new Date(child.fields?.tanggalLahir) >= bayiCutoffDate
+    );
 
     setCountAnak({ ...countAnak, balita: balita?.length, bayi: bayi?.length });
   };
@@ -41,42 +48,54 @@ const DashboardAdmin = () => {
   }
 
   return (
-    <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden pb-5">
-      <div className="px-4 sm:px-6 lg:px-8 mt-5 flex flex-col gap-5">
-        <h1 className="text-darkGreen font-semibold text-4xl">Selamat Pagi, {email.split('@gmail.com')[0]}!</h1>
+    <section className="relative w-screen flex flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
+      <main>
+        <div className="px-4 py-8 sm:px-6 lg:px-8 mt-5 flex flex-col gap-5 w-full max-w-9xl mx-auto relative ">
+          <h1 className="text-darkGreen font-semibold text-4xl">
+            Selamat Pagi, {email.split("@gmail.com")[0]}!
+          </h1>
 
-        <div className="mt-5 flex justify-between  w-full ">
-          <ul className="bg-white p-5 flex justify-around h-fit  float-left items-center rounded-lg w-full  gap-5 flex-col lg:flex-row 2xl:w-2/3 ">
-            <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
-              <h1 className="text-7xl text-white">{dataKeluarga.records.length}</h1>
-              <p className="text-white">Keluarga</p>
-            </li>
-            <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
-              <h1 className="text-7xl text-white">{countAnak.bayi}</h1>
-              <p className="text-white">Batita</p>
-            </li>
-            <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
-              <h1 className="text-7xl text-white">{countAnak.balita}</h1>
-              <p className="text-white">Balita</p>
-            </li>
-          </ul>
+          <div className="mt-5 flex flex-col lg:flex-row justify-between w-full">
+            <ul className="bg-white p-5 justify-around shadow-xl float-left items-center rounded-3xl w-full gap-5 flex flex-col lg:flex-row 2xl:w-2/3 ">
+              <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
+                <h1 className="text-7xl text-white">
+                  {dataKeluarga.records.length}
+                </h1>
+                <p className="text-white">Keluarga</p>
+              </li>
+              <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
+                <h1 className="text-7xl text-white">{countAnak.bayi}</h1>
+                <p className="text-white">Batita</p>
+              </li>
+              <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
+                <h1 className="text-7xl text-white">{countAnak.balita}</h1>
+                <p className="text-white">Balita</p>
+              </li>
+            </ul>
+            
+            <div className="mt-10 lg:mt-0">
+              <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">
+                Kalender
+              </h1>
+              <Calender />
+            </div>
+
+            <div className="mt-10 lg:hidden">
+              <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">
+                Jadwal Kegiatan
+              </h1>
+              <ScheduleRight />
+            </div>
+          
+          </div>
         </div>
-        <div className="flex w-full justify-between flex-wrap flex-col gap-5 lg:flex-row">
-          {/* <TableKeluargaAdmin style="xl:-mt-24 xl:w-[35rem] 2xl:w-[50rem]" dataKeluarga={dataKeluarga.records} /> */}
 
-          <ScheduleRight />
-
-          <Calender />
-
-          <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
-            <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
-
-            {dataKegiatan.map((item) => {
-              return <SingleJadwalKegiatan key={item.id} item={item} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />;
-            })}
-          </ul>
+        <div className="hidden px-6 lg:px-8 w-full max-w-9xl mx-auto relative lg:block">
+          <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
+          <ScheduleRight style="float-right" />
+          <TableAnakUser dataAnak={dataAnak.records} />
         </div>
-      </div>
+      </main>
     </section>
   );
 };

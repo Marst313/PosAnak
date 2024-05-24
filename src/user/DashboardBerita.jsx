@@ -28,7 +28,7 @@ const DashboardBerita = () => {
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {dataBerita.map((item) => {
             return (
-              <li key={item.id} className=" p-3 rounded-2xl border-grey border">
+              <li key={item.id} className=" p-3 rounded-2xl lg:border-grey border border-black">
                 <Link className="bg-white" to={`/dashboard/berita/${item.id}`}>
                   <img src={item.fields.images} alt="hero img" />
 

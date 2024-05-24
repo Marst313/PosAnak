@@ -3,7 +3,7 @@ import { converDateId, convertTime } from '../../utils/function';
 
 const JadwalKegiatanUser = ({ style, dataKegiatan }) => {
   return (
-    <ul className={`bg-white p-10 flex flex-col lg:float-left gap-5  lg:2xl:w-2/3 rounded-3xl h-fit ${style && style}`}>
+    <ul className={`bg-white p-10 flex flex-col lg:float-left gap-5 lg:2xl:w-2/3 rounded-3xl h-fit ${style && style}`}>
       {dataKegiatan.map((item) => {
         const { title, description, waktuMulai, waktuSelesai, date } = item.fields;
 

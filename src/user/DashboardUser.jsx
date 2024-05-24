@@ -32,24 +32,22 @@ const DashboardUser = () => {
               <span className="text-lightGreen">Pos</span>anak
             </h1>
           </div>
-          {/* Welcome banner */}
 
+          {/* Welcome banner */}
           <WelcomeBanner />
 
-          <div>
-            <div className="mt-10 lg:mt-0">
-              <h1 className="font-bold text-3xl flex justify-center lg:hidden">
-                Kalender
-              </h1>
-              <Calender />
-            </div>
+          <div className="mt-10 lg:mt-0">
+            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">
+              Kalender
+            </h1>
+            <Calender />
+          </div>
 
-            <div className="mt-10 lg:hidden">
-              <h1 className="font-bold text-3xl flex justify-center lg:hidden">
-                Jadwal Kegiatan
-              </h1>
-              <ScheduleRight />
-            </div>
+          <div className="mt-10 lg:hidden">
+            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">
+              Jadwal Kegiatan
+            </h1>
+            <ScheduleRight />
           </div>
         </div>
 
