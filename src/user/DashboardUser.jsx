@@ -1,9 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import { DashboardAdmin } from '../admin';
-import { WelcomeBanner, JadwalKegiatanUser, TableAnakUser } from '../components/user/';
-import { Calender, Loading, ScheduleRight } from '../components/';
+import { DashboardAdmin } from "../admin";
+import {
+  WelcomeBanner,
+  JadwalKegiatanUser,
+  TableAnakUser,
+} from "../components/user/";
+import { Calender, Loading, ScheduleRight } from "../components/";
+import logo from "../images/logo-posyandu.png";
 
 const DashboardUser = () => {
   const { role, name, email } = useSelector((store) => store.user);
@@ -13,21 +18,39 @@ const DashboardUser = () => {
     return <Loading />;
   }
 
-  if (role === 'admin') {
+  if (role === "admin") {
     return <DashboardAdmin />;
   }
 
   return (
-    <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+    <section className="relative flex flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
       <main>
-        <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
+        <div className="px-4 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
+          <div className="lg:hidden items-center flex justify-center mb-5">
+            <img src={logo} alt="logo poysandu" width="50px" />
+            <h1 className="text-3xl mx-3">
+              <span className="text-lightGreen">Pos</span>anak
+            </h1>
+          </div>
           {/* Welcome banner */}
           <WelcomeBanner />
 
-          <Calender />
+          <div className="mt-10 lg:mt-0">
+            <h1 className="font-bold text-3xl flex justify-center lg:hidden">
+              Kalender
+            </h1>
+            <Calender />
+          </div>
+
+          <div className="mt-10 lg:hidden">
+            <h1 className="font-bold text-3xl flex justify-center lg:hidden">
+              Jadwal Kegiatan
+            </h1>
+            <ScheduleRight />
+          </div>
         </div>
 
-        <div className="px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative flex  flex-col lg:block ">
+        <div className="hidden px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative flex-col lg:block ">
           <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
 
           <ScheduleRight />

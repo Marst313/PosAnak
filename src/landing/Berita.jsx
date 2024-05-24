@@ -204,7 +204,6 @@ const Article = () => {
           </Link>
         </ul>
       </div>
-
       <FooterLanding />
     </div>
   );

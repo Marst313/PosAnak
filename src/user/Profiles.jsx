@@ -41,12 +41,13 @@ const Profiles = () => {
   }
 
   return (
-    <section className="relative flex flex-col  bg-white ml-10 mr-10  w-full rounded-3xl px-20 pb-14 overflow-auto">
+    <section className="relative flex flex-col  bg-white lg:my-10 w-full lg:rounded-3xl lg:px-20 pb-14 overflow-auto">
       {edit ? (
         <div
           className="px-4 sm:px-6 lg:px-0 
     mt-5 lg:mt-0 pt-10 flex flex-col  items-start justify-between mb-10"
         >
+          <h1 className="text-2xl font-semibold">Edit Profile</h1>
           <h1 className="text-2xl font-semibold">Edit Profile</h1>
 
           <div className="flex items-center mt-20 gap-10">
@@ -129,12 +130,12 @@ const Profiles = () => {
       ) : (
         <>
           <div
-            className="px-4 sm:px-6 lg:px-0 
-       mt-5 lg:mt-0 pt-10 flex  items-start justify-between mb-10"
+            className="px-4 sm:px-6 lg:px-0 bg-red-500 w-
+       mt-5 lg:mt-0 pt-10 lg:flex  items-start justify-between mb-10"
           >
             <h1 className="text-2xl font-semibold">Informasi Profile</h1>
 
-            <img src={profile} alt="hero image" className="rounded-full p-1 border border-lightGreen w-44 h-44 mt-10" />
+            <img src={profile} alt="hero image" className="rounded-full p-1 border border-lightGreen w-80 h-56  lg:w-44 lg:h-44 mt-10" />
             <button type="button" onClick={() => setEdit(true)} className="flex bg-[#F9A319] px-5 py-2 text-white gap-3 rounded-3xl font-semibold hover:bg-white border hover:border-greenPrimary hover:text-greenPrimary transition-all">
               <svg width={24} className="fill-current" height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13" stroke="#FFFFFF" strokeLinecap="round" strokeLinejoin="round" />
