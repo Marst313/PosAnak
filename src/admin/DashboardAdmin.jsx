@@ -24,10 +24,10 @@ const DashboardAdmin = () => {
 
   const countBabiesAndToddlers = (dataAnak) => {
     const balitaCutoffDate = new Date(); // Set the cutoff date as today
-    balitaCutoffDate.setFullYear(balitaCutoffDate.getFullYear() - 3); // Subtract 3 years
+    balitaCutoffDate.setFullYear(balitaCutoffDate.getFullYear() - 15); // Subtract 5 years
 
     const bayiCutoffDate = new Date(); // Set the cutoff date as today
-    bayiCutoffDate.setFullYear(bayiCutoffDate.getFullYear() - 1); // Subtract 1 year
+    bayiCutoffDate.setFullYear(bayiCutoffDate.getFullYear() - 3); // Subtract 3 year
 
     // Filter balita and bayi based on their birth dates
     const balita = dataAnak?.filter((child) => new Date(child.fields?.tanggalLahir) >= balitaCutoffDate && new Date(child.fields?.tanggalLahir) < bayiCutoffDate);
@@ -54,7 +54,7 @@ const DashboardAdmin = () => {
             </li>
             <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
               <h1 className="text-7xl text-white">{countAnak.bayi}</h1>
-              <p className="text-white">Bayi</p>
+              <p className="text-white">Batita</p>
             </li>
             <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
               <h1 className="text-7xl text-white">{countAnak.balita}</h1>

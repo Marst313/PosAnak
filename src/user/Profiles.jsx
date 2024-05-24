@@ -3,16 +3,18 @@ import profile from '../images/contohProfile.jpeg';
 import logoEdit from '../images/edit.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const Profiles = () => {
   const dispatch = useDispatch();
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   const { allUser, uuid, isLoading, singleUser } = useSelector((store) => store.user);
   const [edit, setEdit] = useState(false);
   const [dataProfile, setDataProfile] = useState({
-    nik: '',
     name: '',
     email: '',
-    noHp: '',
   });
 
   const handleChange = (e) => {
@@ -22,15 +24,16 @@ const Profiles = () => {
   };
 
   useEffect(() => {
-    console.log(singleUser);
-    // const data = allUser?.records?.find((item) => {
-    //   console.log(item.fields.uuid, uuid);
-    //   item.fields?.uuid === uuid;
-    // });
+    if (user !== null) {
+      const email = user.email;
+      const photoURL = user.photoURL;
 
-    // const { nik, name, noHp, role, email } = data[0]?.fields;
-
-    // setDataProfile({ ...dataProfile, nik: nik || '', name: name || '', noHp: noHp || '', email: email || '' });
+      setDataProfile({
+        ...dataProfile,
+        email,
+        name: email.split('@')[0],
+      });
+    }
   }, [isLoading]);
 
   if (isLoading) {
@@ -44,7 +47,7 @@ const Profiles = () => {
           className="px-4 sm:px-6 lg:px-0 
     mt-5 lg:mt-0 pt-10 flex flex-col  items-start justify-between mb-10"
         >
-          <h1 className="text-2xl font-semibold">Edit Profiles</h1>
+          <h1 className="text-2xl font-semibold">Edit Profile</h1>
 
           <div className="flex items-center mt-20 gap-10">
             <img src={profile} alt="image" className="rounded-full p-1 border border-lightGreen w-44 h-44 " />
@@ -91,11 +94,6 @@ const Profiles = () => {
 
           <div className="mt-5   flex justify-between gap-5">
             <div className="flex flex-col w-full">
-              <label htmlFor="nik">NIK</label>
-              <input type="number" id="nik" className="rounded-xl focus:ring-0 border-grey" name="nik" value={dataProfile.nik} onChange={handleChange} />
-            </div>
-
-            <div className="flex flex-col w-full">
               <label htmlFor="nama">Nama</label>
               <input type="text" id="nama" name="name" value={dataProfile.name} className="rounded-xl focus:ring-0 border-grey" onChange={handleChange} />
             </div>
@@ -105,11 +103,6 @@ const Profiles = () => {
             <div className="flex flex-col w-full">
               <label htmlFor="email">Email</label>
               <input type="text" id="email" name="email" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.email} onChange={handleChange} />
-            </div>
-
-            <div className="flex flex-col w-full">
-              <label htmlFor="nohp">No HP</label>
-              <input type="text" id="nohp" name="noHp" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.noHp} onChange={handleChange} />
             </div>
           </div>
 
@@ -129,7 +122,7 @@ const Profiles = () => {
             </div>
           </div>
 
-          <button type="button" className="mx-auto mt-5 bg-lightGreen text-white px-10 py-2 rounded-full border hover:bg-white hover:border-greenPrimary hover:text-greenPrimary transition-all duration-500">
+          <button type="button" className="mx-auto mt-5 bg-lightGreen text-white px-10 py-2 rounded-full border hover:bg-white hover:border-greenPrimary hover:text-greenPrimary transition-all duration-500" onClick={() => setEdit(false)}>
             Simpan
           </button>
         </div>
@@ -139,7 +132,7 @@ const Profiles = () => {
             className="px-4 sm:px-6 lg:px-0 
        mt-5 lg:mt-0 pt-10 flex  items-start justify-between mb-10"
           >
-            <h1 className="text-2xl font-semibold">Informasi Profiles</h1>
+            <h1 className="text-2xl font-semibold">Informasi Profile</h1>
 
             <img src={profile} alt="hero image" className="rounded-full p-1 border border-lightGreen w-44 h-44 mt-10" />
             <button type="button" onClick={() => setEdit(true)} className="flex bg-[#F9A319] px-5 py-2 text-white gap-3 rounded-3xl font-semibold hover:bg-white border hover:border-greenPrimary hover:text-greenPrimary transition-all">
@@ -160,14 +153,9 @@ const Profiles = () => {
           <hr />
 
           <div className="mt-5">
-            <h1 className="text-2xl font-semibold">Informasi Profiles</h1>
+            <h1 className="text-2xl font-semibold">Informasi Profile</h1>
 
             <div className="mt-5   flex justify-between gap-5">
-              <div className="flex flex-col w-full">
-                <label htmlFor="nik">NIK</label>
-                <input type="text" id="nik" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.nik} disabled />
-              </div>
-
               <div className="flex flex-col w-full">
                 <label htmlFor="nama">Nama</label>
                 <input type="text" id="nama" value={dataProfile.name} className="rounded-xl focus:ring-0 border-grey" disabled />
@@ -178,11 +166,6 @@ const Profiles = () => {
               <div className="flex flex-col w-full">
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.email} disabled />
-              </div>
-
-              <div className="flex flex-col w-full">
-                <label htmlFor="nohp">No HP</label>
-                <input type="text" id="nohp" className="rounded-xl focus:ring-0 border-grey" value={dataProfile.noHp} disabled />
               </div>
             </div>
           </div>

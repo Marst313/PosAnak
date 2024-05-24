@@ -1,42 +1,30 @@
-import React, { useEffect, useState } from "react";
-import emailjs from "emailjs-com";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import emailjs from 'emailjs-com';
+import { useDispatch, useSelector } from 'react-redux';
 
-import iconClose from "../../images/iconClose.svg";
-import { convertHoursToSecond, convertTime } from "../../utils/function";
-import {
-  getDataKegiatan,
-  newDataKegiatan,
-  setEditKegiatan,
-  updateDataKegiatan,
-} from "../../features/activity/activity";
+import iconClose from '../../images/iconClose.svg';
+import { convertHoursToSecond, convertTime } from '../../utils/function';
+import { getDataKegiatan, newDataKegiatan, setEditKegiatan, updateDataKegiatan } from '../../features/activity/activity';
 
 const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
   const dispatch = useDispatch();
   const { singleDataKegiatan, edit } = useSelector((store) => store.activity);
 
-  const [emailNotif, setEmailNotif] = useState([]);
   const [dataKegiatan, setDataKegiatan] = useState({
-    judulKegiatan: "",
-    deskripsiKegiatan: "",
-    waktuMulai: "",
-    waktuSelesai: "",
-    tanggalKegiatan: "",
+    judulKegiatan: '',
+    deskripsiKegiatan: '',
+    waktuMulai: '',
+    waktuSelesai: '',
+    tanggalKegiatan: '',
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { judulKegiatan, deskripsiKegiatan, waktuMulai, waktuSelesai } =
-      dataKegiatan;
+    const { judulKegiatan, deskripsiKegiatan, waktuMulai, waktuSelesai } = dataKegiatan;
 
-    if (
-      judulKegiatan === "" ||
-      deskripsiKegiatan === "" ||
-      waktuMulai === "" ||
-      waktuSelesai === ""
-    ) {
-      console.log("All fields cant be empty");
+    if (judulKegiatan === '' || deskripsiKegiatan === '' || waktuMulai === '' || waktuSelesai === '') {
+      console.log('All fields cant be empty');
       return;
     }
 
@@ -62,18 +50,12 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
         dispatch(setEditKegiatan(false));
 
         const templateParams = {
-          to_emails: ["karmadharmanalendra@gmail.com", "ndaruw29@gmail.com"],
+          to_emails: ['karmadharmanalendra@gmail.com', 'ndaruw29@gmail.com'],
           subject: dataKegiatan.judulKegiatan,
           message: `Kegiatan baru ${dataKegiatan.tanggalKegiatan} ${dataKegiatan.deskripsiKegiatan}`,
         };
-        console.log("templateParams:", templateParams);
 
-        const response = await emailjs.send(
-          "service_rzvih2m",
-          "template_ibc0q4g",
-          templateParams,
-          "rIuqApH0DVkcE2AZG"
-        );
+        const response = await emailjs.send('service_rzvih2m', 'template_ibc0q4g', templateParams, 'rIuqApH0DVkcE2AZG');
       }
 
       if (edit) {
@@ -110,8 +92,7 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
 
   useEffect(() => {
     if (edit) {
-      const { date, description, title, waktuMulai, waktuSelesai } =
-        singleDataKegiatan?.fields || {};
+      const { date, description, title, waktuMulai, waktuSelesai } = singleDataKegiatan?.fields || {};
 
       setDataKegiatan({
         judulKegiatan: title,
@@ -120,48 +101,35 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
         waktuSelesai: convertTime(waktuSelesai),
         tanggalKegiatan: date,
       });
+    } else {
+      setDataKegiatan({
+        judulKegiatan: '',
+        deskripsiKegiatan: '',
+        waktuMulai: '',
+        waktuSelesai: '',
+        tanggalKegiatan: '',
+      });
     }
   }, [edit, singleDataKegiatan]);
 
   return (
-    <div
-      className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${
-        newKegiatan ? "flex" : "hidden"
-      }`}
-    >
+    <div className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${newKegiatan ? 'flex' : 'hidden'}`}>
       <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative">
-        <h1 className="text-darkGreen font-medium text-2xl">Tambah Kegiatan</h1>
+        <h1 className="text-darkGreen font-medium text-2xl">{edit ? 'Edit' : 'Tambah'} Kegiatan</h1>
 
-        <form
-          className="flex flex-col justify-center gap-3 mt-5 "
-          onSubmit={handleSubmit}
-        >
+        <form className="flex flex-col justify-center gap-3 mt-5 " onSubmit={handleSubmit}>
           <div className="w-full  flex flex-col text-darkGreen gap-2">
             <label htmlFor="judulKegiatan" className="font-light">
               Judul Kegiatan
             </label>
-            <input
-              type="text"
-              name="judulKegiatan"
-              id="judulKegiatan"
-              className="focus:outline-none focus:ring-0 border-grey rounded-lg"
-              onChange={handleChange}
-              value={dataKegiatan.judulKegiatan}
-            />
+            <input type="text" name="judulKegiatan" id="judulKegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" onChange={handleChange} value={dataKegiatan.judulKegiatan} />
           </div>
 
           <div className="w-full  flex flex-col text-darkGreen gap-2">
             <label htmlFor="deskripsiKegiatan" className="font-light">
               Deskripsi Kegiatan
             </label>
-            <input
-              type="text"
-              name="deskripsiKegiatan"
-              id="deskripsiKegiatan"
-              className="focus:outline-none focus:ring-0 border-grey rounded-lg"
-              onChange={handleChange}
-              value={dataKegiatan.deskripsiKegiatan}
-            />
+            <input type="text" name="deskripsiKegiatan" id="deskripsiKegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" onChange={handleChange} value={dataKegiatan.deskripsiKegiatan} />
           </div>
 
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -169,27 +137,13 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
               <label htmlFor="waktuMulai" className="font-light">
                 Waktu Mulai
               </label>
-              <input
-                type="time"
-                name="waktuMulai"
-                id="waktuMulai"
-                className="focus:outline-none focus:ring-0 border-grey rounded-lg"
-                onChange={handleChange}
-                value={dataKegiatan.waktuMulai}
-              />
+              <input type="time" name="waktuMulai" id="waktuMulai" className="focus:outline-none focus:ring-0 border-grey rounded-lg" onChange={handleChange} value={dataKegiatan.waktuMulai} />
             </div>
             <div className="w-full  flex flex-col text-darkGreen gap-2">
               <label htmlFor="waktuSelesai" className="font-light">
                 Waktu Selesai
               </label>
-              <input
-                type="time"
-                name="waktuSelesai"
-                id="waktuSelesai"
-                className="focus:outline-none focus:ring-0 border-grey rounded-lg"
-                onChange={handleChange}
-                value={dataKegiatan.waktuSelesai}
-              />
+              <input type="time" name="waktuSelesai" id="waktuSelesai" className="focus:outline-none focus:ring-0 border-grey rounded-lg" onChange={handleChange} value={dataKegiatan.waktuSelesai} />
             </div>
           </div>
 
@@ -197,21 +151,11 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
             <label htmlFor="tanggalKegiatan" className="font-light">
               Tanggal Kegiatan
             </label>
-            <input
-              type="date"
-              name="tanggalKegiatan"
-              id="tanggalKegiatan"
-              className="focus:outline-none focus:ring-0 border-grey rounded-lg"
-              onChange={handleChange}
-              value={dataKegiatan.tanggalKegiatan}
-            />
+            <input type="date" name="tanggalKegiatan" id="tanggalKegiatan" className="focus:outline-none focus:ring-0 border-grey rounded-lg" onChange={handleChange} value={dataKegiatan.tanggalKegiatan} />
           </div>
 
-          <button
-            type="submit"
-            className="text-white bg-lightGreen focus:ring-4 focus:outline-none  font-medium rounded-full text-sm w-32 px-8 py-2 text-center self-center mt-5"
-          >
-            {edit ? "Edit" : "Tambah"}
+          <button type="submit" className="text-white bg-lightGreen focus:ring-4 focus:outline-none  font-medium rounded-full text-sm w-32 px-8 py-2 text-center self-center mt-5">
+            {edit ? 'Edit' : 'Tambah'}
           </button>
         </form>
         <button
