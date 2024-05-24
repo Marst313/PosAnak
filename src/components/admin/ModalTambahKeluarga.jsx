@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import iconClose from '../../images/iconClose.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import { getDataKeluarga, newDataKeluarga } from '../../features/family/family';
 
 const ModalTambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
   const dispatch = useDispatch();
+  const { edit } = useStore((store) => store.family);
 
   const [newKeluarga, setNewKeluarga] = useState({
     noKartuKeluarga: '',
@@ -53,7 +54,7 @@ const ModalTambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
   return (
     <div className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${tambahKeluarga ? 'flex' : 'hidden'}`}>
       <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative mx-auto ">
-        <h1 className="text-darkGreen font-medium text-2xl">Tambah Keluarga</h1>
+        <h1 className="text-darkGreen font-medium text-2xl">{edit ? 'Edit' : 'Tambah'} Keluarga</h1>
 
         <form className="flex flex-col justify-center gap-10 mt-5" onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-2 md:gap-6">

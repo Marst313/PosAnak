@@ -4,9 +4,9 @@ import { tableHeaderKeluarga } from '../../utils/link';
 import { SingleKeluarga } from './';
 import { useSelector } from 'react-redux';
 
-const TableKeluargaAdmin = ({ style, dataKeluarga }) => {
+const TableKeluargaAdmin = ({ style, dataKeluarga, setTambahKeluarga }) => {
   const [data, setData] = useState([]);
-  const { searchKeluarga } = useSelector((store) => store.family);
+  const { searchKeluarga, edit } = useSelector((store) => store.family);
 
   useEffect(() => {
     const filteredData = dataKeluarga.filter((item) => item.fields.namaKepalaKeluarga.toLowerCase().includes(searchKeluarga));
@@ -50,7 +50,7 @@ const TableKeluargaAdmin = ({ style, dataKeluarga }) => {
 
         <tbody>
           {data?.map((child, index) => {
-            return <SingleKeluarga child={child} key={index} index={index} />;
+            return <SingleKeluarga child={child} key={index} index={index} setTambahKeluarga={setTambahKeluarga} />;
           })}
         </tbody>
       </table>

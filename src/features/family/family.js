@@ -73,6 +73,9 @@ export const familySlice = createSlice({
     setSearchKeluarga(state, { payload }) {
       state.searchKeluarga = payload.toLowerCase();
     },
+    setEditKeluarga(state, { payload }) {
+      state.edit = true;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -110,5 +113,5 @@ export const familySlice = createSlice({
   },
 });
 
-export const { setGraph, setSearchKeluarga } = familySlice.actions;
+export const { setGraph, setSearchKeluarga, setEditKeluarga } = familySlice.actions;
 export default familySlice.reducer;

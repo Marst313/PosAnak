@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import logoDelete from '../../images/dataanak/delete.svg';
 import logoEdit from '../../images/dataanak/editAnak.svg';
-import { deleteDataKeluarga, getDataKeluarga } from '../../features/family/family';
+import { deleteDataKeluarga, getDataKeluarga, setEditKeluarga } from '../../features/family/family';
 
-const SingleKeluarga = ({ index, child }) => {
+const SingleKeluarga = ({ index, child, setTambahKeluarga }) => {
   const dispatch = useDispatch();
 
   const handleDeleteKeluarga = async () => {
@@ -15,6 +15,11 @@ const SingleKeluarga = ({ index, child }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleEditKeluarga = () => {
+    setTambahKeluarga(true);
+    dispatch(setEditKeluarga(true));
   };
 
   const { nikKepalaKeluarga, namaKepalaKeluarga, anggota, noKK } = child.fields;
@@ -31,7 +36,7 @@ const SingleKeluarga = ({ index, child }) => {
         <button type="button" onClick={handleDeleteKeluarga}>
           <img src={logoDelete} alt="logo delete" />
         </button>
-        <button type="button">
+        <button type="button" onClick={handleEditKeluarga}>
           <img src={logoEdit} alt="logo edit" />
         </button>
       </td>

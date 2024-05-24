@@ -8,7 +8,7 @@ function Calender() {
   const [value, onChange] = useState(new Date());
 
   return (
-    <div className="Sample xl:block ">
+    <div className="Sample xl:block h-96">
       <div className="Sample__container ">
         <main className="Sample__container__content">
           <Calendar onChange={onChange} value={value} />

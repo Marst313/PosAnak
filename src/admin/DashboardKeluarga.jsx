@@ -31,7 +31,7 @@ const DashboardKeluarga = () => {
             Excel
           </button>
         </div>
-        <TableKeluargaAdmin dataKeluarga={dataKeluarga.records} />
+        <TableKeluargaAdmin dataKeluarga={dataKeluarga.records} setTambahKeluarga={setTambahKeluarga} />
       </section>
       <ModalTambahKeluarga tambahKeluarga={tambahKeluarga} setTambahKeluarga={setTambahKeluarga} />
     </>

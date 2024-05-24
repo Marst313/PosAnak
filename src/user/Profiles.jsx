@@ -41,13 +41,12 @@ const Profiles = () => {
   }
 
   return (
-    <section className="relative flex flex-col  bg-white lg:my-10 w-full lg:rounded-3xl lg:px-20 pb-14 overflow-auto">
+    <section className="relative flex flex-col lg:my-10 w-full lg:rounded-3xl lg:px-20 pb-14 overflow-auto  bg-white ml-8">
       {edit ? (
         <div
           className="px-4 sm:px-6 lg:px-0 
     mt-5 lg:mt-0 pt-10 flex flex-col  items-start justify-between mb-10"
         >
-          <h1 className="text-2xl font-semibold">Edit Profile</h1>
           <h1 className="text-2xl font-semibold">Edit Profile</h1>
 
           <div className="flex items-center mt-20 gap-10">
@@ -130,7 +129,7 @@ const Profiles = () => {
       ) : (
         <>
           <div
-            className="px-4 sm:px-6 lg:px-0 bg-red-500 w-
+            className="px-4 sm:px-6 lg:px-0 
        mt-5 lg:mt-0 pt-10 lg:flex  items-start justify-between mb-10"
           >
             <h1 className="text-2xl font-semibold">Informasi Profile</h1>

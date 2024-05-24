@@ -11,7 +11,6 @@ const DashboardAdmin = () => {
   const { dataKegiatan } = useSelector((store) => store.activity);
   const { email } = useSelector((store) => store.user);
   const [newKegiatan, setNewKegiatan] = useState(false);
-  const [dashboard, setDashboard] = useState(true);
   const [countAnak, setCountAnak] = useState({ balita: 0, bayi: 0 });
 
   const dispatch = useDispatch();
@@ -61,13 +60,13 @@ const DashboardAdmin = () => {
               <p className="text-white">Balita</p>
             </li>
           </ul>
-
-          <Calender />
         </div>
-        <div className="flex w-full justify-between flex-wrap ">
-          <TableKeluargaAdmin style="xl:-mt-24 xl:w-[35rem] 2xl:w-[50rem]" dataKeluarga={dataKeluarga.records} />
+        <div className="flex w-full justify-between flex-wrap flex-col gap-5 lg:flex-row">
+          {/* <TableKeluargaAdmin style="xl:-mt-24 xl:w-[35rem] 2xl:w-[50rem]" dataKeluarga={dataKeluarga.records} /> */}
 
           <ScheduleRight />
+
+          <Calender />
 
           <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
             <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>

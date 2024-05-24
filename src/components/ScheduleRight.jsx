@@ -2,7 +2,7 @@ import React from 'react';
 
 const ScheduleRight = () => {
   return (
-    <div className="lg:float-right xl:block rounded-3xl bg-white shadow-xl lg:w-[20rem] p-10 h-fit ">
+    <div className="rounded-3xl bg-white shadow-xl lg:w-1/2 p-10 h-fit ">
       <h1 className="text-darkGreen text-lg font-bold mb-5">Jadwal</h1>
       {/*    */}
       <ul className="flex flex-col gap-16">
