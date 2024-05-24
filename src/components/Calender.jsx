@@ -4,11 +4,11 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../css/additional-styles/Sample.css';
 
-function Calender() {
+function Calender({style}) {
   const [value, onChange] = useState(new Date());
 
   return (
-    <div className="Sample xl:block h-96">
+    <div className={`Sample xl:block lg:w-96 ${style}`}>
       <div className="Sample__container ">
         <main className="Sample__container__content">
           <Calendar onChange={onChange} value={value} />
