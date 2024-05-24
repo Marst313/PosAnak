@@ -114,7 +114,7 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
 
   return (
     <div className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${newKegiatan ? 'flex' : 'hidden'}`}>
-      <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative">
+      <div className="lg:w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative mt-10 lg:mt-0">
         <h1 className="text-darkGreen font-medium text-2xl">{edit ? 'Edit' : 'Tambah'} Kegiatan</h1>
 
         <form className="flex flex-col justify-center gap-3 mt-5 " onSubmit={handleSubmit}>

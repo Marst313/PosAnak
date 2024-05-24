@@ -27,13 +27,13 @@ const DashboardAnak = () => {
 
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none px-4 sm:px-6 lg:px-8 mt-5 ">
-      <div className="flex w-full h-fit  gap-3">
+      <div className="flex w-full h-fit gap-3 mt-10 lg:mt-4">
         <SearchBarUser />
 
-        <button className="flex items-center gap-2 border-lightGreen border px-10 lg:px-8 py-2 rounded-full h-fit">
+        {/* <button className="flex items-center gap-2 border-lightGreen border px-10 lg:px-8 py-2 rounded-full h-fit">
           <img src={logoExcel} alt="" />
           Excel
-        </button>
+        </button> */}
       </div>
 
       {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}

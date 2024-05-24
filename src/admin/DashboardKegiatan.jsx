@@ -29,8 +29,8 @@ const DashboardKegiatan = () => {
 
   return (
     <>
-      <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
-        <div className="flex  justify-between">
+      <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5 bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
+        <div className="flex justify-between gap-4 mt-10 lg:mt-0 lg:justify-between">
           <SearchBar data="kegiatan" />
 
           <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setNewKegiatan(true)}>
@@ -38,16 +38,16 @@ const DashboardKegiatan = () => {
             Tambah
           </button>
 
-          <button className="flex items-center gap-3 border-lightGreen border px-10 py-2 rounded-full text-lightGreen font-medium">
+          {/* <button className="flex items-center gap-3 border-lightGreen border px-10 py-2 rounded-full text-lightGreen font-medium">
             <img src={iconExcel} alt="" />
             Excel
-          </button>
+          </button> */}
         </div>
 
         {data.length <= 0 ? (
           <h1>Tidak ada kegiatan dengan judul {searchKegiatan}</h1>
         ) : (
-          <ul className="bg-white p-10 flex flex-col float-left gap-5   rounded-3xl h-fit w-full mt-5  ">
+          <ul className="p-10 flex flex-col float-left gap-5  rounded-3xl h-fit w-full mt-5  ">
             <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
 
             {data.map((item) => {

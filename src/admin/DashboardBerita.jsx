@@ -31,11 +31,11 @@ const DashboardBerita = () => {
   }
 
   return (
-    <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5 pb-10">
-      <div className="flex gap-5 justify-between">
-        <SearchBar style="w-[80%]" data="berita" />
+    <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5 pb-10 bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
+      <div className="flex mt-10 lg:mt-0 gap-5 justify-between">
+        <SearchBar data="berita" />
 
-        <Link className=" bg-lightGreen flex items-center px-5 gap-2 text-white rounded-full whitespace-nowrap " to="/dashboard/tambahBerita" onClick={() => dispatch(setEditBerita(false))}>
+        <Link className=" bg-lightGreen flex items-center px-8 gap-2 text-white rounded-full whitespace-nowrap " to="/dashboard/tambahBerita" onClick={() => dispatch(setEditBerita(false))}>
           <img src={union} alt="icon tambah" className="w-5 h-5" />
           Tambah Berita
         </Link>

@@ -33,7 +33,7 @@ const TableAnakAdmin = ({ style, dataAnak, tambahDataAnak, setTambahDataAnak }) 
   }
 
   return (
-    <div className={`relative w-full  overflow-x-auto sm:rounded-lg mt-5  ${style && style}`}>
+    <div className={`relative w-full overflow-x-auto sm:rounded-lg mt-5  ${style && style}`}>
       <table className="w-full text-sm text-left rtl:text-right text-greenPrimary bg-white shadow-md rounded-lg">
         <thead className="text-xs  uppercase text-greenPrimary border-b-2 border-grey ">
           <tr>

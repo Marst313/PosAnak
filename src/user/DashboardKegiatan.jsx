@@ -13,7 +13,7 @@ const DashboardKegiatan = () => {
 
   return (
     <section className="relative flex flex-col bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5">
-      <div>
+      <div className="mt-10 lg:mt-0">
         <SearchBarUser />
 
         <JadwalKegiatanUser dataKegiatan={dataKegiatan} />

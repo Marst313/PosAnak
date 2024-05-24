@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { setGraph } from "../../features/kids/kids";
 import { getSingleDataAnak } from "../../features/kids/kids";
 
-const TableAnakUser = ({ style, graphShow, dataAnak }) => {
+const TableAnakUser = ({ style, graphShow, dataAnak, className }) => {
   const dispatch = useDispatch();
   const handleClick = async (id) => {
     await dispatch(setGraph(!graphShow));
@@ -49,7 +49,7 @@ const TableAnakUser = ({ style, graphShow, dataAnak }) => {
               );
             })}
 
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className={`px-6 py-3 ${className}`}>
               action
             </th>
           </tr>
@@ -75,7 +75,7 @@ const TableAnakUser = ({ style, graphShow, dataAnak }) => {
                 <td className="px-6 py-4">{tanggalLahir}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{usia}</td>
                 <td className="items-start justify-center py-4 flex gap-2 px-4  ">
-                  <button type="button" onClick={() => handleClick(child.id)}>
+                  <button type="button" className={className} onClick={() => handleClick(child.id)}>
                     <img src={logoGraph} alt="logo graph" />
                   </button>
                 </td>

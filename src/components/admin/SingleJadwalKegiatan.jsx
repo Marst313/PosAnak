@@ -51,13 +51,13 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
   }, []);
 
   return (
-    <li className="flex float-left p-5 bg-coldWhite gap-5 justify-between">
+    <li className="lg:flex float-left p-5 bg-coldWhite gap-5 justify-between">
       <div className="flex flex-col gap-3">
         <h3 className="font-semibold text-2xl ">{title.slice(0, 60)}</h3>
         <p className="font-light">{description}</p>
       </div>
 
-      <div className="bg-coldWhite flex items-center justify-between font-light gap-5 relative">
+      <div className="bg-coldWhite flex items-center justify-between font-light gap-5 relative mt-2 lg:mt-0">
         <div>
           <div className="flex items-center gap-2 justify-between">
             <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 512 512">

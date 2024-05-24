@@ -22,7 +22,7 @@ const DashboardBerita = () => {
 
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
-      <div className="px-4 sm:px-6 lg:px-8 mt-5 ">
+      <div className="px-4 sm:px-6 lg:px-8 mt-14 lg:mt-5 ">
         <SearchBarUser />
 
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
