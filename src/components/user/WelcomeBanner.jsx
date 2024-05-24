@@ -25,19 +25,19 @@ const WelcomeBanner = () => {
   }, []);
 
   return (
-    <div className="lg:flex bg-white rounded-3xl float-left gap-3 2xl:w-2/3 shadow-2xl lg:shadow-none">
+    <div className="lg:flex h-1/2 rounded-3xl float-left gap-3 2xl:w-2/3 bg-white shadow-xl">
       <div className="p-6">
         <h1 className="text-2xl md:text-3xl  font-bold mb-1">
           {greeting}, {email.split("@gmail.com")[0]}! 👋
         </h1>
-        <div className="lg:hidden">
+        <div className=" flex justify-center lg:hidden ">
           <img
             src={heroImgDashboard}
             alt="hero image dashboard"
             className="2xl:flex w-52 my-5"
           />
         </div>
-        <p className="text-opacity-50 max-w-md">
+        <p className="text-justify text-opacity-50 max-w-md">
           "Kesehatan adalah harta yang paling berharga, tetapi tidak ada yang
           menyadarinya sampai ia hilang."
         </p>

@@ -23,7 +23,7 @@ const DashboardUser = () => {
   }
 
   return (
-    <section className="relative flex flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
+    <section className="relative w-screen flex flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
       <main>
         <div className="px-4 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
           <div className="lg:hidden items-center flex justify-center mb-5">
@@ -33,28 +33,29 @@ const DashboardUser = () => {
             </h1>
           </div>
           {/* Welcome banner */}
+
           <WelcomeBanner />
 
-          <div className="mt-10 lg:mt-0">
-            <h1 className="font-bold text-3xl flex justify-center lg:hidden">
-              Kalender
-            </h1>
-            <Calender />
-          </div>
+          <div>
+            <div className="mt-10 lg:mt-0">
+              <h1 className="font-bold text-3xl flex justify-center lg:hidden">
+                Kalender
+              </h1>
+              <Calender />
+            </div>
 
-          <div className="mt-10 lg:hidden">
-            <h1 className="font-bold text-3xl flex justify-center lg:hidden">
-              Jadwal Kegiatan
-            </h1>
-            <ScheduleRight />
+            <div className="mt-10 lg:hidden">
+              <h1 className="font-bold text-3xl flex justify-center lg:hidden">
+                Jadwal Kegiatan
+              </h1>
+              <ScheduleRight />
+            </div>
           </div>
         </div>
 
-        <div className="hidden px-4 sm:px-6 lg:px-8  w-full max-w-9xl mx-auto relative flex-col lg:block ">
+        <div className="hidden px-6 lg:px-8 w-full max-w-9xl mx-auto relative lg:block">
           <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
-
-          <ScheduleRight />
-
+          <ScheduleRight style="float-right" />
           <TableAnakUser dataAnak={dataAnak.records} />
         </div>
       </main>
