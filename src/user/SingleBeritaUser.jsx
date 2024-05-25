@@ -7,6 +7,7 @@ import calender from '../images/calender.svg';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleDataBerita } from '../features/news/news';
+import { Loading } from '../components';
 
 const SingleBerita = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const SingleBerita = () => {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
