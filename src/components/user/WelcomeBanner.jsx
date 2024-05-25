@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import heroImgDashboard from "../../images/hero-dashboard.png";
+import heroImgDashboard from "../../images/dokter.png";
 import { useSelector } from "react-redux";
 
 const WelcomeBanner = () => {

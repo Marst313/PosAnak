@@ -54,12 +54,6 @@ const DashboardAnak = () => {
           graphShow={graphShow}
         />
       </section>
-      <NewDataAnak
-        tambahDataAnak={tambahDataAnak}
-        setTambahDataAnak={setTambahDataAnak}
-        graphShow={graphShow}
-        dataPertumbuhan={dataPertumbuhan}
-      />
     </>
   );
 };

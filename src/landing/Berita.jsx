@@ -2,9 +2,9 @@ import React from "react";
 
 import FooterLanding from "./FooterLanding";
 
-import gambarIbu from "../images/dashboard/image5.png";
-import gambarAnak from "../images/landing/image6.png";
-import gambarImunisasi from "../images/landing/image7.png";
+import gambarIbu from "../images/dashboard/image5.webp";
+import gambarAnak from "../images/landing/image6.webp";
+import gambarImunisasi from "../images/landing/image7.webp";
 
 import logoCalender from "../images/calender.svg";
 

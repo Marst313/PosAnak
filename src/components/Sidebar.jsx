@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
-import logo from '../images/logo-posyandu.png';
+import logo from '../images/logo-posyandu.webp';
 import profilePict from '../images/contohProfile.jpeg';
 import { navLinks, navLinksAdmin } from '../utils/link';
 import { useSelector } from 'react-redux';

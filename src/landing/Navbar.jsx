@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logoPosyandu from '../images/logo-posyandu.png';
+import logoPosyandu from '../images/logo-posyandu.webp';
 import { Link, NavLink } from 'react-router-dom';
 import { navLinksLanding } from '../utils/link';
 

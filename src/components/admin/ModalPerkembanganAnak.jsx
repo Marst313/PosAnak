@@ -67,7 +67,7 @@ const ModalPerkembanganAnak = ({ tambahDataAnak, setTambahDataAnak, dataPertumbu
 
   return (
     <div className={`w-full h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${tambahDataAnak ? 'flex' : 'hidden'}`}>
-      <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative">
+      <div className="lg:w-1/2 h-fit p-2 lg:px-10 py-10 bg-white shadow-custom rounded-xl relative">
         <h1 className="text-darkGreen font-medium text-2xl">Update Perkembangan Anak</h1>
 
         <form className="flex flex-col justify-center gap-3 mt-5" onSubmit={handleSubmit}>

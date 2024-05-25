@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FooterLanding from "./FooterLanding";
 
-import heroImg from "../images/dashboard/image5.png";
+import heroImg from "../images/dashboard/image5.webp";
 import logoCalender from "../images/calender.svg";
 import Pagination from "./Pagination";
 const SemuaBerita = () => {

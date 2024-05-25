@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImg from '../../images/dashboard/image5.png';
+import heroImg from '../../images/dashboard/image5.webp';
 import iconWaktu from '../../images/clock.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import { countPostNewsDateCreated } from '../../utils/function';

@@ -72,7 +72,7 @@ const newSlice = createSlice({
   reducers: {
     setDataNews(state, { payload }) {},
     setSearchBerita(state, { payload }) {
-      state.searchBerita = payload;
+      state.searchBerita = payload.toLowerCase();
     },
     setEditBerita(state, { payload }) {
       state.edit = payload;

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-import logoPosyandu from '../images/logo-posyandu.png';
+import logoPosyandu from '../images/logo-posyandu.webp';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Daftar = () => {

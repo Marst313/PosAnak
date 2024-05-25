@@ -8,7 +8,7 @@ import {
   TableAnakUser,
 } from "../components/user/";
 import { Calender, Loading, ScheduleRight } from "../components/";
-import logo from "../images/logo-posyandu.png";
+import logo from "../images/logo-posyandu.webp";
 
 const DashboardUser = () => {
   const { role, name, email } = useSelector((store) => store.user);

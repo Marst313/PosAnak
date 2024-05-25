@@ -112,7 +112,7 @@ const DashboardAdmin = () => {
         <div className="hidden px-6 lg:px-8 w-full max-w-9xl mx-auto relative lg:block">
           <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
           <ScheduleRight style="float-right" />
-          <TableAnakUser dataAnak={dataAnak.records} />
+          <TableAnakUser dataAnak={dataAnak.records} className="hidden" />
         </div>
       </main>
     </section>

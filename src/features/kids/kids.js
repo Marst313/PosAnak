@@ -77,7 +77,7 @@ export const kidSlice = createSlice({
       state.edit = payload;
     },
     setSearchAnak(state, { payload }) {
-      state.searchAnak = payload;
+      state.searchAnak = payload.toLowerCase();
     },
   },
   extraReducers: (builder) => {

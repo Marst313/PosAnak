@@ -5,12 +5,12 @@ import logoExcel from "../images/dataanak/excel.svg";
 import TableAnak from "../components/user/TableAnakUser";
 import Charts from "../components/Charts";
 import { parseStringJson } from "../utils/function";
-import { SearchBarUser } from "../components/user";
+import { SearchBarUser, TableAnakUser } from "../components/user";
 import Loading from "../components/Loading";
+
 const DashboardAnak = () => {
-  const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector(
-    (store) => store.kids
-  );
+  const { dataAnak, isLoading, graphShow, singleDataAnak} =
+    useSelector((store) => store.kids);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const DashboardAnak = () => {
   return (
     <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none px-4 sm:px-6 lg:px-8 ">
       <div className="flex w-full h-fit gap-3 mt-16 lg:mt-4">
-        <SearchBarUser />
+        <SearchBarUser data="anak" />
 
         {/* <button className="flex items-center gap-2 border-lightGreen border px-10 lg:px-8 py-2 rounded-full h-fit">
           <img src={logoExcel} alt="" />
