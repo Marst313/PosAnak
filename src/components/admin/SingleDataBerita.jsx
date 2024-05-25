@@ -24,14 +24,14 @@ const SingleDataBerita = ({ item }) => {
 
   return (
     <li className=" p-3 rounded-2xl border-grey border hover:scale-105 transition-all bg-white relative">
-      <img src={images} alt="hero img" className="rounded-t-lg h-52 flex  mx-auto w-full object-cover " />
+      <img src={images} alt="hero img" className="rounded-t-lg h-52] flex  mx-auto w-full object-cover " />
 
       <div className="p-5 ">
         <Link to={`/dashboard/berita/${item.id}`}>
           <h3 className="font-semibold capitalize hover:text-lightGreen ">{title}</h3>
         </Link>
 
-        <div className="flex items-center justify-between gap-2 mt-2">
+        <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <img src={iconWaktu} alt="" />
             <p className="text-xs">{countPostNewsDateCreated(Created)}</p>

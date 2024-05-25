@@ -29,8 +29,8 @@ const DashboardAnak = () => {
   }
   return (
     <>
-      <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 mt-5 bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
-        <div className="flex justify-center gap-4 mt-10 lg:mt-0 lg:justify-between">
+      <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-t lg:mt-5 from-[#57C9A7] to-white bg-cover lg:bg-none">
+        <div className="flex justify-center gap-4 mt-16 lg:mt-0 lg:justify-between">
           <SearchBar data="anak" />
           <button
             className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap"

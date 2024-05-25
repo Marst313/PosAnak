@@ -127,8 +127,8 @@ export const Editor = () => {
   }, []);
 
   return (
-    <div className="text-editor mt-5 bg-white p-10 overflow-auto">
-      <div className="w-full flex justify-between relative ">
+    <div className="text-editor lg:mt-5 bg-white p-10 overflow-auto ">
+      <div className="w-full mt-10 flex justify-between relative ">
         <input type="text" className="border w-full border-t-0 border-x-0 focus:outline-none focus:ring-0 border-darkGreen" placeholder="Judul..." value={judul || ''} onChange={(e) => setJudul(e.target.value)} />
 
         {edit ? (

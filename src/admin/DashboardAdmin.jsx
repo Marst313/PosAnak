@@ -13,6 +13,7 @@ const DashboardAdmin = () => {
   const { email } = useSelector((store) => store.user);
   const [newKegiatan, setNewKegiatan] = useState(false);
   const [countAnak, setCountAnak] = useState({ balita: 0, bayi: 0 });
+  const [greeting, setGreeting] = useState("");
 
   const dispatch = useDispatch();
 
@@ -43,6 +44,24 @@ const DashboardAdmin = () => {
     setCountAnak({ ...countAnak, balita: balita?.length, bayi: bayi?.length });
   };
 
+  useEffect(() => {
+    const getGreeting = () => {
+      const currentTime = new Date().getHours();
+
+      if (currentTime >= 5 && currentTime < 9) {
+        setGreeting("Selamat Pagi");
+      } else if (currentTime >= 10 && currentTime < 14) {
+        setGreeting("Selamat Siang");
+      } else if (currentTime >= 15 && currentTime < 18) {
+        setGreeting("Selamat Sore");
+      } else {
+        setGreeting("Selamat Malam");
+      }
+    };
+
+    getGreeting();
+  }, []);
+
   if (isLoading) {
     return <Loading />;
   }
@@ -51,8 +70,8 @@ const DashboardAdmin = () => {
     <section className="relative w-screen flex flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
       <main>
         <div className="px-4 py-8 sm:px-6 lg:px-8 mt-5 flex flex-col gap-5 w-full max-w-9xl mx-auto relative ">
-          <h1 className="text-darkGreen font-semibold text-4xl">
-            Selamat Pagi, {email.split("@gmail.com")[0]}!
+          <h1 className="text-darkGreen font-semibold text-3xl mt-2 lg:mt-0">
+            {greeting}, {email.split("@gmail.com")[0]}!
           </h1>
 
           <div className="mt-5 flex flex-col lg:flex-row justify-between w-full">

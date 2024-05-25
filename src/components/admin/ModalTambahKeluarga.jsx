@@ -53,7 +53,7 @@ const ModalTambahKeluarga = ({ tambahKeluarga, setTambahKeluarga }) => {
 
   return (
     <div className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${tambahKeluarga ? 'flex' : 'hidden'}`}>
-      <div className="w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative mx-auto ">
+      <div className="lg:w-1/2 h-fit px-10 mt-5 lg:mt-0 py-10 bg-white shadow-custom rounded-xl relative mx-auto ">
         <h1 className="text-darkGreen font-medium text-2xl">{edit ? 'Edit' : 'Tambah'} Keluarga</h1>
 
         <form className="flex flex-col justify-center gap-10 mt-5" onSubmit={handleSubmit}>
