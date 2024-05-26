@@ -27,19 +27,17 @@ const TableAnakUser = ({ style, graphShow, dataAnak, className }) => {
   };
 
   useEffect(() => {
-    const searchDataAnak = dataAnak.filter((item) =>
-      item.fields.nama.toLowerCase().includes(searchAnak)
-    );
+    const searchDataAnak = dataAnak.filter((item) => item.fields.nama.toLowerCase().includes(searchAnak));
+
     setData(searchDataAnak);
 
     // search anak empty
-    if (searchAnak === "") {
-      const sortedData = [...dataAnak].sort(
-        (a, b) => new Date(a.createdTime) - new Date(b.createdTime)
-      );
+    if (searchAnak === '') {
+      const sortedData = [...dataAnak].sort((a, b) => new Date(a.createdTime) - new Date(b.createdTime));
       setData(sortedData);
     }
   }, [searchAnak]);
+
 
   useEffect(() => {
     const sortedData = [...dataAnak].sort(
