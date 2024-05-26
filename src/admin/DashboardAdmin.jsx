@@ -69,7 +69,7 @@ const DashboardAdmin = () => {
           <div className="mt-5 flex flex-col lg:flex-row justify-between w-full">
             <ul className="bg-white p-5 justify-around shadow-xl float-left items-center rounded-3xl w-full gap-5 flex flex-col lg:flex-row 2xl:w-2/3 ">
               <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
-                <h1 className="text-7xl text-white">{dataKeluarga?.records.length}</h1>
+                <h1 className="text-7xl text-white">{dataKeluarga?.records?.length}</h1>
                 <p className="text-white">Keluarga</p>
               </li>
               <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">

@@ -1,14 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-import { DashboardAdmin } from "../admin";
-import {
-  WelcomeBanner,
-  JadwalKegiatanUser,
-  TableAnakUser,
-} from "../components/user/";
-import { Calender, Loading, ScheduleRight } from "../components/";
-import logo from "../images/logo-posyandu.webp";
+import { DashboardAdmin } from '../admin';
+import { WelcomeBanner, JadwalKegiatanUser, TableAnakUser } from '../components/user/';
+import { Calender, Loading, ScheduleRight } from '../components/';
+import logo from '../images/logo-posyandu.webp';
 
 const DashboardUser = () => {
   const { role, name, email } = useSelector((store) => store.user);
@@ -18,7 +14,7 @@ const DashboardUser = () => {
     return <Loading />;
   }
 
-  if (role === "admin") {
+  if (role === 'admin') {
     return <DashboardAdmin />;
   }
 
@@ -37,16 +33,12 @@ const DashboardUser = () => {
           <WelcomeBanner />
 
           <div className="mt-10 lg:mt-0">
-            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">
-              Kalender
-            </h1>
+            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">Kalender</h1>
             <Calender />
           </div>
 
           <div className="mt-10 lg:hidden">
-            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">
-              Jadwal Kegiatan
-            </h1>
+            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">Jadwal Kegiatan</h1>
             <ScheduleRight />
           </div>
         </div>
@@ -54,7 +46,7 @@ const DashboardUser = () => {
         <div className="hidden px-6 lg:px-8 w-full max-w-9xl mx-auto relative lg:block">
           <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
           <ScheduleRight style="float-right" />
-          <TableAnakUser dataAnak={dataAnak.records}  className="hidden"/>
+          <TableAnakUser dataAnak={dataAnak.records} className="hidden" />
         </div>
       </main>
     </section>

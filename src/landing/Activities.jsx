@@ -32,9 +32,7 @@ const Activities = () => {
   }, [dataKegiatan]);
 
   useEffect(() => {
-    if (dataKegiatan.length === 0) {
-      dispatch(getDataKegiatan());
-    }
+    dispatch(getDataKegiatan());
   }, []);
 
   if (isLoading) {
