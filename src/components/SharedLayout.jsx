@@ -13,10 +13,14 @@ const SharedLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDataAnak());
-    dispatch(getDataKeluarga());
-    dispatch(getDataKegiatan());
-    dispatch(getDataBerita());
+    async function fetchData() {
+      await dispatch(getDataAnak());
+      await dispatch(getDataKeluarga());
+      await dispatch(getDataKegiatan());
+      await dispatch(getDataBerita());
+    }
+
+    fetchData();
   }, []);
 
   return (
