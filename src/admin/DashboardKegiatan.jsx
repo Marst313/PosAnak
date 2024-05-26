@@ -47,7 +47,7 @@ const DashboardKegiatan = () => {
         {data.length <= 0 ? (
           <h1>Tidak ada kegiatan dengan judul {searchKegiatan}</h1>
         ) : (
-          <ul className="p-10 flex flex-col float-left gap-5  rounded-3xl h-fit w-full mt-5  ">
+          <ul className="p-10 flex flex-col float-left gap-5  rounded-3xl h-fit w-full mt-5  bg-white">
             <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
 
             {data.map((item) => {
