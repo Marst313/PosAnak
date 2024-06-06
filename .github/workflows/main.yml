@@ -3,6 +3,8 @@ name: Push Main
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   
 jobs:
   phpcs:
