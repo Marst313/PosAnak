@@ -37,10 +37,10 @@ jobs:
       - name: Fetch all branches
         run: git fetch --all
 
-      - name: Merge master into target branch
+      - name: Merge main into target branch
         run: |
           git checkout ${{ github.event.inputs['target-branch'] }}
-          git merge master -m "Merged 'master' into ${{ github.event.inputs['target-branch'] }}"
+          git merge main -m "Merged 'main' into ${{ github.event.inputs['target-branch'] }}"
 
       - name: Push changes
         env:
