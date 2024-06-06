@@ -4,9 +4,7 @@ on:
   push:
     branches:
       - main
-
-on:
-  pull:
+  pull_request:
     branches:
       - main
 
@@ -15,49 +13,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-      
-    - name: Cache Node.js modules
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-    - name: Lint code
-      run: npm run lint
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run tests
-      run: npm test
+      - name: Lint code
+        run: npm run lint
 
-    - name: Debug Environment Variables
-      run: |
-        echo "VITE_APP_ID_DB=$VITE_APP_ID_DB"
-        echo "VITE_APP_AIRTABLE_SECRET_KEYS=$VITE_APP_AIRTABLE_SECRET_KEYS"
-      env:
-        VITE_APP_ID_DB: ${{ secrets.VITE_APP_ID_DB }}
-        VITE_APP_AIRTABLE_SECRET_KEYS: ${{ secrets.VITE_APP_AIRTABLE_SECRET_KEYS }}
+      - name: Run tests
+        run: npm test
 
-    - name: Build project
-      env:
-        VITE_APP_ID_DB: ${{ secrets.VITE_APP_ID_DB }}
-        VITE_APP_AIRTABLE_SECRET_KEYS: ${{ secrets.VITE_APP_AIRTABLE_SECRET_KEYS }}
-      run: npm run build
+      - name: Debug Environment Variables
+        run: |
+          echo "VITE_APP_ID_DB=${VITE_APP_ID_DB}"
+          echo "VITE_APP_AIRTABLE_SECRET_KEYS=${VITE_APP_AIRTABLE_SECRET_KEYS}"
 
-    - name: Deploy to Netlify
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      run: |
-        npm install netlify-cli -g
-        netlify deploy --dir=build --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --prod
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install netlify-cli -g
+          netlify deploy --dir=build --site=${NETLIFY_SITE_ID} --auth=${NETLIFY_AUTH_TOKEN} --prod
