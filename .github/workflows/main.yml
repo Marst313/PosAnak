@@ -1,25 +1,45 @@
-name: Push Main
+name: CI
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-  
+
 jobs:
+
   phpcs:
-    name : Check code
+    name: Check Code
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Get latest code
-        uses: actions/checkout@v2.3.2
+    - name: Get latest code
+      uses: actions/checkout@v2.3.2
+      
+    - name: Setup Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        
+    - name: Check Code Standard
+      run: |
+        npm install
+        npm run lint
 
-      - name: Setup Node.js 14
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Check Code Standard
-        run :
-          npm install
-          npm run lint
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v2.3.2
+      
+    - name: Setup Node.js 14
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        
+    - name: Run Tests
+      run: |
+        npm install
+        npm test
