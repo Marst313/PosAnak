@@ -1,13 +1,14 @@
 const express = require('express');
 const activityController = require('../controller/activityController');
+const authController = require('../controller/authController');
 
 const router = express.Router();
 
-router
-  .route('/') //
-  .get(activityController.getAllActivity)
-  .post(activityController.createNewActivity);
+router.get('/', activityController.getAllActivity);
 
+router.use(authController.protect);
+router.use(authController.restrictTo('admin'));
+router.post('/', activityController.createNewActivity);
 router
   .route('/:id') //
   .get(activityController.singleActivity) //

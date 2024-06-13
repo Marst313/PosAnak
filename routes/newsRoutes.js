@@ -1,12 +1,15 @@
 const express = require('express');
 const newsController = require('../controller/newsController');
+const authController = require('../controller/authController');
 
 const router = express.Router();
 
-router
-  .route('/') //
-  .get(newsController.getAllNews)
-  .post(newsController.createNews);
+router.get('/', newsController.getAllNews);
+
+router.use(authController.protect);
+router.post('/', newsController.createNews);
+
+router.use(authController.restrictTo('admin'));
 
 router
   .route('/:id') //

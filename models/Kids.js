@@ -13,7 +13,7 @@ const PosyanduKidSchema = new mongoose.Schema({
   nik: {
     type: Number,
     required: [true, 'Admin must be fill nik !'],
-    min: [16, 'Not Valid !'],
+    minlength: [16, 'Not Valid !'],
     unique: [true, 'NIK sudah digunakan !'],
   },
   tanggalLahir: {

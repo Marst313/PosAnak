@@ -7,7 +7,8 @@ const hpp = require('hpp');
 const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
 
-const anakRouter = require('./routes/kidsRoutes');
+const userRouter = require('./routes/userRoutes');
+const kidsRouter = require('./routes/kidsRoutes');
 const activityRouter = require('./routes/activityRoutes');
 const newsRouter = require('./routes/newsRoutes');
 
@@ -76,7 +77,8 @@ app.use(xss());
   })
 ); */
 
-app.use('/api/v1/kid', anakRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/kid', kidsRouter);
 app.use('/api/v1/news', newsRouter);
 app.use('/api/v1/activity', activityRouter);
 

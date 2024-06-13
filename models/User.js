@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 
 const PosyanduUserSchema = new mongoose.Schema({
   name: {
@@ -13,6 +15,7 @@ const PosyanduUserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'User must be fill the password !'],
+    minlength: [8, 'Password minimum be 8 character'],
   },
   photo: {
     type: String,
@@ -20,13 +23,49 @@ const PosyanduUserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user,admin'],
+    enum: ['user', 'admin'],
     default: 'user',
   },
-  phoneNumber: String,
-  nik: Number,
-  kids: Number,
+  nikKids: {
+    type: Number,
+  },
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
 });
+
+PosyanduUserSchema.pre('save', async function (next) {
+  // ! Check if password not modified
+  if (!this.isModified('password')) return next();
+
+  // ! Hash the password
+  this.password = await bcrypt.hash(this.password, 12);
+
+  next();
+});
+
+// ! Check if password is changed
+PosyanduUserSchema.methods.changedPasswordAfter = async function (JWTTimeStamps) {
+  if (this.passwordChangedAt) {
+    const convertPasswordChangedAt = parseInt(this.passwordChangedAt.getTime() / 100, 10);
+
+    return JWTTimeStamps > convertPasswordChangedAt;
+  }
+};
+
+PosyanduUserSchema.methods.checkPassword = async function (inputPassword, userPassword) {
+  return await bcrypt.compare(inputPassword, userPassword);
+};
+
+// ! Create password reset token
+PosyanduUserSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
 
 const PosyanduModel = mongoose.model('users', PosyanduUserSchema);
 
