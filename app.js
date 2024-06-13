@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 
 const anakRouter = require('./routes/kidsRoutes');
 const activityRouter = require('./routes/activityRoutes');
+const newsRouter = require('./routes/newsRoutes');
 
 const globalErrorHandle = require('./controller/errorController');
 const AppError = require('./utils/appError');
@@ -76,6 +77,7 @@ app.use(xss());
 ); */
 
 app.use('/api/v1/kid', anakRouter);
+app.use('/api/v1/news', newsRouter);
 app.use('/api/v1/activity', activityRouter);
 
 app.all('*', (req, res, next) => {

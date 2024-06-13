@@ -9,11 +9,20 @@ const PosyanduNewsSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Admin must be fill the description !'],
   },
-  nik: String,
-  images: String,
-  time: Date,
+  images: {
+    type: String,
+    default: 'default.jpg',
+  },
+  time: {
+    type: Date,
+    required: [true, 'Admin must be fill the time'],
+  },
+  Created: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
-const NewsModel = mongoose.model('news', PosyanduNewsSchema);
+const News = mongoose.model('news', PosyanduNewsSchema);
 
-module.exports = NewsModel;
+module.exports = News;

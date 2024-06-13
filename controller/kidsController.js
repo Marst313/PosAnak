@@ -42,9 +42,7 @@ exports.editKid = catchAsync(async (req, res, next) => {
 });
 
 exports.singleKid = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const document = await Kids.findById(id);
+  const document = await Kids.findById(req.params.id);
 
   if (!document) {
     return next(new AppError('No document found with that ID', 404));
@@ -59,9 +57,7 @@ exports.singleKid = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteKid = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const document = await Kids.findByIdAndDelete(id);
+  const document = await Kids.findByIdAndDelete(req.params.id);
 
   if (!document) {
     return next(new AppError('No document found with that id', 404));
