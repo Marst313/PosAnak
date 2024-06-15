@@ -13,11 +13,11 @@ const DashboardBerita = () => {
   const [dataBerita, setDataBerita] = useState([]);
 
   useEffect(() => {
-    setDataBerita(data.records);
+    setDataBerita(data);
   }, [data]);
 
   useEffect(() => {
-    const searchData = data.records?.filter((item) => item.fields.title?.toLowerCase().includes(searchBerita));
+    const searchData = data?.filter((item) => item.title?.toLowerCase().includes(searchBerita));
 
     setDataBerita(searchData);
   }, [searchBerita]);

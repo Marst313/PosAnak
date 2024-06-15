@@ -3,7 +3,7 @@ import emailjs from 'emailjs-com';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { iconClose } from '../../images/icons/';
-import { convertHoursToSecond, convertTime } from '../../utils/function';
+import { convertDateString, convertHoursToSecond, convertTime } from '../../utils/function';
 import { getDataKegiatan, newDataKegiatan, setEditKegiatan, updateDataKegiatan } from '../../features/activity/activity';
 
 const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
@@ -29,17 +29,11 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
     }
 
     const newData = {
-      records: [
-        {
-          fields: {
-            title: dataKegiatan.judulKegiatan,
-            date: dataKegiatan.tanggalKegiatan,
-            description: dataKegiatan.deskripsiKegiatan,
-            waktuMulai: convertHoursToSecond(dataKegiatan.waktuMulai),
-            waktuSelesai: convertHoursToSecond(dataKegiatan.waktuSelesai),
-          },
-        },
-      ],
+      title: dataKegiatan.judulKegiatan,
+      date: dataKegiatan.tanggalKegiatan,
+      description: dataKegiatan.deskripsiKegiatan,
+      waktuMulai: convertHoursToSecond(dataKegiatan.waktuMulai),
+      waktuSelesai: convertHoursToSecond(dataKegiatan.waktuSelesai),
     };
 
     try {
@@ -62,7 +56,7 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
         const updatedData = {
           records: [
             {
-              id: singleDataKegiatan.id,
+              id: singleDataKegiatan._id,
               fields: {
                 title: dataKegiatan.judulKegiatan,
                 date: dataKegiatan.tanggalKegiatan,
@@ -92,14 +86,14 @@ const ModalTambahKegiatan = ({ newKegiatan, setNewKegiatan }) => {
 
   useEffect(() => {
     if (edit) {
-      const { date, description, title, waktuMulai, waktuSelesai } = singleDataKegiatan?.fields || {};
+      const { date, description, title, waktuMulai, waktuSelesai } = singleDataKegiatan || {};
 
       setDataKegiatan({
         judulKegiatan: title,
         deskripsiKegiatan: description,
         waktuMulai: convertTime(waktuMulai),
         waktuSelesai: convertTime(waktuSelesai),
-        tanggalKegiatan: date,
+        tanggalKegiatan: convertDateString(date),
       });
     } else {
       setDataKegiatan({

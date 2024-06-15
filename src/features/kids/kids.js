@@ -87,7 +87,8 @@ export const kidSlice = createSlice({
       })
       .addCase(getDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.dataAnak = payload;
+
+        state.dataAnak = payload.data;
       })
       .addCase(getDataAnak.rejected, (state) => {
         state.isLoading = false;
@@ -117,7 +118,7 @@ export const kidSlice = createSlice({
       })
       .addCase(getSingleDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.singleDataAnak = payload;
+        state.singleDataAnak = payload.data;
 
         state.message = 'Success get single data.';
       })

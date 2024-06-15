@@ -6,16 +6,16 @@ import { useDispatch } from 'react-redux';
 import { deleteDataBerita, getDataBerita, getSingleDataBerita, setEditBerita } from '../../features/news/news';
 
 const SingleDataBerita = ({ item }) => {
-  const { title, images, Created } = item.fields;
+  const { title, images, Created } = item;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
-    await dispatch(deleteDataBerita(item.id));
+    await dispatch(deleteDataBerita(item._id));
     await dispatch(getDataBerita());
   };
   const handleEdit = async () => {
-    await dispatch(getSingleDataBerita(item.id));
+    await dispatch(getSingleDataBerita(item._id));
 
     await dispatch(setEditBerita(true));
     navigate('/dashboard/tambahBerita');
@@ -26,7 +26,7 @@ const SingleDataBerita = ({ item }) => {
       <img src={images} alt="hero img" className="rounded-t-lg h-52] flex  mx-auto w-full object-cover " />
 
       <div className="p-5 ">
-        <Link to={`/dashboard/berita/${item.id}`}>
+        <Link to={`/dashboard/berita/${item._id}`}>
           <h3 className="font-semibold capitalize hover:text-lightGreen ">{title}</h3>
         </Link>
 

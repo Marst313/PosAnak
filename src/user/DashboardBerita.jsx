@@ -14,11 +14,11 @@ const DashboardBerita = () => {
   const [dataBerita, setDataBerita] = useState([]);
 
   useEffect(() => {
-    setDataBerita(data.records);
+    setDataBerita(data);
   }, [isLoading]);
 
   useEffect(() => {
-    const searchData = data.records?.filter((item) => item.fields.title?.toLowerCase().includes(searchBerita));
+    const searchData = data?.filter((item) => item.title?.toLowerCase().includes(searchBerita));
 
     setDataBerita(searchData);
   }, [searchBerita]);
@@ -39,15 +39,15 @@ const DashboardBerita = () => {
         <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {dataBerita.map((item) => {
             return (
-              <li key={item.id} className=" p-3 rounded-2xl lg:border-grey border border-black">
-                <Link className="bg-white" to={`/dashboard/berita/${item.id}`}>
-                  <img src={item.fields.images} alt="hero img" />
+              <li key={item._id} className=" p-3 rounded-2xl lg:border-grey border border-black">
+                <Link className="bg-white" to={`/dashboard/berita/${item._id}`}>
+                  <img src={item.images} alt="hero img" />
 
                   <div className="p-5">
-                    <h3 className="font-semibold">{item.fields.title}</h3>
+                    <h3 className="font-semibold">{item.title}</h3>
                     <div className="flex items-center gap-2 mt-2">
                       <img src={clock} alt="icon waktu" />
-                      <p className="text-xs">{countPostNewsDateCreated(item.fields.Created)}</p>
+                      <p className="text-xs">{countPostNewsDateCreated(item.Created)}</p>
                     </div>
                   </div>
                 </Link>

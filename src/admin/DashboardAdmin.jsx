@@ -18,7 +18,7 @@ const DashboardAdmin = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    countBabiesAndToddlers(dataAnak.records);
+    countBabiesAndToddlers(dataAnak);
   }, []);
 
   const countBabiesAndToddlers = (dataAnak) => {
@@ -29,9 +29,9 @@ const DashboardAdmin = () => {
     bayiCutoffDate.setFullYear(bayiCutoffDate.getFullYear() - 3); // Subtract 3 year
 
     // Filter balita and bayi based on their birth dates
-    const balita = dataAnak?.filter((child) => new Date(child.fields?.tanggalLahir) >= balitaCutoffDate && new Date(child.fields?.tanggalLahir) < bayiCutoffDate);
+    const balita = dataAnak?.filter((child) => new Date(child?.tanggalLahir) >= balitaCutoffDate && new Date(child?.tanggalLahir) < bayiCutoffDate);
 
-    const bayi = dataAnak?.filter((child) => new Date(child.fields?.tanggalLahir) >= bayiCutoffDate);
+    const bayi = dataAnak?.filter((child) => new Date(child?.tanggalLahir) >= bayiCutoffDate);
 
     setCountAnak({ ...countAnak, balita: balita?.length, bayi: bayi?.length });
   };
@@ -69,7 +69,7 @@ const DashboardAdmin = () => {
           <div className="mt-5 flex flex-col lg:flex-row justify-between w-full">
             <ul className="bg-white p-5 justify-around shadow-xl float-left items-center rounded-3xl w-full gap-5 flex flex-col lg:flex-row 2xl:w-2/3 ">
               <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
-                <h1 className="text-7xl text-white">{dataKeluarga?.records?.length}</h1>
+                <h1 className="text-7xl text-white">{dataKeluarga?.length}</h1>
                 <p className="text-white">Keluarga</p>
               </li>
               <li className=" rounded-lg bg-lightGreen flex flex-col items-center w-52 h-36 justify-center ">
@@ -97,7 +97,7 @@ const DashboardAdmin = () => {
         <div className="hidden px-6 lg:px-8 w-full max-w-9xl mx-auto relative lg:block">
           <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
           <ScheduleRight style="float-right" />
-          <TableAnakUser dataAnak={dataAnak.records} className="hidden" />
+          <TableAnakUser dataAnak={dataAnak} className="hidden" />
         </div>
       </main>
     </section>

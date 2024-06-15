@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import logoExcel from "../images/dataanak/excel.svg";
-import TableAnak from "../components/user/TableAnakUser";
-import Charts from "../components/Charts";
-import { parseStringJson } from "../utils/function";
-import { SearchBarUser, TableAnakUser } from "../components/user";
-import Loading from "../components/Loading";
+import logoExcel from '../images/dataanak/excel.svg';
+import TableAnak from '../components/user/TableAnakUser';
+import Charts from '../components/Charts';
+import { parseStringJson } from '../utils/function';
+import { SearchBarUser, TableAnakUser } from '../components/user';
+import Loading from '../components/Loading';
 
 const DashboardAnak = () => {
-  const { dataAnak, isLoading, graphShow, singleDataAnak} =
-    useSelector((store) => store.kids);
+  const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector((store) => store.kids);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
 
   useEffect(() => {
-    if (graphShow && singleDataAnak?.fields?.child_growth) {
-      const result = parseStringJson(singleDataAnak.fields.child_growth);
+    if (graphShow && singleDataAnak?.child_growth) {
+      const result = parseStringJson(singleDataAnak.child_growth);
 
       setDataPertumbuhan(result);
     }
@@ -39,7 +38,7 @@ const DashboardAnak = () => {
       {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}
 
       <div className="mb-5">
-        <TableAnak graphShow={graphShow} dataAnak={dataAnak.records} />
+        <TableAnak graphShow={graphShow} dataAnak={dataAnak} />
       </div>
     </section>
   );

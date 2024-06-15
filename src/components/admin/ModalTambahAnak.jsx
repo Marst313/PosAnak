@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getDataAnak, newDataAnak, setEditAnak, updateDataAnak } from '../../features/kids/kids';
 import { iconClose } from '../../images/icons/';
+import { convertDateString } from '../../utils/function';
 
 const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
   const dispatch = useDispatch();
@@ -24,14 +25,8 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
       console.log('Fill all the fields !');
     } else {
       const dataBaru = {
-        records: [
-          {
-            fields: {
-              ...newAnak,
-              child_growth: `[{\"date\":\"${new Date().toLocaleDateString('af-ZA')}\",\"height\":0,\"weight\":0},{\"date\":\"${currentDate}\",\"height\":0,\"weight\":0}]`,
-            },
-          },
-        ],
+        ...newAnak,
+        child_growth: `[{\"date\":\"${new Date().toLocaleDateString('af-ZA')}\",\"height\":0,\"weight\":0},{\"date\":\"${currentDate}\",\"height\":0,\"weight\":0}]`,
       };
 
       try {
@@ -43,22 +38,17 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
         }
         if (edit) {
           const dataUpdate = {
-            records: [
-              {
-                id: singleDataAnak.id,
-                fields: {
-                  ...newAnak,
-                  nik: newAnak.nik,
-                  nama: newAnak.nama,
-                  namaIbu: newAnak.namaIbu,
-                  tanggalLahir: newAnak.tanggalLahir,
-                },
-              },
-            ],
+            id: singleDataAnak._id,
+            ...newAnak,
+            nik: newAnak.nik,
+            nama: newAnak.nama,
+            namaIbu: newAnak.namaIbu,
+            tanggalLahir: newAnak.tanggalLahir,
           };
+
           await dispatch(updateDataAnak(dataUpdate));
           await dispatch(getDataAnak());
-          setEditAnak(false);
+          await dispatch(setEditAnak(false));
           setTambahDataAnak(false);
         }
       } catch (error) {
@@ -72,17 +62,22 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
     setNewAnak({ ...newAnak, [name]: value });
   };
 
+  const handleCloseModal = () => {
+    setTambahDataAnak(false);
+    dispatch(setEditAnak(false));
+  };
+
   useEffect(() => {
     if (edit) {
-      const { namaIbu = '', nama = '', nik = '', tanggalLahir = '' } = singleDataAnak?.fields || {};
-      setNewAnak({ nama, nik, namaIbu, tanggalLahir });
+      const { namaIbu = '', nama = '', nik = '', tanggalLahir = '' } = singleDataAnak || {};
+      setNewAnak({ nama, nik, namaIbu, tanggalLahir: convertDateString(tanggalLahir) });
     }
   }, [edit]);
 
   return (
     <div className={`w-full  h-full bg-white/20 backdrop-blur-sm  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2    justify-center items-center ${tambahDataAnak ? 'flex' : 'hidden'}`}>
       <div className="lg:w-1/2 h-fit px-10 py-10 bg-white shadow-custom rounded-xl relative">
-        <h1 className="text-darkGreen font-medium text-2xl">Tambah Anak</h1>
+        <h1 className="text-darkGreen font-medium text-2xl">{edit ? 'Update' : 'Tambah'} Anak</h1>
 
         <form className="flex flex-col justify-center gap-3 mt-5 " onSubmit={handleSubmit}>
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -125,7 +120,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
             {edit ? 'Edit' : 'Tambah'}
           </button>
         </form>
-        <button type="button" className="absolute top-0 right-0 mt-3 mr-3" onClick={() => setTambahDataAnak(false)}>
+        <button type="button" className="absolute top-0 right-0 mt-3 mr-3" onClick={handleCloseModal}>
           <img src={iconClose} alt="icon close" className="w-8 " />
         </button>
       </div>

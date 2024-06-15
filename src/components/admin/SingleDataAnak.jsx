@@ -5,7 +5,7 @@ import logoGraph from '../../images/dataanak/graph-anak.svg';
 import logoDelete from '../../images/dataanak/delete.svg';
 import logoEdit from '../../images/dataanak/editAnak.svg';
 
-import { convertUsia } from '../../utils/function';
+import { convertDateString, convertUsia } from '../../utils/function';
 import { deleteDataAnak, getDataAnak, getSingleDataAnak, setEditAnak, setGraph } from '../../features/kids/kids';
 
 const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => {
@@ -14,9 +14,8 @@ const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => 
 
   const [popUp, setPopUp] = useState(false);
 
-  const { nik, nama, tanggalLahir, namaIbu } = child.fields;
-  const [year, month, day] = tanggalLahir.split('-');
-  const formattedDate = `${day}/${month}/${year}`;
+  const { nik, nama, tanggalLahir, namaIbu } = child;
+  const formattedDate = convertDateString(tanggalLahir);
   const usia = convertUsia(formattedDate);
 
   const handleDelete = async () => {
@@ -41,7 +40,7 @@ const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => 
   const handleGraphShow = async () => {
     try {
       if (!graphShow) {
-        await dispatch(getSingleDataAnak(child.id));
+        await dispatch(getSingleDataAnak(child._id));
       }
 
       await dispatch(setGraph(!graphShow));
@@ -65,7 +64,7 @@ const SingleDataAnak = ({ child, index, tambahDataAnak, setTambahDataAnak }) => 
           <img src={logoDelete} alt="logo delete" />
         </button>
         <button type="button">
-          <img src={logoEdit} alt="logo edit" onClick={() => handleEdit(child.id)} />
+          <img src={logoEdit} alt="logo edit" onClick={() => handleEdit(child._id)} />
         </button>
         <button type="button" onClick={handleGraphShow}>
           <img src={logoGraph} alt="logo graph" />

@@ -47,7 +47,7 @@ function App() {
           <Route path="tambahberita" element={<DashboardBerita />} />
 
           <Route path="datakegiatan" element={<DashboardKegiatan />} />
-          <Route path="datakeluarga" element={<DashboardKeluarga />} />
+          {/* <Route path="datakeluarga" element={<DashboardKeluarga />} /> */}
         </Route>
 
         <Route path="/" element={<SharedLayoutLanding />}>

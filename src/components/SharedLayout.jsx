@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getDataAnak } from '../features/kids/kids';
 import { getDataKeluarga } from '../features/family/family';
 import { getDataBerita } from '../features/news/news';
+import { getDataKegiatan } from '../features/activity/activity';
 
 const SharedLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,7 +15,8 @@ const SharedLayout = () => {
   useEffect(() => {
     async function fetchData() {
       await dispatch(getDataAnak());
-      await dispatch(getDataKeluarga());
+      // await dispatch(getDataKeluarga());
+      await dispatch(getDataKegiatan());
       await dispatch(getDataBerita());
     }
 

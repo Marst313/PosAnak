@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { edit, deleteIcon, pencil } from '../../images/icons/';
+import { editJadwalKegiatanAdmin, deleteIconWhite, pencil } from '../../images/icons/';
 
 import { useDispatch } from 'react-redux';
 import { deleteDataKegiatan, getDataKegiatan, getSingleDataKegiatan, setEditKegiatan } from '../../features/activity/activity';
@@ -10,7 +10,7 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
   const settingRef = useRef(null);
 
   const [openSetting, setOpenSetting] = useState(false);
-  const { date, description, title, waktuMulai, waktuSelesai } = item.fields;
+  const { date, description, title, waktuMulai, waktuSelesai } = item;
 
   const handleDelete = async (id) => {
     try {
@@ -82,18 +82,18 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
         </div>
 
         <div className={`bg-white p-5 absolute  flex-col right-0 gap-2 ${openSetting ? 'flex' : 'hidden'} modal-edit`} ref={settingRef}>
-          <button type="button" className="bg-yellowPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => editKegiatan(item.id)}>
+          <button type="button" className="bg-yellowPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => editKegiatan(item._id)}>
             Ubah
             <img src={pencil} alt="edit icon pencil" />
           </button>
           <button type="button" className="bg-redPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => handleDelete(item.id)}>
             Hapus
-            <img src={deleteIcon} alt="delete icon" />
+            <img src={deleteIconWhite} alt="delete icon" />
           </button>
         </div>
 
         <button type="button" onClick={handleEditClick}>
-          <img src={edit} alt="setting logo" />
+          <img src={editJadwalKegiatanAdmin} alt="setting logo" />
         </button>
       </div>
     </li>

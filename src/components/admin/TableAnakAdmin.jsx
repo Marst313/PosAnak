@@ -11,7 +11,7 @@ const TableAnakAdmin = ({ style, dataAnak, tambahDataAnak, setTambahDataAnak }) 
   const { searchAnak } = useSelector((store) => store.kids);
 
   useEffect(() => {
-    const searchDataAnak = dataAnak.filter((item) => item.fields.nama.toLowerCase().includes(searchAnak));
+    const searchDataAnak = dataAnak.filter((item) => item.nama.toLowerCase().includes(searchAnak));
 
     setData(searchDataAnak);
 

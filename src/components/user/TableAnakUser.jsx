@@ -4,7 +4,7 @@ import { dummyData, tableHeader } from '../../utils/link';
 import logoGraph from '../../images/dataanak/graph-anak.svg';
 import logoPanah from '../../images/dataanak/Vector.svg';
 import logoUser from '../../images/dataanak/User.svg';
-import { convertUsia } from '../../utils/function';
+import { convertDateString, convertUsia } from '../../utils/function';
 import { useDispatch, useSelector } from 'react-redux';
 import { setGraph } from '../../features/kids/kids';
 import { getSingleDataAnak } from '../../features/kids/kids';
@@ -27,7 +27,7 @@ const TableAnakUser = ({ style, graphShow, dataAnak, className }) => {
   };
 
   useEffect(() => {
-    const searchDataAnak = dataAnak.filter((item) => item?.fields.nama.toLowerCase().includes(searchAnak));
+    const searchDataAnak = dataAnak.filter((item) => item?.nama.toLowerCase().includes(searchAnak));
     setData(searchDataAnak);
 
     // search anak empty
@@ -75,19 +75,19 @@ const TableAnakUser = ({ style, graphShow, dataAnak, className }) => {
 
         <tbody>
           {data?.map((child, index) => {
-            const { nama, nik, tanggalLahir } = child.fields;
-            const [year, month, day] = tanggalLahir.split('-');
-            const formattedDate = `${day}/${month}/${year}`;
+            const { nama, nik, tanggalLahir } = child;
+
+            const formattedDate = convertDateString(tanggalLahir);
             const usia = convertUsia(formattedDate);
 
             return (
-              <tr key={child.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-lightGreen/30 ">
+              <tr key={child._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-lightGreen/30 ">
                 <th scope="row" className="px-6 py-4 ">
                   {index + 1}
                 </th>
                 <td className="px-6 py-4">{nik}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{nama}</td>
-                <td className="px-6 py-4">{tanggalLahir}</td>
+                <td className="px-6 py-4">{formattedDate}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{usia}</td>
                 <td className="items-start justify-center py-4 flex gap-2 px-4  ">
                   <button type="button" className={className} onClick={() => handleClick(child.id)}>

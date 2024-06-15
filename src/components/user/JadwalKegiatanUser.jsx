@@ -5,10 +5,10 @@ const JadwalKegiatanUser = ({ style, dataKegiatan }) => {
   return (
     <ul className={`bg-white p-10 flex flex-col lg:float-left gap-5 lg:2xl:w-2/3 rounded-3xl h-fit ${style && style}`}>
       {dataKegiatan.map((item) => {
-        const { title, description, waktuMulai, waktuSelesai, date } = item.fields;
+        const { title, description, waktuMulai, waktuSelesai, date } = item;
 
         return (
-          <li className="lg:flex float-left p-5 bg-coldWhite gap-5 justify-between" key={item.id}>
+          <li className="lg:flex float-left p-5 bg-coldWhite gap-5 justify-between" key={item._id}>
             <div className="flex flex-col gap-3">
               <h3 className="font-semibold text-xl lg:text-2xl max-w-lg line-clamp-6">{title}</h3>
               <p className="font-light max-w-sm">{description}</p>

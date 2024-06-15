@@ -52,7 +52,7 @@ const Activities = () => {
               <div className="mt-2 flex gap-3 text-xs items-center font-light">
                 <img src={calender} alt="logo calender" />
                 <p>
-                  {converDateId(date)} {waktuMulai} WIB
+                  {converDateId(date)} {convertTime(waktuMulai)} WIB
                 </p>
               </div>
             </li>

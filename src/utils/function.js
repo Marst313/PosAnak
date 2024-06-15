@@ -1,7 +1,8 @@
 export const convertUsia = (tanggalLahir) => {
   const today = new Date().toLocaleDateString('en-GB');
 
-  const [dayBirth, monthBirth, yearBirth] = tanggalLahir.split('/');
+  const [yearBirth, monthBirth, dayBirth] = tanggalLahir.split('-');
+
   const [day, month, year] = today.split('/');
   let format = 'Tahun';
 
@@ -84,9 +85,17 @@ export const countPostNewsDateCreated = (date) => {
 
 export const filteringData = (data, filterNamaKegiatan, filterKategori, filterWaktu) => {
   const filteredData = data
-    ?.filter((item) => item.fields.title.toLowerCase().includes(filterNamaKegiatan))
-    ?.filter((item) => item.fields.description.toLowerCase().includes(filterKategori))
-    ?.filter((item) => item.fields.date.toLowerCase().includes(filterWaktu));
+    ?.filter((item) => item.title.toLowerCase().includes(filterNamaKegiatan))
+    ?.filter((item) => item.description.toLowerCase().includes(filterKategori))
+    ?.filter((item) => item.date.toLowerCase().includes(filterWaktu));
 
   return filteredData;
 };
+
+export function convertDateString(dateStr) {
+  const date = new Date(dateStr);
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // getUTCMonth() returns month from 0-11
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}

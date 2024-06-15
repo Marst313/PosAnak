@@ -13,7 +13,7 @@ const DashboardKegiatan = () => {
   const { dataKegiatan, isLoading, searchKegiatan } = useSelector((store) => store.activity);
 
   useEffect(() => {
-    const searchDataKegiatan = dataKegiatan.filter((item) => item.fields.title.toLowerCase().includes(searchKegiatan));
+    const searchDataKegiatan = dataKegiatan.filter((item) => item.title.toLowerCase().includes(searchKegiatan));
 
     setData(searchDataKegiatan);
   }, [searchKegiatan]);
@@ -50,7 +50,7 @@ const DashboardKegiatan = () => {
             <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
 
             {data.map((item) => {
-              return <SingleJadwalKegiatan key={item.id} item={item} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />;
+              return <SingleJadwalKegiatan key={item._id} item={item} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />;
             })}
           </ul>
         )}

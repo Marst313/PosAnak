@@ -84,9 +84,9 @@ const newSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getDataBerita.fulfilled, (state, { payload }) => {
-        payload.records.sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime));
+        payload.data.sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime));
 
-        state.data = payload;
+        state.data = payload.data;
         state.isLoading = false;
       })
       .addCase(getDataBerita.rejected, (state, { payload }) => {

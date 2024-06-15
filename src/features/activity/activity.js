@@ -102,8 +102,6 @@ export const activitySlice = createSlice({
           return dateA - dateB;
         });
 
-        console.log(sortedData);
-
         state.dataKegiatan = sortedData;
       })
       .addCase(getDataKegiatan.rejected, (state, action) => {
@@ -124,7 +122,8 @@ export const activitySlice = createSlice({
       })
       .addCase(getSingleDataKegiatan.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.singleDataKegiatan = payload;
+
+        state.singleDataKegiatan = payload.data;
         state.message = 'Success created new kegiatan.';
       })
       .addCase(getSingleDataKegiatan.rejected, (state, action) => {

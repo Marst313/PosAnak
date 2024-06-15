@@ -14,8 +14,8 @@ const DashboardAnak = () => {
   const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector((store) => store.kids);
 
   useEffect(() => {
-    if (graphShow && singleDataAnak?.fields?.child_growth) {
-      const result = parseStringJson(singleDataAnak.fields.child_growth);
+    if (graphShow && singleDataAnak?.child_growth) {
+      const result = parseStringJson(singleDataAnak.child_growth);
 
       setDataPertumbuhan(result);
     }
@@ -41,7 +41,7 @@ const DashboardAnak = () => {
         </div>
 
         {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}
-        <TableAnakAdmin tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataAnak={dataAnak.records} graphShow={graphShow} />
+        <TableAnakAdmin tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataAnak={dataAnak} graphShow={graphShow} />
       </section>
 
       <NewDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} dataPertumbuhan={dataPertumbuhan} />
