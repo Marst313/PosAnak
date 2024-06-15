@@ -9,20 +9,18 @@ exports.getAllActivity = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     results: data.length,
-    data: {
-      data,
-    },
+    data,
   });
 });
 
 exports.createNewActivity = catchAsync(async (req, res, next) => {
   const newDocument = await Activity.create(req.body);
 
+  console.log(req.body);
+
   res.status(201).json({
     status: 'success',
-    data: {
-      data: newDocument,
-    },
+    data: newDocument,
   });
 });
 
@@ -43,17 +41,15 @@ exports.editActivity = catchAsync(async (req, res, next) => {
 });
 
 exports.singleActivity = catchAsync(async (req, res, next) => {
-  const document = await Activity.findById(req.params.id);
+  const data = await Activity.findById(req.params.id);
 
-  if (!document) {
-    return next(new AppError('No document found with that ID', 404));
+  if (!data) {
+    return next(new AppError('No data found with that ID', 404));
   }
 
   res.status(200).json({
     status: 'success',
-    data: {
-      data: document,
-    },
+    data,
   });
 });
 

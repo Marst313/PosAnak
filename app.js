@@ -6,6 +6,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const userRouter = require('./routes/userRoutes');
 const kidsRouter = require('./routes/kidsRoutes');
@@ -24,27 +25,13 @@ app.use(
   })
 );
 
-const scriptSrcUrls = ['https://api.tiles.mapbox.com/', 'https://api.mapbox.com/', 'https://*.cloudflare.com', 'https://js.stripe.com/v3/', 'https://checkout.stripe.com'];
-const styleSrcUrls = ['https://api.mapbox.com/', 'https://api.tiles.mapbox.com/', 'https://fonts.googleapis.com/', 'https://www.myfonts.com/fonts/radomir-tinkov/gilroy/*', ' checkout.stripe.com'];
-const connectSrcUrls = ['https://*.mapbox.com/', 'https://*.cloudflare.com', 'http://127.0.0.1:3000', 'http://127.0.0.1:52191', '*.stripe.com'];
+//! Enable CORS
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200,
+};
 
-const fontSrcUrls = ['fonts.googleapis.com', 'fonts.gstatic.com'];
-
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: [],
-      connectSrc: ["'self'", ...connectSrcUrls],
-      scriptSrc: ["'self'", ...scriptSrcUrls],
-      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-      workerSrc: ["'self'", 'blob:'],
-      objectSrc: [],
-      imgSrc: ["'self'", 'blob:', 'data:'],
-      fontSrc: ["'self'", ...fontSrcUrls],
-      frameSrc: ['*.stripe.com', '*.stripe.network'],
-    },
-  })
-);
+app.use(cors(corsOptions));
 
 //! Development looging
 if (process.env.NODE_ENV === 'development') {

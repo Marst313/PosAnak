@@ -8,20 +8,19 @@ exports.getAllKids = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     results: data.length,
-    data: {
-      data,
-    },
+
+    data,
   });
 });
 
 exports.createNewKids = catchAsync(async (req, res, next) => {
   const newDocument = await Kids.create(req.body);
 
+  console.log(req.body);
+
   res.status(201).json({
     status: 'success',
-    data: {
-      data: newDocument,
-    },
+    data: newDocument,
   });
 });
 
@@ -42,17 +41,15 @@ exports.editKid = catchAsync(async (req, res, next) => {
 });
 
 exports.singleKid = catchAsync(async (req, res, next) => {
-  const document = await Kids.findById(req.params.id);
+  const data = await Kids.findById(req.params.id);
 
-  if (!document) {
+  if (!data) {
     return next(new AppError('No document found with that ID', 404));
   }
 
   res.status(200).json({
     status: 'success',
-    data: {
-      data: document,
-    },
+    data,
   });
 });
 

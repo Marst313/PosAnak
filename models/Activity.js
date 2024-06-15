@@ -16,22 +16,10 @@ const PosyanduActivitySchema = new mongoose.Schema({
   waktuMulai: {
     type: String,
     required: [true, 'Admin must fill the start time!'],
-    validate: {
-      validator: function (v) {
-        return /^([01]\d|2[0-3]):([0-5]\d)$/.test(v);
-      },
-      message: (props) => `${props.value} is not a valid start time! Format should be HH:mm.`,
-    },
   },
   waktuSelesai: {
     type: String,
     required: [true, 'Admin must fill the end time!'],
-    validate: {
-      validator: function (v) {
-        return /^([01]\d|2[0-3]):([0-5]\d)$/.test(v);
-      },
-      message: (props) => `${props.value} is not a valid end time! Format should be HH:mm.`,
-    },
   },
   created: {
     type: Date,
