@@ -81,3 +81,12 @@ export const countPostNewsDateCreated = (date) => {
     return `${jumlahMenit} menit yang lalu`;
   }
 };
+
+export const filteringData = (data, filterNamaKegiatan, filterKategori, filterWaktu) => {
+  const filteredData = data
+    ?.filter((item) => item.fields.title.toLowerCase().includes(filterNamaKegiatan))
+    ?.filter((item) => item.fields.description.toLowerCase().includes(filterKategori))
+    ?.filter((item) => item.fields.date.toLowerCase().includes(filterWaktu));
+
+  return filteredData;
+};

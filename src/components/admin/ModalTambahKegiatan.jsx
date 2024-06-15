@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import emailjs from 'emailjs-com';
 import { useDispatch, useSelector } from 'react-redux';
 
-import iconClose from '../../images/iconClose.svg';
+import { iconClose } from '../../images/icons/';
 import { convertHoursToSecond, convertTime } from '../../utils/function';
 import { getDataKegiatan, newDataKegiatan, setEditKegiatan, updateDataKegiatan } from '../../features/activity/activity';
 

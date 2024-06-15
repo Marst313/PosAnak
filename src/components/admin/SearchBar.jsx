@@ -2,7 +2,7 @@ import React, { useMemo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import debouce from 'lodash.debounce';
 
-import search from '../../images/search-normal.svg';
+import { searchNormal } from '../../images/icons/';
 import { setSearchAnak } from '../../features/kids/kids';
 import { setSearchKegiatan } from '../../features/activity/activity';
 import { setSearchKeluarga } from '../../features/family/family';
@@ -33,7 +33,7 @@ const SearchBar = ({ style, data }) => {
   return (
     <form className={`relative w-2/3 ${style}`}>
       <input type="text" className="w-full pl-10 relative rounded-3xl  border-grey focus:ring-0  focus:outline-none" placeholder="Search" onChange={debouncedResults} />
-      <img src={search} alt="" className="absolute top-0 mt-2 ml-2" />
+      <img src={searchNormal} alt="" className="absolute top-0 mt-2 ml-2" />
     </form>
   );
 };

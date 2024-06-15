@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import union from '../images/Union.svg';
+import { union } from '../images/icons/';
 import { SearchBar, SingleDataBerita } from '../components/admin';
 import { getDataBerita, setEditBerita } from '../features/news/news';
 import { Loading } from '../components';

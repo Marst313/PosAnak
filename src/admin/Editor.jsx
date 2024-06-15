@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import EditorToolbar, { modules, formats } from './QuillToolbar';
-import logoSend from '../images/send.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDataBerita, newDataBerita, updateDataBerita } from '../features/news/news';
 import { storage } from '../firebase';

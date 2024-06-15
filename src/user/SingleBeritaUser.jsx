@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
-import heroSingleBerita from '../images/hero-berita.png';
-import share from '../images/Share.svg';
-import shareSosmed from '../images/share-sosmed.svg';
-import shareFb from '../images/share-fb.svg';
-import calender from '../images/calender.svg';
+import { share, shareSosmed, shareFb, calender } from '../images/icons/';
+
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleDataBerita } from '../features/news/news';

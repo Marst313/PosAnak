@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setFilterKegiatan } from '../features/activity/activity';
+import { setFilterKegiatan } from '../../features/activity/activity';
 
 const FilterKegiatan = () => {
   const dispatch = useDispatch();

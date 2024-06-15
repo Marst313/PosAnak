@@ -15,6 +15,7 @@ const initialState = {
 const kegiatanThunk = async (data, thunkAPI) => {
   try {
     const resp = await customFetchKegiatan.get();
+
     return resp.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);
@@ -94,13 +95,14 @@ export const activitySlice = createSlice({
       .addCase(getDataKegiatan.fulfilled, (state, { payload }) => {
         state.isLoading = false;
 
-        const sortedData = payload.records.slice().sort((a, b) => {
-          const dateA = new Date(a.fields.date);
-          const dateB = new Date(b.fields.date);
-
+        const sortedData = payload.data.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
           // Membandingkan dua objek Date
           return dateA - dateB;
         });
+
+        console.log(sortedData);
 
         state.dataKegiatan = sortedData;
       })

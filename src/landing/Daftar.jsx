@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import heroLogin from '../images/hero-login2.png';
-import axios from 'axios';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import logoPosyandu from '../images/logo-posyandu.webp';
 import { Link, useNavigate } from 'react-router-dom';
@@ -32,11 +30,10 @@ const Daftar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, role } = user;
+    const { email, password } = user;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
 
       setMessage({ ...message, text: 'Success created account', msg: true, status: 200 });
     } catch (error) {
@@ -52,30 +49,6 @@ const Daftar = () => {
           <h1 className="text-5xl lg:text-6xl ml-3 font-bold">
             <span className="text-lightGreen">Pos</span>anak
           </h1>
-        </div>
-
-        <div className="flex items-center bg-greenPrimary rounded-full  py-2 text-white font-semibold text-sm justify-between w-60 px-2">
-          <label
-            htmlFor="role"
-            className={`px-8 py-2 rounded-full w-32 text-center cursor-pointer transition-all ${checked && 'bg-lightGreen'} duration-500`}
-            onClick={() => {
-              setChecked(true);
-              setUser({ ...user, role: 'admin' });
-            }}
-          >
-            Wali
-          </label>
-          <input type="checkbox" id="role" className="appearance-none role" />
-          <label
-            htmlFor="role"
-            className={`${!checked && 'bg-lightGreen'} px-8 py-2 rounded-full w-32 text-center cursor-pointer transition-all duration-500`}
-            onClick={() => {
-              setChecked(false);
-              setUser({ ...user, role: 'user' });
-            }}
-          >
-            Kader
-          </label>
         </div>
 
         <div className="self-start lg:self-center w-full lg:w-1/2  ">

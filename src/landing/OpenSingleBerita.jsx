@@ -2,11 +2,10 @@ import React from 'react';
 
 import gambarAnak from '../images/hero-berita.png';
 import gambarBayi from '../images/vitaminBayi.png';
-import share from '../images/Share.svg';
-import shareSosmed from '../images/share-sosmed.svg';
-import shareFb from '../images/share-fb.svg';
-import calender from '../images/calender.svg';
-import FooterLanding from './FooterLanding';
+
+import { share, shareSosmed, shareFb, calender } from '../images/icons';
+
+import { FooterLanding } from '../components/landing/';
 const OpenSingleBerita = () => {
   return (
     <div className="relative  px-4 sm:px-6  flex xl:px-60 mt-5 gap-3 flex-col pb-40 overflow-x-hidden">

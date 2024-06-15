@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import iconClose from '../../images/iconClose.svg';
+import { iconClose } from '../../images/icons';
 import { useDispatch, useStore } from 'react-redux';
 import { getDataKeluarga, newDataKeluarga } from '../../features/family/family';
 

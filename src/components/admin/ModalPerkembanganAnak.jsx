@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import iconClose from '../../images/iconClose.svg';
+import { iconClose } from '../../images/icons/';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSingleDataAnak, updateDataAnak } from '../../features/kids/kids';
 import { parseStringJson } from '../../utils/function';

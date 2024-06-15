@@ -1,6 +1,5 @@
 import React from 'react';
-import heroImg from '../../images/dashboard/image5.webp';
-import iconWaktu from '../../images/clock.svg';
+import { clock } from '../../images/icons/';
 import { Link, useNavigate } from 'react-router-dom';
 import { countPostNewsDateCreated } from '../../utils/function';
 import { useDispatch } from 'react-redux';
@@ -33,7 +32,7 @@ const SingleDataBerita = ({ item }) => {
 
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <img src={iconWaktu} alt="" />
+            <img src={clock} alt="icon waktu" />
             <p className="text-xs">{countPostNewsDateCreated(Created)}</p>
           </div>
           <button type="button" onClick={handleDelete}>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import union from '../images/Union.svg';
-import iconExcel from '../images/iconExcel.svg';
+import { union } from '../images/icons/';
 
 import { ModalTambahKeluarga, SearchBar, TableKeluargaAdmin } from '../components/admin/';
 import { Loading } from '../components';

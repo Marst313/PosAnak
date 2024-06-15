@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import iconEdit from '../../images/editJadwalKegiatanAdmin.svg';
-import iconDelete from '../../images/deleteIconWhite.svg';
-import iconEditPencil from '../../images/Pencil.svg';
+import { edit, deleteIcon, pencil } from '../../images/icons/';
+
 import { useDispatch } from 'react-redux';
 import { deleteDataKegiatan, getDataKegiatan, getSingleDataKegiatan, setEditKegiatan } from '../../features/activity/activity';
 import { converDateId, convertTime } from '../../utils/function';
@@ -85,16 +84,16 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
         <div className={`bg-white p-5 absolute  flex-col right-0 gap-2 ${openSetting ? 'flex' : 'hidden'} modal-edit`} ref={settingRef}>
           <button type="button" className="bg-yellowPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => editKegiatan(item.id)}>
             Ubah
-            <img src={iconEditPencil} alt="edit icon" />
+            <img src={pencil} alt="edit icon pencil" />
           </button>
           <button type="button" className="bg-redPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => handleDelete(item.id)}>
             Hapus
-            <img src={iconDelete} alt="delete icon" />
+            <img src={deleteIcon} alt="delete icon" />
           </button>
         </div>
 
         <button type="button" onClick={handleEditClick}>
-          <img src={iconEdit} alt="setting logo" />
+          <img src={edit} alt="setting logo" />
         </button>
       </div>
     </li>

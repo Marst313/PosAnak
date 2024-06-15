@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getDataAnak, newDataAnak, setEditAnak, updateDataAnak } from '../../features/kids/kids';
-import iconClose from '../../images/iconClose.svg';
+import { iconClose } from '../../images/icons/';
 
 const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
   const dispatch = useDispatch();
@@ -18,6 +18,8 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
     e.preventDefault();
     const { nama, nik, namaIbu, tanggalLahir } = newAnak;
 
+    const currentDate = new Date().toLocaleDateString('af-ZA');
+
     if (nama === '' || nik === '' || namaIbu === '' || tanggalLahir === '') {
       console.log('Fill all the fields !');
     } else {
@@ -26,7 +28,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
           {
             fields: {
               ...newAnak,
-              child_growth: `[{\"date\":\"${new Date().toLocaleDateString('af-ZA')}\",\"height\":0,\"weight\":0},{\"date\":\"2023-12-08\",\"height\":0,\"weight\":0}]`,
+              child_growth: `[{\"date\":\"${new Date().toLocaleDateString('af-ZA')}\",\"height\":0,\"weight\":0},{\"date\":\"${currentDate}\",\"height\":0,\"weight\":0}]`,
             },
           },
         ],

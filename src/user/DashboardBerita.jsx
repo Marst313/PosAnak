@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import heroImg from '../images/dashboard/image5.webp';
-import iconWaktu from '../images/clock.svg';
+import { clock } from '../images/icons/';
 import { SearchBarUser } from '../components/user/';
 import { getDataBerita, setEditBerita } from '../features/news/news';
 import { countPostNewsDateCreated } from '../utils/function';
@@ -47,7 +46,7 @@ const DashboardBerita = () => {
                   <div className="p-5">
                     <h3 className="font-semibold">{item.fields.title}</h3>
                     <div className="flex items-center gap-2 mt-2">
-                      <img src={iconWaktu} alt="" />
+                      <img src={clock} alt="icon waktu" />
                       <p className="text-xs">{countPostNewsDateCreated(item.fields.Created)}</p>
                     </div>
                   </div>

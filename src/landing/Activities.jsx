@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import logoCalender from '../images/calender.svg';
+import { calender } from '../images/icons/';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getDataKegiatan } from '../features/activity/activity';
-import FilterKegiatan from './FilterKegiatan';
-import FooterLanding from './FooterLanding';
-import { converDateId, convertTime } from '../utils/function';
+import { FilterKegiatan, FooterLanding } from '../components/landing';
+import { converDateId, convertTime, filteringData } from '../utils/function';
 import { Loading } from '../components';
 
 const Activities = () => {
@@ -18,22 +17,20 @@ const Activities = () => {
       setData(dataKegiatan);
     }
 
-    const filteredData = dataKegiatan
-      .filter((item) => item.fields.title.toLowerCase().includes(filterNamaKegiatan))
-      .filter((item) => item.fields.description.toLowerCase().includes(filterKategori))
-      .filter((item) => item.fields.date.toLowerCase().includes(filterWaktu));
+    //! Filtering data
+    const filteredData = filteringData(dataKegiatan, filterNamaKegiatan, filterKategori, filterWaktu);
 
     setData(filteredData);
   }, [filterWaktu, filterNamaKegiatan, filterKategori]);
 
   // ! Initialize data kegiatan
   useEffect(() => {
-    setData(dataKegiatan);
+    if (!dataKegiatan.length) {
+      dispatch(getDataKegiatan());
+    } else {
+      setData(dataKegiatan);
+    }
   }, [dataKegiatan]);
-
-  useEffect(() => {
-    dispatch(getDataKegiatan());
-  }, []);
 
   if (isLoading) {
     return <Loading />;
@@ -45,17 +42,17 @@ const Activities = () => {
 
       <ul className="w-full flex flex-col gap-5">
         {data.map((kegiatan) => {
-          const { date, description, title, waktuMulai, waktuSelesai } = kegiatan.fields;
+          const { date, description, title, waktuMulai } = kegiatan;
 
           return (
-            <li key={kegiatan.id} className="p-5 bg-white w-full rounded-lg shadow-custom">
+            <li key={kegiatan._id} className="p-5 bg-white w-full rounded-lg shadow-custom">
               <h5 className="font-semibold">{title}</h5>
               <p className="text-sm font-light mt-2">{description}</p>
 
               <div className="mt-2 flex gap-3 text-xs items-center font-light">
-                <img src={logoCalender} alt="logo calender" />
+                <img src={calender} alt="logo calender" />
                 <p>
-                  {converDateId(date)} {convertTime(waktuMulai)} WIB
+                  {converDateId(date)} {waktuMulai} WIB
                 </p>
               </div>
             </li>

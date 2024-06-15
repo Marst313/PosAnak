@@ -5,7 +5,6 @@ import Header from './Header';
 import { useDispatch } from 'react-redux';
 import { getDataAnak } from '../features/kids/kids';
 import { getDataKeluarga } from '../features/family/family';
-import { getDataKegiatan } from '../features/activity/activity';
 import { getDataBerita } from '../features/news/news';
 
 const SharedLayout = () => {
@@ -16,7 +15,6 @@ const SharedLayout = () => {
     async function fetchData() {
       await dispatch(getDataAnak());
       await dispatch(getDataKeluarga());
-      await dispatch(getDataKegiatan());
       await dispatch(getDataBerita());
     }
 
@@ -27,6 +25,8 @@ const SharedLayout = () => {
     <div className="flex h-screen overflow-hidden bg-coldWhite ">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      <div className="fixed bottom-10 right-20">Chat Bot</div>
 
       <Outlet sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
     </div>

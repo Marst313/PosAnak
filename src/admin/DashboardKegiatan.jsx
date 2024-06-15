@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import union from '../images/Union.svg';
-import iconExcel from '../images/iconExcel.svg';
+import { union } from '../images/icons/';
 
 import { useSelector } from 'react-redux';
 import SearchBar from '../components/admin/SearchBar';
