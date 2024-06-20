@@ -1,38 +1,26 @@
 const User = require('./../models/User');
-const PosyanduModel = require('./../models/User');
+const AppError = require('../utils/appError');
 
-exports.loginUser = async (req, res) => {
-  const { email, password } = req.body;
+const catchAsync = require('../utils/catchAsync');
 
-  PosyanduModel.findOne({ email: email }).then((user) => {
-    if (user) {
-      if (user.password === password) {
-        res.status(200).json({
-          status: 'Success',
-          email,
-          name: user.name,
-          role: user.role,
-        });
-      } else {
-        res.status(403).json({
-          status: 'Error',
-          message: 'Password is wrong !',
-        });
-      }
-    } else {
-      res.json('No record existed');
-    }
+exports.getSingleUser = catchAsync(async (req, res, next) => {
+  const data = await User.findById(req.params.id);
+
+  data.password = undefined;
+
+  res.status(200).json({
+    status: 'success',
+    data,
   });
-};
+});
 
-exports.createUser = async (req, res) => {
-  const { email } = req.body;
-  const existingUser = await PosyanduModel.findOne({ email });
+exports.getAllUser = catchAsync(async (req, res, next) => {
+  const data = await User.find().select('-password');
 
-  if (existingUser) {
-    return res.status(400).json({ message: 'Email has already been used.' });
-  }
-  PosyanduModel.create(req.body)
-    .then((user) => res.json(user))
-    .catch((err) => res.json(err));
-};
+  if (!data) return next(new AppError('There is no data found', 401));
+
+  res.status(200).json({
+    status: 'success',
+    data,
+  });
+});

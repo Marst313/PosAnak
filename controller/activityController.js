@@ -16,8 +16,6 @@ exports.getAllActivity = catchAsync(async (req, res, next) => {
 exports.createNewActivity = catchAsync(async (req, res, next) => {
   const newDocument = await Activity.create(req.body);
 
-  console.log(req.body);
-
   res.status(201).json({
     status: 'success',
     data: newDocument,
