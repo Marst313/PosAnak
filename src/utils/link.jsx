@@ -30,12 +30,6 @@ export const navLinks = [
     path: 'anak',
     icon: dataAnak,
   },
-  {
-    id: 5,
-    name: 'Keluar',
-    path: '/',
-    icon: logout,
-  },
 ];
 
 export const navLinksAdmin = [
@@ -68,13 +62,6 @@ export const navLinksAdmin = [
     name: 'Data Berita',
     path: 'databerita',
     icon: berita,
-  },
-
-  {
-    id: 6,
-    name: 'Keluar',
-    path: '/',
-    icon: logout,
   },
 ];
 

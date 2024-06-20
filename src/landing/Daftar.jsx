@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import heroLogin from '../images/hero-login2.png';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import logoPosyandu from '../images/logo-posyandu.webp';
 import { Link, useNavigate } from 'react-router-dom';
+import { registerUser } from '../features/users/user';
+import { useDispatch } from 'react-redux';
 
 const Daftar = () => {
-  const auth = getAuth();
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     name: '',
@@ -19,7 +20,6 @@ const Daftar = () => {
     msg: false,
     status: 0,
   });
-  const [checked, setChecked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -30,14 +30,16 @@ const Daftar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = user;
+    const { email, password, name } = user;
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    if (!email || !password || !name) return setMessage({ ...message, text: 'Email or password cannot be empty', msg: true, status: 400 });
 
-      setMessage({ ...message, text: 'Success created account', msg: true, status: 200 });
-    } catch (error) {
-      setMessage({ ...message, text: error.message, msg: false, status: 400 });
+    const data = await dispatch(registerUser({ email, password, name }));
+
+    if (data.meta.requestStatus === 'rejected') {
+      return setMessage({ ...message, text: data.payload, msg: true, status: 400 });
+    } else {
+      setMessage({ ...message, text: 'Berhasil membuat akun baru', msg: true, status: 200 });
     }
   };
 

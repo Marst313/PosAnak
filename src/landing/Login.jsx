@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import heroLogin from '../images/hero-login2.png';
-import axios from 'axios';
-
-import logoPosyandu from '../images/logo-posyandu.webp';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
-import { setDataUser } from '../features/users/user';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
+
+import heroLogin from '../images/hero-login2.png';
+import logoPosyandu from '../images/logo-posyandu.webp';
+import { loginUser } from '../features/users/user';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,44 +26,29 @@ const Login = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { email, password } = user;
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const { email, password } = user;
 
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      if (!email || !password) return setMessage({ ...message, text: 'Email atau password tidak boleh kosong!', msg: true });
 
-        dispatch(
-          setDataUser({
-            token: user.accessToken,
-            email: user.email,
-            uuid: user.uid,
-          })
-        );
+      await dispatch(loginUser({ email, password }));
 
-        navigate('/dashboard/menu');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        if (errorCode.split('/')[1] == 'too-many-requests') {
-          setMessage({
-            ...message,
-            text: 'Terlalu banyak, Coba Lagi Nanti',
-            msg: true,
-          });
-        } else {
-          setMessage({
-            ...message,
-            text: 'Email atau Password Salah',
-            msg: true,
-          });
-        }
-      });
+      navigate('/dashboard/menu');
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    const jwt = Cookies.get('jwt');
+
+    if (jwt) {
+      navigate('/dashboard/menu');
+    }
+  }, []);
+
   return (
     <section className="px-5 flex  overflow-hidden">
       {message.msg && (

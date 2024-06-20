@@ -54,6 +54,9 @@ module.exports = {
       colors: {
         darkGreen: '#036346',
         lightGreen: '#57C9A7',
+        coldGreen: '#CDF0E6',
+        stabiloGreen: '#57C9A7',
+        stabiloLightGreen: '#B5FFFB',
         coldWhite: '#F3F5F9',
         grey: '#D9D9D9',
         greenPrimary: '#239674',

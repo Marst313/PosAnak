@@ -1,17 +1,33 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-const createAxiosInstance = (baseURL) => {
-  return axios.create({
-    baseURL,
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NmIxMTE1YjU0NzA5MTY5M2EzOTA4MiIsImlhdCI6MTcxODQ2MTcyNywiZXhwIjoxNzE4NzIwOTI3fQ.ECmJE84GUpp2A64O62qt9yroTB4nx9LnhiFJf9x2br8`,
-      'Content-Type': 'application/json',
-    },
-  });
+const createAxiosInstance = (path, isExternal = false) => {
+  const baseURL = isExternal ? path : `${import.meta.env.VITE_BASE_URL}/${path}`;
+
+  const jwt = Cookies.get('jwt');
+
+  if (jwt) {
+    return axios.create({
+      baseURL,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  } else {
+    return axios.create({
+      baseURL,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 };
 
-export const customFetchAnak = createAxiosInstance('http://127.0.0.1:3000/api/v1/kid');
-export const customFetchKeluarga = createAxiosInstance('http://127.0.0.1:3000/api/v1/family');
-export const customFetchKegiatan = createAxiosInstance('http://127.0.0.1:3000/api/v1/activity');
-export const customFetchBerita = createAxiosInstance('http://127.0.0.1:3000/api/v1/news');
-export const customFetchUser = createAxiosInstance('https://api.airtable.com/v0/appPtrtTsdUvnBk2e/user ');
+export const customFetchAnak = createAxiosInstance('kid');
+export const customFetchKeluarga = createAxiosInstance('family');
+export const customFetchKegiatan = createAxiosInstance('activity');
+export const customFetchBerita = createAxiosInstance('news');
+export const customFetchLogin = createAxiosInstance('user/login');
+export const customFetchRegister = createAxiosInstance('user/register');
+export const customFetchUser = createAxiosInstance('user');

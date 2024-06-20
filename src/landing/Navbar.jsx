@@ -5,6 +5,7 @@ import { navLinksLanding } from '../utils/link';
 
 const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
+
   return (
     <nav className="bg-white z-20 relative">
       <div className="flex  justify-between  xl:px-60  items-center p-4  ">
@@ -54,6 +55,7 @@ const Navbar = () => {
             </div>
           </ul>
         )}
+        {/* MOBILE VIEW */}
 
         <ul className="lg:flex gap-10 hidden items-center justify-between ">
           {navLinksLanding.map((item) => {

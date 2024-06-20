@@ -7,6 +7,7 @@ import deleteIconWhite from './deleteIconWhite.svg';
 import editHover from './iconEdit-hover.svg';
 import edit from './iconEdit.svg';
 import editJadwalKegiatanAdmin from './editJadwalKegiatanAdmin.svg';
+import editAnak from './editAnak.svg';
 import hospital from './hospital.svg';
 import icon1 from './icon-01.svg';
 import icon2 from './icon-02.svg';
@@ -31,6 +32,7 @@ export {
   deleteIconWhite,
   editHover,
   edit,
+  editAnak,
   editJadwalKegiatanAdmin,
   hospital,
   icon1,
