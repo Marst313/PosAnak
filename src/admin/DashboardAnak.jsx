@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { union } from '../images/icons/';
 import Charts from '../components/Charts';
@@ -21,10 +21,6 @@ const DashboardAnak = () => {
       dispatch(setNewAnak({ nama: '', nik: '', namaIbu: '', tanggalLahir: '' }));
     }
   };
-
-  useEffect(() => {
-    dispatch(setTambahDataAnak(false));
-  });
 
   useEffect(() => {
     if (graphShow && singleDataAnak?.child_growth) {

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { countPostNewsDateCreated } from '../../utils/function';
 import { useDispatch } from 'react-redux';
 import { deleteDataBerita, getDataBerita, getSingleDataBerita, setEditBerita } from '../../features/news/news';
+import defaultImages from '../../images/hero-berita.png';
 
 const SingleDataBerita = ({ item }) => {
   const { title, images, Created } = item;
@@ -23,7 +24,7 @@ const SingleDataBerita = ({ item }) => {
 
   return (
     <li className=" p-3 rounded-2xl border-grey border hover:scale-105 transition-all bg-white relative">
-      <img src={images} alt="hero img" className="rounded-t-lg h-52] flex  mx-auto w-full object-cover " />
+      <img src={images || defaultImages} alt="hero img" className="rounded-t-lg h-52] flex  mx-auto w-full object-cover " />
 
       <div className="p-5 ">
         <Link to={`/dashboard/berita/${item._id}`}>

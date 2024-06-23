@@ -117,6 +117,11 @@ export const kidSlice = createSlice({
     setSearchAnak(state, { payload }) {
       state.searchAnak = payload.toLowerCase();
     },
+
+    // ? open the open pop up
+    setMessageOpen(state, { payload }) {
+      state.message.open = payload;
+    },
   },
   extraReducers: (builder) => {
     //! Getting All Data Anak
@@ -161,7 +166,7 @@ export const kidSlice = createSlice({
 
         state.message.text = 'Berhasil menghapus data anak.';
         state.message.open = true;
-        state.message.status = 'success';
+        state.message.status = 'error';
       })
       .addCase(deleteDataAnak.rejected, (state) => {
         state.isLoading = false;
@@ -198,5 +203,5 @@ export const kidSlice = createSlice({
   },
 });
 
-export const { setNewAnak, setDataPertumbuhan, setTambahDataAnak, setGraph, setEditAnak, setSearchAnak } = kidSlice.actions;
+export const { setNewAnak, setDataPertumbuhan, setTambahDataAnak, setGraph, setEditAnak, setSearchAnak, setMessageOpen } = kidSlice.actions;
 export default kidSlice.reducer;

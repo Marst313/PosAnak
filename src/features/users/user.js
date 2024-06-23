@@ -12,6 +12,8 @@ const initialState = {
   jwt: '',
   allUser: [],
   singleUser: [],
+
+  openPopUp: false,
 };
 
 const loginThunk = async (data, thunkAPI) => {
@@ -72,6 +74,9 @@ const userSlice = createSlice({
       state.jwt = payload.jwt;
       state.uuid = payload.id;
     },
+    setOpenPopUp(state, { payload }) {
+      state.openPopUp = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -123,5 +128,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setDataUser, setSingleUser, setToken } = userSlice.actions;
+export const { setDataUser, setSingleUser, setToken, setOpenPopUp } = userSlice.actions;
 export default userSlice.reducer;

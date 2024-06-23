@@ -29,6 +29,7 @@ export const Editor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Update Data Berita
     if (edit) {
       const imageRef = ref(storage, `images/${images.name + v4()}`);
 
@@ -37,16 +38,12 @@ export const Editor = () => {
           getDownloadURL(snapshot.ref)
             .then((url) => {
               const updatedData = {
-                records: [
-                  {
-                    id: singleDataBerita.id,
-                    fields: {
-                      title: judul,
-                      images: url || images,
-                      description: singleDataBerita.fields.description,
-                    },
-                  },
-                ],
+                id: singleDataBerita._id,
+                fields: {
+                  title: judul,
+                  images: url || images,
+                  description: singleDataBerita.fields.description,
+                },
               };
 
               dispatch(updateDataBerita(updatedData));
@@ -56,7 +53,6 @@ export const Editor = () => {
         .catch((err) => console.log(err));
 
       dispatch(getDataBerita());
-
       navigate('/dashboard/databerita');
       alert('Berhasil update berita baru.');
 
@@ -66,22 +62,16 @@ export const Editor = () => {
     let urlImages;
     if (images == null) {
       const newData = {
-        records: [
-          {
-            fields: {
-              title: judul,
-              images: 'https://firebasestorage.googleapis.com/v0/b/posyandu2-893b0.appspot.com/o/images%2Fimage5.png?alt=media&token=6afbcdef-65fd-48de-bfb2-1c334d882a59',
-              description: state.value,
-            },
-          },
-        ],
+        title: judul,
+        images: 'https://firebasestorage.googleapis.com/v0/b/posyandu2-893b0.appspot.com/o/default.png?alt=media',
+        description: state.value,
       };
 
       await dispatch(newDataBerita(newData));
       await dispatch(getDataBerita());
 
       navigate('/dashboard/databerita');
-      alert('Berhasil membuat berita baru.');
+      // alert('Berhasil membuat berita baru.');
       return;
     }
 
@@ -94,15 +84,9 @@ export const Editor = () => {
             urlImages = url;
 
             const newData = {
-              records: [
-                {
-                  fields: {
-                    title: judul,
-                    images: url,
-                    description: state.value,
-                  },
-                },
-              ],
+              title: judul,
+              images: url,
+              description: state.value,
             };
 
             dispatch(newDataBerita(newData));
@@ -119,9 +103,9 @@ export const Editor = () => {
 
   useEffect(() => {
     if (edit) {
-      setJudul(singleDataBerita.fields?.title);
-      setState({ value: singleDataBerita.fields?.description });
-      setImages(singleDataBerita.fields?.images);
+      setJudul(singleDataBerita.title);
+      setState({ value: singleDataBerita.description });
+      setImages(singleDataBerita.images);
     }
   }, []);
 

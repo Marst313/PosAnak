@@ -80,6 +80,8 @@ const newSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+
+      // ! Get All Data Berita
       .addCase(getDataBerita.pending, (state) => {
         state.isLoading = true;
       })
@@ -92,6 +94,8 @@ const newSlice = createSlice({
       .addCase(getDataBerita.rejected, (state, { payload }) => {
         state.isLoading = false;
       })
+
+      // ! Create New Data Berita
       .addCase(newDataBerita.pending, (state) => {
         state.isLoading = true;
       })
@@ -101,11 +105,13 @@ const newSlice = createSlice({
       .addCase(newDataBerita.rejected, (state, { payload }) => {
         state.isLoading = false;
       })
+
+      // ! Get Single Data Berita
       .addCase(getSingleDataBerita.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getSingleDataBerita.fulfilled, (state, { payload }) => {
-        state.singleDataBerita = payload;
+        state.singleDataBerita = payload.data;
         state.isLoading = false;
       })
       .addCase(getSingleDataBerita.rejected, (state, { payload }) => {
