@@ -3,14 +3,26 @@ import { customFetchKegiatan } from '../../utils/axios';
 
 const initialState = {
   dataKegiatan: [],
+  data: [],
   singleDataKegiatan: [],
-  isLoading: true,
+
   message: '',
-  edit: false,
   filterWaktu: '',
   filterKategori: '',
   filterNamaKegiatan: '',
   searchKegiatan: '',
+
+  edit: false,
+  openModalNewActivity: false,
+  isLoading: true,
+
+  newKegiatan: {
+    judulKegiatan: '',
+    deskripsiKegiatan: '',
+    waktuMulai: '',
+    waktuSelesai: '',
+    tanggalKegiatan: '',
+  },
 };
 const kegiatanThunk = async (data, thunkAPI) => {
   try {
@@ -54,7 +66,7 @@ const singleKegiatanThunk = async (data, thunkAPI) => {
 
 const updateKegiatanThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchKegiatan.patch('', data);
+    const resp = await customFetchKegiatan.patch(`/${data.id}`, data);
     return resp.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);
@@ -74,21 +86,42 @@ export const activitySlice = createSlice({
   name: 'activity',
   initialState,
   reducers: {
-    setGraph(state, { payload }) {},
+    //! Open Modal New Kegiatan
+    setOpenModal(state, { payload }) {
+      state.openModalNewActivity = payload;
+    },
+
+    // ! State activity edir or new activity
+    setNewActivity(state, { payload }) {
+      state.newKegiatan = payload;
+    },
+
+    //! Set Data Kegiatan
+    setData(state, { payload }) {
+      state.data = payload;
+    },
+
+    //! Open edit kegiatan
     setEditKegiatan(state, { payload }) {
       state.edit = payload;
     },
+
+    // ! Filtering Data Kegiatan
     setFilterKegiatan(state, { payload }) {
       state.filterKategori = payload.kategori.toLowerCase();
       state.filterNamaKegiatan = payload.namaKegiatan.toLowerCase();
       state.filterWaktu = payload.waktu.toLowerCase();
     },
+
+    // ! Searching Data Kegiatan
     setSearchKegiatan(state, { payload }) {
       state.searchKegiatan = payload.toLowerCase();
     },
   },
   extraReducers: (builder) => {
     builder
+
+      // ! Get all data activity
       .addCase(getDataKegiatan.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -107,6 +140,8 @@ export const activitySlice = createSlice({
       .addCase(getDataKegiatan.rejected, (state, action) => {
         state.isLoading = false;
       })
+
+      // ! Create New Data Activity
       .addCase(newDataKegiatan.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -117,6 +152,8 @@ export const activitySlice = createSlice({
       .addCase(newDataKegiatan.rejected, (state, action) => {
         state.isLoading = false;
       })
+
+      // ! Get Single Data Activity
       .addCase(getSingleDataKegiatan.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -129,6 +166,8 @@ export const activitySlice = createSlice({
       .addCase(getSingleDataKegiatan.rejected, (state, action) => {
         state.isLoading = false;
       })
+
+      // ! Update Data Activity
       .addCase(updateDataKegiatan.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -139,6 +178,8 @@ export const activitySlice = createSlice({
       .addCase(updateDataKegiatan.rejected, (state, action) => {
         state.isLoading = false;
       })
+
+      // ! Delete Data Activity
       .addCase(deleteDataKegiatan.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -152,5 +193,5 @@ export const activitySlice = createSlice({
   },
 });
 
-export const { setGraph, setEditKegiatan, setFilterKegiatan, setSearchKegiatan } = activitySlice.actions;
+export const { setOpenModal, setNewActivity, setData, setEditKegiatan, setFilterKegiatan, setSearchKegiatan } = activitySlice.actions;
 export default activitySlice.reducer;

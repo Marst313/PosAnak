@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { editJadwalKegiatanAdmin, deleteIconWhite, pencil } from '../../images/icons/';
 
 import { useDispatch } from 'react-redux';
-import { deleteDataKegiatan, getDataKegiatan, getSingleDataKegiatan, setEditKegiatan } from '../../features/activity/activity';
+import { deleteDataKegiatan, getDataKegiatan, getSingleDataKegiatan, setEditKegiatan, setOpenModal } from '../../features/activity/activity';
 import { converDateId, convertTime } from '../../utils/function';
 
-const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
+const SingleJadwalKegiatan = ({ item }) => {
   const dispatch = useDispatch();
   const settingRef = useRef(null);
-
   const [openSetting, setOpenSetting] = useState(false);
+
   const { date, description, title, waktuMulai, waktuSelesai } = item;
 
   const handleDelete = async (id) => {
@@ -23,8 +23,7 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
   const editKegiatan = (id) => {
     dispatch(getSingleDataKegiatan(id));
     dispatch(setEditKegiatan(true));
-
-    setNewKegiatan(true);
+    dispatch(setOpenModal(true));
   };
 
   const handleEditClick = (event) => {

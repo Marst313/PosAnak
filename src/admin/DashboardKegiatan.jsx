@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { union } from '../images/icons/';
-
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from '../components/admin/SearchBar';
 import { SingleJadwalKegiatan, ModalTambahKegiatan } from '../components/admin';
 import { Loading } from '../components';
+import { setData, setOpenModal } from '../features/activity/activity';
 
 const DashboardKegiatan = () => {
-  const [newKegiatan, setNewKegiatan] = useState(false);
-  const [data, setData] = useState([]);
-  const { dataKegiatan, isLoading, searchKegiatan } = useSelector((store) => store.activity);
+  const dispatch = useDispatch();
+  const { dataKegiatan, isLoading, searchKegiatan, data } = useSelector((store) => store.activity);
+
+  const handleOpenModal = () => {
+    dispatch(setOpenModal(true));
+  };
 
   useEffect(() => {
     const searchDataKegiatan = dataKegiatan.filter((item) => item.title.toLowerCase().includes(searchKegiatan));
 
-    setData(searchDataKegiatan);
+    dispatch(setData(searchDataKegiatan));
   }, [searchKegiatan]);
 
   useEffect(() => {
-    setData(dataKegiatan);
+    dispatch(setData(dataKegiatan));
   }, [dataKegiatan]);
 
   if (isLoading) {
@@ -32,7 +35,7 @@ const DashboardKegiatan = () => {
         <div className="flex justify-between gap-4 mt-16 lg:mt-0 lg:justify-between">
           <SearchBar data="kegiatan" />
 
-          <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setNewKegiatan(true)}>
+          <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={handleOpenModal}>
             <img src={union} alt="" className="w-5 h-5" />
             Tambah
           </button>
@@ -45,12 +48,12 @@ const DashboardKegiatan = () => {
             <h1 className="text-2xl font-bold">Jadwal Kegiatan</h1>
 
             {data.map((item) => {
-              return <SingleJadwalKegiatan key={item._id} item={item} newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />;
+              return <SingleJadwalKegiatan key={item._id} item={item} />;
             })}
           </ul>
         )}
       </section>
-      <ModalTambahKegiatan newKegiatan={newKegiatan} setNewKegiatan={setNewKegiatan} />
+      <ModalTambahKegiatan />
     </>
   );
 };
