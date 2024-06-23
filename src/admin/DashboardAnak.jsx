@@ -2,22 +2,35 @@ import React, { useEffect, useState } from 'react';
 
 import { union } from '../images/icons/';
 import Charts from '../components/Charts';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { parseStringJson } from '../utils/function';
-import { ModalTambahAnak, NewDataAnak, SearchBar, TableAnakAdmin } from '../components/admin/';
+import { NewDataAnak, SearchBar, TableAnakAdmin } from '../components/admin/';
 import { Loading } from '../components';
+import PopUp from '../components/PopUp';
+import { setDataPertumbuhan, setNewAnak, setTambahDataAnak } from '../features/kids/kids';
 
 const DashboardAnak = () => {
-  const [tambahDataAnak, setTambahDataAnak] = useState(false);
-  const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
+  const dispatch = useDispatch();
 
-  const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector((store) => store.kids);
+  const { isLoading, graphShow, singleDataAnak, edit, message, dataPertumbuhan } = useSelector((store) => store.kids);
+
+  // ! Open Modal Tambah Data Anak or Edit
+  const handleOpenModal = () => {
+    dispatch(setTambahDataAnak(true));
+    if (!edit) {
+      dispatch(setNewAnak({ nama: '', nik: '', namaIbu: '', tanggalLahir: '' }));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(setTambahDataAnak(false));
+  });
 
   useEffect(() => {
     if (graphShow && singleDataAnak?.child_growth) {
       const result = parseStringJson(singleDataAnak.child_growth);
 
-      setDataPertumbuhan(result);
+      dispatch(setDataPertumbuhan(result));
     }
   }, [graphShow, singleDataAnak]);
 
@@ -29,24 +42,20 @@ const DashboardAnak = () => {
       <section className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-6 lg:px-8 bg-gradient-to-t lg:mt-5 from-[#57C9A7] to-white bg-cover lg:bg-none">
         <div className="flex justify-center gap-4 mt-16 lg:mt-0 lg:justify-between">
           <SearchBar data="anak" />
-          <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={() => setTambahDataAnak(true)}>
-            <img src={union} alt="" className="w-5 h-5" />
+          <button className=" bg-lightGreen flex items-center px-10 gap-2 text-white rounded-full whitespace-nowrap" onClick={handleOpenModal}>
+            <img src={union} alt="logo tambah" className="w-5 h-5" />
             Tambah
           </button>
-
-          {/* <button className="flex items-center gap-3 border-lightGreen border px-10 py-2 rounded-full text-lightGreen font-medium">
-            <img src={iconExcel} alt="icon excel" />
-            Excel
-          </button> */}
         </div>
 
         {graphShow && <Charts dataPertumbuhan={dataPertumbuhan} />}
-        <TableAnakAdmin tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataAnak={dataAnak} graphShow={graphShow} />
+
+        <PopUp open={message.open} message={message.text} type={message.status} />
+
+        <TableAnakAdmin />
       </section>
 
-      <NewDataAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} graphShow={graphShow} dataPertumbuhan={dataPertumbuhan} />
-
-      {/* <ModalTambahAnak tambahAnak={tambahAnak} setTambahDataAnak={setTambahDataAnak} /> */}
+      <NewDataAnak graphShow={graphShow} />
     </>
   );
 };

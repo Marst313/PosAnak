@@ -36,11 +36,6 @@ const DashboardKegiatan = () => {
             <img src={union} alt="" className="w-5 h-5" />
             Tambah
           </button>
-
-          {/* <button className="flex items-center gap-3 border-lightGreen border px-10 py-2 rounded-full text-lightGreen font-medium">
-            <img src={iconExcel} alt="" />
-            Excel
-          </button> */}
         </div>
 
         {data.length <= 0 ? (

@@ -34,7 +34,7 @@ const newKegiatanThunk = async (data, thunkAPI) => {
 
 const deleteKegiatanThunk = async (id, thunkAPI) => {
   try {
-    const resp = await customFetchKegiatan.delete(id);
+    const resp = await customFetchKegiatan.delete(`/${id}`);
 
     return resp.data;
   } catch (error) {

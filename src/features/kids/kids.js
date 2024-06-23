@@ -4,11 +4,27 @@ import { customFetchAnak } from '../../utils/axios';
 const initialState = {
   dataAnak: [],
   singleDataAnak: [],
+
+  tambahDataAnak: false,
+  dataPertumbuhan: [],
   isLoading: true,
-  message: '',
   graphShow: false,
   edit: false,
+
   searchAnak: '',
+
+  newAnak: {
+    nama: '',
+    nik: '',
+    namaIbu: '',
+    tanggalLahir: '',
+  },
+
+  message: {
+    open: false,
+    text: '',
+    status: 'success',
+  },
 };
 const anakThunk = async (data, thunkAPI) => {
   try {
@@ -52,7 +68,7 @@ const singleAnakThunk = async (data, thunkAPI) => {
 
 const updateAnakThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchAnak.patch('', data);
+    const resp = await customFetchAnak.patch(`/${data.id}`, data);
     return resp.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);
@@ -69,18 +85,41 @@ export const kidSlice = createSlice({
   name: 'kids',
   initialState,
   reducers: {
-    setDataAnak(state, { payload }) {},
+    // ? Setting new anak to redux
+    setNewAnak(state, { payload }) {
+      state.newAnak.nama = payload.nama;
+      state.newAnak.namaIbu = payload.namaIbu;
+      state.newAnak.nik = payload.nik;
+      state.newAnak.tanggalLahir = payload.tanggalLahir;
+    },
+
+    // ? Setting new anak to redux
+    setDataPertumbuhan(state, { payload }) {
+      state.dataPertumbuhan = payload;
+    },
+
+    // ? Open Modal Tambah Data Anak
+    setTambahDataAnak(state, { payload }) {
+      state.tambahDataAnak = payload;
+    },
+
+    // ? Setting graphic true or false
     setGraph(state, { payload }) {
       state.graphShow = payload;
     },
+
+    // ? Setting edit true or false
     setEditAnak(state, { payload }) {
       state.edit = payload;
     },
+
+    // ? Search data anak
     setSearchAnak(state, { payload }) {
       state.searchAnak = payload.toLowerCase();
     },
   },
   extraReducers: (builder) => {
+    //! Getting All Data Anak
     builder
       .addCase(getDataAnak.pending, (state) => {
         state.isLoading = true;
@@ -93,38 +132,55 @@ export const kidSlice = createSlice({
       .addCase(getDataAnak.rejected, (state) => {
         state.isLoading = false;
       })
+
+      //! Creating New Data Anak
       .addCase(newDataAnak.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(newDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.message = 'Success created new data.';
+
+        state.message.open = true;
+        state.message.text = 'Berhasil membuat data baru.';
+        state.message.status = 'success';
       })
-      .addCase(newDataAnak.rejected, (state) => {
+      .addCase(newDataAnak.rejected, (state, { payload }) => {
         state.isLoading = false;
+
+        state.message.open = true;
+        state.message.text = payload;
+        state.message.status = 'error';
       })
+
+      //! Delete Data Anak
       .addCase(deleteDataAnak.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(deleteDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.message = 'Success delete data.';
+
+        state.message.text = 'Berhasil menghapus data anak.';
+        state.message.open = true;
+        state.message.status = 'success';
       })
       .addCase(deleteDataAnak.rejected, (state) => {
         state.isLoading = false;
       })
+
+      //! Get Single Data Anak
       .addCase(getSingleDataAnak.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getSingleDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.singleDataAnak = payload.data;
-
-        state.message = 'Success get single data.';
+        state.message.open = false;
       })
       .addCase(getSingleDataAnak.rejected, (state) => {
         state.isLoading = false;
       })
+
+      //! Update Data Anak
       .addCase(updateDataAnak.pending, (state) => {
         state.isLoading = true;
       })
@@ -132,7 +188,9 @@ export const kidSlice = createSlice({
         state.isLoading = false;
         state.singleDataAnak = payload;
 
-        state.message = 'Success updating data.';
+        state.message.text = 'Berhasil update data anak.';
+        state.message.open = true;
+        state.message.status = 'success';
       })
       .addCase(updateDataAnak.rejected, (state) => {
         state.isLoading = false;
@@ -140,5 +198,5 @@ export const kidSlice = createSlice({
   },
 });
 
-export const { setDataAnak, setGraph, setEditAnak, setSearchAnak } = kidSlice.actions;
+export const { setNewAnak, setDataPertumbuhan, setTambahDataAnak, setGraph, setEditAnak, setSearchAnak } = kidSlice.actions;
 export default kidSlice.reducer;

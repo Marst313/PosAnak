@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { iconClose } from '../../images/icons/';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSingleDataAnak, updateDataAnak } from '../../features/kids/kids';
+import { getSingleDataAnak, setTambahDataAnak, updateDataAnak } from '../../features/kids/kids';
 import { parseStringJson } from '../../utils/function';
 
-const ModalPerkembanganAnak = ({ tambahDataAnak, setTambahDataAnak, dataPertumbuhan }) => {
+const ModalPerkembanganAnak = () => {
   const dispatch = useDispatch();
 
-  const { singleDataAnak } = useSelector((store) => store.kids);
+  const { singleDataAnak, tambahDataAnak, dataPertumbuhan } = useSelector((store) => store.kids);
 
   const [perkembanganAnak, setPerkembanganAnak] = useState({
     berat: '',
@@ -23,33 +23,27 @@ const ModalPerkembanganAnak = ({ tambahDataAnak, setTambahDataAnak, dataPertumbu
       if (perkembanganAnak.berat === '' || perkembanganAnak.tinggi === '') {
         console.log('Fill all the fields !');
       } else {
-        const dataLama = parseStringJson(singleDataAnak.fields.child_growth);
+        const dataLama = parseStringJson(singleDataAnak.child_growth);
 
         const dataBaru = {
-          records: [
+          id: singleDataAnak._id,
+          nik: singleDataAnak.nik,
+          nama: singleDataAnak.nama,
+          namaIbu: singleDataAnak.namaIbu,
+          tanggalLahir: singleDataAnak.tanggalLahir,
+          child_growth: JSON.stringify([
+            ...dataLama,
             {
-              id: singleDataAnak.id,
-              fields: {
-                nik: singleDataAnak.fields.nik,
-                nama: singleDataAnak.fields.nama,
-                namaIbu: singleDataAnak.fields.namaIbu,
-                tanggalLahir: singleDataAnak.fields.tanggalLahir,
-                child_growth: JSON.stringify([
-                  ...dataLama,
-                  {
-                    date: new Date().toLocaleDateString('af-ZA'),
-                    height: +perkembanganAnak.tinggi,
-                    weight: +perkembanganAnak.berat,
-                  },
-                ]),
-              },
+              date: new Date().toLocaleDateString('af-ZA'),
+              height: +perkembanganAnak.tinggi,
+              weight: +perkembanganAnak.berat,
             },
-          ],
+          ]),
         };
 
         await dispatch(updateDataAnak(dataBaru));
-        await dispatch(getSingleDataAnak(singleDataAnak.id));
-        setTambahDataAnak(false);
+        await dispatch(getSingleDataAnak(singleDataAnak._id));
+        dispatch(setTambahDataAnak(false));
       }
     } catch (error) {
       console.log(error);
@@ -92,7 +86,7 @@ const ModalPerkembanganAnak = ({ tambahDataAnak, setTambahDataAnak, dataPertumbu
           </button>
         </form>
 
-        <button type="button" className="absolute top-0 right-0 mt-3 mr-3" onClick={() => setTambahDataAnak(false)}>
+        <button type="button" className="absolute top-0 right-0 mt-3 mr-3" onClick={() => dispatch(setTambahDataAnak(false))}>
           <img src={iconClose} alt="icon close" className="w-8 " />
         </button>
       </div>

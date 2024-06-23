@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getDataAnak, newDataAnak, setEditAnak, updateDataAnak } from '../../features/kids/kids';
+import { getDataAnak, newDataAnak, setEditAnak, setNewAnak, setTambahDataAnak, updateDataAnak } from '../../features/kids/kids';
 import { iconClose } from '../../images/icons/';
 import { convertDateString } from '../../utils/function';
 
-const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
+const ModalTambahAnak = () => {
   const dispatch = useDispatch();
-  const { singleDataAnak, edit } = useSelector((store) => store.kids);
-  const [newAnak, setNewAnak] = useState({
-    nama: '',
-    nik: '',
-    namaIbu: '',
-    tanggalLahir: '',
-  });
+  const { singleDataAnak, edit, tambahDataAnak, newAnak } = useSelector((store) => store.kids);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,10 +27,9 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
         if (!edit) {
           await dispatch(newDataAnak(dataBaru));
           await dispatch(getDataAnak());
-          setTambahDataAnak(false);
-          setNewAnak({ nama: '', nik: '', namaIbu: '', tanggalLahir: '' });
-        }
-        if (edit) {
+          dispatch(setTambahDataAnak(false));
+          dispatch(setNewAnak({ nama: '', nik: '', namaIbu: '', tanggalLahir: '' }));
+        } else {
           const dataUpdate = {
             id: singleDataAnak._id,
             ...newAnak,
@@ -49,7 +42,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
           await dispatch(updateDataAnak(dataUpdate));
           await dispatch(getDataAnak());
           await dispatch(setEditAnak(false));
-          setTambahDataAnak(false);
+          dispatch(setTambahDataAnak(false));
         }
       } catch (error) {
         console.log(error);
@@ -59,18 +52,18 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewAnak({ ...newAnak, [name]: value });
+    dispatch(setNewAnak({ ...newAnak, [name]: value }));
   };
 
   const handleCloseModal = () => {
-    setTambahDataAnak(false);
+    dispatch(setTambahDataAnak(false));
     dispatch(setEditAnak(false));
   };
 
   useEffect(() => {
     if (edit) {
       const { namaIbu = '', nama = '', nik = '', tanggalLahir = '' } = singleDataAnak || {};
-      setNewAnak({ nama, nik, namaIbu, tanggalLahir: convertDateString(tanggalLahir) });
+      dispatch(setNewAnak({ nama, nik, namaIbu, tanggalLahir: convertDateString(tanggalLahir) }));
     }
   }, [edit]);
 
@@ -86,7 +79,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
               <label htmlFor="nik" className="font-light">
                 NIK
               </label>
-              <input onChange={handleChange} type="number" name="nik" id="nik" className="focus:outline-none focus:ring-0 border-grey rounded-lg remove-arrow" value={newAnak.nik} />
+              <input onChange={handleChange} type="number" name="nik" required id="nik" className="focus:outline-none focus:ring-0 border-grey rounded-lg remove-arrow" value={newAnak.nik} />
             </div>
 
             {/* NAMA */}
@@ -94,7 +87,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
               <label htmlFor="nama" className="font-light">
                 Nama
               </label>
-              <input onChange={handleChange} type="text" name="nama" id="nama" className="focus:outline-none focus:ring-0 border-grey rounded-lg " value={newAnak.nama} />
+              <input onChange={handleChange} type="text" name="nama" required id="nama" className="focus:outline-none focus:ring-0 border-grey rounded-lg " value={newAnak.nama} />
             </div>
           </div>
 
@@ -104,7 +97,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
               <label htmlFor="tanggalLahir" className="font-light">
                 Tanggal Lahir
               </label>
-              <input onChange={handleChange} type="date" name="tanggalLahir" id="tanggalLahir" className="focus:outline-none focus:ring-0 border-grey rounded-lg" value={newAnak.tanggalLahir} />
+              <input onChange={handleChange} type="date" name="tanggalLahir" required id="tanggalLahir" className="focus:outline-none focus:ring-0 border-grey rounded-lg" value={newAnak.tanggalLahir} />
             </div>
 
             {/* NAMA IBU */}
@@ -112,7 +105,7 @@ const ModalTambahAnak = ({ tambahDataAnak, setTambahDataAnak }) => {
               <label htmlFor="namaIbu" className="font-light">
                 Nama Ibu
               </label>
-              <input onChange={handleChange} type="text" name="namaIbu" id="namaIbu" className="focus:outline-none focus:ring-0 border-grey rounded-lg" value={newAnak.namaIbu} />
+              <input onChange={handleChange} type="text" name="namaIbu" required id="namaIbu" className="focus:outline-none focus:ring-0 border-grey rounded-lg" value={newAnak.namaIbu} />
             </div>
           </div>
 

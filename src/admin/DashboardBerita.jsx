@@ -43,7 +43,7 @@ const DashboardBerita = () => {
 
       <ul className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-5">
         {dataBerita?.map((item) => {
-          return <SingleDataBerita key={item.id} item={item} />;
+          return <SingleDataBerita key={item._id} item={item} />;
         })}
       </ul>
     </section>

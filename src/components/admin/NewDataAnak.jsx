@@ -1,12 +1,12 @@
 import React from 'react';
 import { ModalTambahAnak, ModalPerkembanganAnak } from './';
 
-const NewDataAnak = ({ tambahDataAnak, setTambahDataAnak, graphShow, dataPertumbuhan }) => {
+const NewDataAnak = ({ graphShow }) => {
   if (graphShow) {
-    return <ModalPerkembanganAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} dataPertumbuhan={dataPertumbuhan} />;
+    return <ModalPerkembanganAnak />;
   }
 
-  return <ModalTambahAnak tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} />;
+  return <ModalTambahAnak />;
 };
 
 export default NewDataAnak;

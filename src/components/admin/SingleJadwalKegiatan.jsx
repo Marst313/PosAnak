@@ -86,7 +86,7 @@ const SingleJadwalKegiatan = ({ item, setNewKegiatan, newKegiatan }) => {
             Ubah
             <img src={pencil} alt="edit icon pencil" />
           </button>
-          <button type="button" className="bg-redPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => handleDelete(item.id)}>
+          <button type="button" className="bg-redPrimary w-40 text-white  flex px-3 py-1 rounded-lg font-medium items-center justify-between" onClick={() => handleDelete(item._id)}>
             Hapus
             <img src={deleteIconWhite} alt="delete icon" />
           </button>

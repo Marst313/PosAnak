@@ -6,9 +6,9 @@ import logoPanah from '../../images/dataanak/Vector.svg';
 import logoUser from '../../images/dataanak/User.svg';
 import { useSelector } from 'react-redux';
 
-const TableAnakAdmin = ({ style, dataAnak, tambahDataAnak, setTambahDataAnak }) => {
+const TableAnakAdmin = ({ style }) => {
   const [data, setData] = useState([]);
-  const { searchAnak } = useSelector((store) => store.kids);
+  const { searchAnak, tambahDataAnak, dataAnak } = useSelector((store) => store.kids);
 
   useEffect(() => {
     const searchDataAnak = dataAnak.filter((item) => item.nama.toLowerCase().includes(searchAnak));
@@ -60,7 +60,7 @@ const TableAnakAdmin = ({ style, dataAnak, tambahDataAnak, setTambahDataAnak }) 
 
         <tbody>
           {data.map((child, index) => {
-            return <SingleDataAnak key={index} tambahDataAnak={tambahDataAnak} setTambahDataAnak={setTambahDataAnak} child={child} index={index} />;
+            return <SingleDataAnak key={index} tambahDataAnak={tambahDataAnak} child={child} index={index} />;
           })}
         </tbody>
       </table>
