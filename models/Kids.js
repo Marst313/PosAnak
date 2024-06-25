@@ -3,22 +3,27 @@ const mongoose = require('mongoose');
 const PosyanduKidSchema = new mongoose.Schema({
   nama: {
     type: String,
-    required: [true, 'Admin must be fill nama !'],
+    required: [true, 'Nama anak harus diisi!'],
     unique: [true, 'Nama anak sudah ada gunakan nama lain !'],
   },
   namaIbu: {
     type: String,
-    required: [true, 'Admin must be fill nama ibu !'],
+    required: [true, 'Nama ibu tidak boleh kosong!'],
   },
   nik: {
     type: Number,
-    required: [true, 'Admin must be fill nik !'],
-    minlength: [16, 'Not Valid !'],
-    unique: [true, 'NIK sudah digunakan !'],
+    required: [true, 'Nik tidak boleh kosong!'],
+    validate: {
+      validator: function (v) {
+        return /^\d{16}$/.test(v);
+      },
+      message: 'NIK harus memiliki 16 digit!',
+    },
+    unique: [true, 'NIK sudah digunakan!'],
   },
   tanggalLahir: {
     type: Date,
-    required: [true, 'Admin must be fill birth date !'],
+    required: [true, 'Tanggal lahir tidak boleh kosong!'],
   },
   age: Number,
   child_growth: {

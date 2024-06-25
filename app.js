@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(
   '/api',
   rateLimit({
-    max: 100,
+    max: 200,
     windowMs: 60 * 60 * 1000,
     message: 'Too many request from this IP, wait again an a hour !',
   })
@@ -55,7 +55,7 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 
 //! Data sanitization against xss
-app.use(xss());
+// app.use(xss());
 
 //! Prevent paramater pollution
 /* app.use(

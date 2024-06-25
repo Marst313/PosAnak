@@ -11,11 +11,7 @@ const PosyanduNewsSchema = new mongoose.Schema({
   },
   images: {
     type: String,
-    default: 'default.jpg',
-  },
-  time: {
-    type: Date,
-    required: [true, 'Admin must be fill the time'],
+    default: 'https://firebasestorage.googleapis.com/v0/b/posyandu2-893b0.appspot.com/o/default.png?alt=media',
   },
   Created: {
     type: Date,

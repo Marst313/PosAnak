@@ -17,27 +17,24 @@ exports.createNews = catchAsync(async (req, res, next) => {
 
   res.status(201).json({
     status: 'success',
-    data: {
-      data: newDocument,
-    },
+    data: newDocument,
   });
 });
 
 exports.editNews = catchAsync(async (req, res, next) => {
-  const document = await News.findByIdAndUpdate(req.params.id, req.body, {
+  const data = await News.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
 
-  if (!document) {
+  if (!data) {
     return next(new AppError('No document found with that id', 401));
   }
 
   res.status(200).json({
     status: 'success',
-    data: {
-      document,
-    },
+    message: 'update document success',
+    data,
   });
 });
 
@@ -50,9 +47,7 @@ exports.singleNews = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    data: {
-      data,
-    },
+    data,
   });
 });
 

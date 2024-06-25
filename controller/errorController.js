@@ -9,13 +9,15 @@ const handleCastErrorDB = (err) => {
 const handleDuplicateFieldsDB = (err) => {
   const valueObj = Object.keys(err.keyPattern)[0];
 
-  const message = `Duplicate field ${valueObj} Please use another ${valueObj}`;
+  const message = `Data ${valueObj} sudah ada, Gunakan ${valueObj} lain`;
 
   return new AppError(message, 400);
 };
 
 const handleValidationErrorDB = (err) => {
-  const message = `Invalid input data.`;
+  const message = `Invalid input data. ${err.message.split(':')[2]}`;
+
+  console.log(err.message);
 
   return new AppError(message, 400);
 };
