@@ -2,11 +2,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { customFetchBerita } from '../../utils/axios';
 
 const initialState = {
-  judul: '',
   data: [],
   singleDataBerita: [],
+  dataBerita: [],
+
   edit: false,
   isLoading: true,
+
+  judul: '',
   searchBerita: '',
 };
 
@@ -52,7 +55,7 @@ const deleteBeritaThunk = async (data, thunkAPI) => {
 
 const updateBeritaThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchBerita.patch('', data);
+    const resp = await customFetchBerita.patch(`/${data.id}`, data);
 
     return resp.data;
   } catch (error) {
