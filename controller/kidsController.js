@@ -5,7 +5,7 @@ const Kids = require('./../models/Kids');
 const User = require('./../models/User');
 
 exports.getAllKids = catchAsync(async (req, res, next) => {
-  const data = await Kids.find();
+  const data = await Kids.find().lean();
 
   res.status(200).json({
     status: 'success',
@@ -17,8 +17,6 @@ exports.getAllKids = catchAsync(async (req, res, next) => {
 
 exports.createNewKids = catchAsync(async (req, res, next) => {
   const newDocument = await Kids.create(req.body);
-
-  console.log(req.body);
 
   res.status(201).json({
     status: 'success',
@@ -43,7 +41,7 @@ exports.editKid = catchAsync(async (req, res, next) => {
 });
 
 exports.singleKid = catchAsync(async (req, res, next) => {
-  const data = await Kids.findById(req.params.id);
+  const data = await Kids.findById(req.params.id).lean();
 
   if (!data) {
     return next(new AppError('Tidak ada anak dengan id tersebut!', 404));
@@ -69,7 +67,7 @@ exports.deleteKid = catchAsync(async (req, res, next) => {
 });
 
 exports.connectKid = catchAsync(async (req, res, next) => {
-  const nikArray = req.body.nik; // Expecting an array of NIKs
+  const nikArray = req.body.nik; //! Expecting an array of NIKs
 
   //! 1. Check if each NIK exists in the Kids collection
   for (const nik of nikArray) {

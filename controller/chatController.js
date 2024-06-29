@@ -68,7 +68,7 @@ exports.generateNextChat = catchAsync(async (req, res, next) => {
   if (!req.user.id) return next(new AppError('Silahkan login terlebih dahulu!', 401));
 
   // ! 2.) Get Single Chat First
-  const prevChat = await Chat.findById(req.params.id);
+  const prevChat = await Chat.findById(req.params.id).lean();
 
   // ! 3.) Load History To New Variabel
   let history = JSON.parse(prevChat.history);
@@ -92,7 +92,7 @@ exports.generateNextChat = catchAsync(async (req, res, next) => {
   const historyString = JSON.stringify(history);
 
   // ! 7.) Update History
-  await Chat.findByIdAndUpdate(req.params.id, { history: historyString });
+  await Chat.findByIdAndUpdate(req.params.id, { history: historyString }).lean();
 
   res.status(200).json({
     message: 'success',
@@ -101,7 +101,7 @@ exports.generateNextChat = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllChat = catchAsync(async (req, res, next) => {
-  const data = await Chat.find();
+  const data = await Chat.find().lean();
 
   if (!data) return next(new AppError('Belom ada chat', 404));
 

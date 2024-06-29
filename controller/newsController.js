@@ -3,7 +3,7 @@ const AppError = require('../utils/appError');
 const News = require('../models/News');
 
 exports.getAllNews = catchAsync(async (req, res, next) => {
-  const data = await News.find();
+  const data = await News.find().lean();
 
   res.status(200).json({
     status: 'success',
@@ -39,7 +39,7 @@ exports.editNews = catchAsync(async (req, res, next) => {
 });
 
 exports.singleNews = catchAsync(async (req, res, next) => {
-  const data = await News.findById(req.params.id);
+  const data = await News.findById(req.params.id).lean();
 
   if (!data) {
     return next(new AppError('There is no news with that id', 404));
