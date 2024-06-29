@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { union } from '../images/icons/';
+import { union } from '../images/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchBar from '../components/admin/SearchBar';
 import { SingleJadwalKegiatan, ModalTambahKegiatan } from '../components/admin';

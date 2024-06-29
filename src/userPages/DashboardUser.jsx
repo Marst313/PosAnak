@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { DashboardAdmin } from '../admin';
+import { DashboardAdmin } from '../adminPages';
 import { WelcomeBanner, JadwalKegiatanUser, TableAnakUser } from '../components/user/';
 import { Calender, Loading, ScheduleRight } from '../components/';
 import logo from '../images/logo-posyandu.webp';

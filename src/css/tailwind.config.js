@@ -52,6 +52,7 @@ module.exports = {
         60: '60',
       },
       colors: {
+        bgChatBot: '#033828',
         darkGreen: '#036346',
         lightGreen: '#57C9A7',
         coldGreen: '#CDF0E6',

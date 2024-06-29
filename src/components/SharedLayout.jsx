@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import Sidebar from './Sidebar';
-import Header from './Header';
+import { Sidebar, Header, PopUpChatBot } from './';
 import { useDispatch } from 'react-redux';
 import { getDataAnak } from '../features/kids/kids';
 import { getDataKeluarga } from '../features/family/family';
@@ -16,7 +15,6 @@ import { jwtDecode } from 'jwt-decode';
 const SharedLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +54,7 @@ const SharedLayout = () => {
 
       <Outlet sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      <div className="fixed bottom-10 right-20">Chat Bot</div>
+      <PopUpChatBot />
     </div>
   );
 };

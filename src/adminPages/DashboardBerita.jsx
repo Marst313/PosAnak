@@ -35,7 +35,7 @@ const DashboardBerita = () => {
       <div className="flex mt-16 lg:mt-0 gap-5 justify-between">
         <SearchBar data="berita" />
 
-        <Link className=" bg-lightGreen flex items-center px-8 gap-2 text-white rounded-full whitespace-nowrap " to="/dashboard/tambahBerita" onClick={() => dispatch(setEditBerita(false))}>
+        <Link className=" bg-lightGreen flex items-center px-8 gap-2 text-white rounded-full whitespace-nowrap " to="/dashboard/tambahberita" onClick={() => dispatch(setEditBerita(false))}>
           <img src={union} alt="icon tambah" className="w-5 h-5" />
           Tambah Berita
         </Link>

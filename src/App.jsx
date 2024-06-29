@@ -5,10 +5,10 @@ import './css/style.css';
 
 // Import pages
 
-import { Activities, NewsLanding, Daftar, Landing, Login, OpenSingleBerita, SemuaBerita, SharedLayoutLanding } from './landing/';
+import { Activities, NewsLanding, Daftar, Landing, Login, OpenSingleBerita, SemuaBerita, SharedLayoutLanding } from './landingPages/';
 
-import { DashboardKegiatan, DashboardKeluarga, Editor, DashboardAnak, DashboardBerita } from './admin';
-import { DashboardAnakUser, DashboardBeritaUser, DashboardKegiatanUser, DashboardUser, Profiles, SingleBerita } from './user';
+import { DashboardKegiatan, DashboardKeluarga, Editor, DashboardAnak, DashboardBerita, ChatBot } from './adminPages';
+import { DashboardAnakUser, DashboardBeritaUser, DashboardKegiatanUser, DashboardUser, Profiles, SingleBerita } from './userPages';
 
 import { Error, ProtectedRoute, SharedLayout } from './components';
 
@@ -36,19 +36,22 @@ function App() {
           <Route index path="menu" element={<DashboardUser />} />
 
           <Route path="berita" element={<DashboardBeritaUser />} />
-          <Route path="tambahBerita" element={<Editor />} />
-          <Route path="berita/:id" element={<SingleBerita />} />
-          <Route path="profile" element={<Profiles />} />
           <Route path="kegiatan" element={<DashboardKegiatanUser />} />
           <Route path="anak" element={<DashboardAnakUser />} />
+          <Route path="profile" element={<Profiles />} />
 
+          <Route path="berita/:id" element={<SingleBerita />} />
+
+          {/* Admin */}
           <Route path="dataanak" element={<DashboardAnak />} />
-          <Route path="databerita" element={<DashboardBerita />} />
-          <Route path="tambahberita" element={<DashboardBerita />} />
-
           <Route path="datakegiatan" element={<DashboardKegiatan />} />
           {/* <Route path="datakeluarga" element={<DashboardKeluarga />} /> */}
+          <Route path="databerita" element={<DashboardBerita />} />
+          <Route path="tambahberita" element={<Editor />} />
+          {/* <Route path="tambahberita" element={<DashboardBerita />} /> */}
         </Route>
+
+        <Route path="chatbot/:id" element={<ChatBot />} />
 
         <Route path="/" element={<SharedLayoutLanding />}>
           <Route index element={<Landing />} />
