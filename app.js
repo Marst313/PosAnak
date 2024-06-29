@@ -12,6 +12,7 @@ const userRouter = require('./routes/userRoutes');
 const kidsRouter = require('./routes/kidsRoutes');
 const activityRouter = require('./routes/activityRoutes');
 const newsRouter = require('./routes/newsRoutes');
+const chatRouter = require('./routes/chatRoutes');
 
 const globalErrorHandle = require('./controller/errorController');
 const AppError = require('./utils/appError');
@@ -68,6 +69,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/kid', kidsRouter);
 app.use('/api/v1/news', newsRouter);
 app.use('/api/v1/activity', activityRouter);
+app.use('/api/v1/chat', chatRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Cant find ${req.originalUrl} on this server`));
