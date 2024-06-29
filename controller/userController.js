@@ -4,7 +4,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getSingleUser = catchAsync(async (req, res, next) => {
-  const data = await User.findById(req.params.id);
+  const data = await User.findById(req.params.id).lean();
 
   data.password = undefined;
 
@@ -15,7 +15,7 @@ exports.getSingleUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllUser = catchAsync(async (req, res, next) => {
-  const data = await User.find().select('-password');
+  const data = await User.find().select('-password').lean();
 
   if (!data) return next(new AppError('There is no data found', 401));
 
