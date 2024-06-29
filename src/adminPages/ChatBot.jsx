@@ -12,7 +12,7 @@ const ChatBot = () => {
 
   return (
     <div className="bg-bgChatBot flex h-screen p-10 text-white">
-      <aside className="flex w-[30%] flex-col">
+      <aside className="mr-5 flex w-[25%] flex-col">
         {/* Header ASIDE */}
         <div className="flex items-center justify-start gap-10">
           <button onClick={handleClickBack}>
@@ -20,26 +20,26 @@ const ChatBot = () => {
           </button>
 
           <div className="flex items-center gap-5">
-            <img src={logoWhite} alt="logo putih" />
-            <h1 className="text-3xl text-white">Posanak</h1>
+            <img src={logoWhite} alt="logo putih" className="w-10" />
+            <h1 className="text-2xl text-white">Posanak</h1>
           </div>
 
-          <img src={iconChatBotBook} alt="logo buku" />
+          <img src={iconChatBotBook} alt="logo buku" className="w-10" />
         </div>
         {/* Header ASIDE */}
       </aside>
 
       {/* Content */}
       <div className="bg-darkGreen flex w-full rounded-3xl">
-        <div className="flex w-3/4 flex-col overflow-y-auto">
+        <div className="flex w-3/4 flex-col">
           {/* HEADER CONTENT */}
-          <div className="h-24 border-b-2 border-b-black/20 px-12 py-7">
-            <h1 className="text-4xl font-semibold text-white">Chatbots</h1>
+          <div className="h-20 border-b-2 border-b-black/20 px-12 py-5">
+            <h1 className="text-4xl font-semibold text-white">Chatbot</h1>
           </div>
           {/* HEADER CONTENT */}
 
           {/* CHAT CONTENT */}
-          <ul className="flex h-fit w-full flex-col gap-5 border-r-2 border-r-black/20 px-12 pb-20">
+          <ul className="flex h-fit w-full flex-col gap-5 overflow-y-auto border-r-2 border-r-black/20 px-12 pb-20">
             {/* SINGLE CHAT */}
             <li className="flex flex-col gap-5 py-5">
               <div className="bg-bgChatBot flex w-full flex-col gap-5 rounded-3xl p-5">
@@ -61,7 +61,7 @@ const ChatBot = () => {
                   />
                 </div>
 
-                <p className="text-white">
+                <p className="text-justify text-white">
                   Stunting adalah kondisi di mana pertumbuhan anak terhambat
                   sehingga tinggi badan mereka lebih rendah dari standar
                   usianya. Beberapa ciri yang paling menonjol dari anak yang
@@ -94,7 +94,7 @@ const ChatBot = () => {
             {/* SINGLE CHAT */}
 
             {/* SINGLE CHAT */}
-            <li className="flex flex-col gap-5 py-5">
+            <li className="flex flex-col gap-5">
               <div className="bg-bgChatBot flex w-full flex-col gap-5 rounded-3xl p-5">
                 <div className="bg-darkGreen flex w-full items-center gap-5 rounded-xl px-5 py-2">
                   <img
@@ -114,7 +114,7 @@ const ChatBot = () => {
                   />
                 </div>
 
-                <p className="text-white">
+                <p className="text-justify text-white">
                   Stunting adalah kondisi di mana pertumbuhan anak terhambat
                   sehingga tinggi badan mereka lebih rendah dari standar
                   usianya. Beberapa ciri yang paling menonjol dari anak yang
@@ -146,13 +146,148 @@ const ChatBot = () => {
             </li>
             {/* SINGLE CHAT */}
           </ul>
+
           {/* CHAT CONTENT */}
-          <div className="fixed bottom-0 left-0 flex h-14 w-full items-center justify-center">
+          <div className="bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center">
             <input
               type="text"
               placeholder="Kirim pesan ke Chatbot"
               className="bg-darkGreen border-bgChatBot focus:border-bgChatBot h-full w-[54.2%] translate-x-5 rounded-lg border placeholder:text-white focus:ring-0"
             />
+          </div>
+        </div>
+
+        {/* HEADER RIGHT */}
+        <div className="w-72">
+          <div className="flex h-20 w-full items-center justify-center gap-5 border-b-2 border-b-black/20 px-12 py-7">
+            <img
+              src={defaultProfile}
+              alt="user images profile"
+              className="h-10 w-10 rounded-full"
+            />
+            <button className="text-darkGreen mx-2 rounded-lg bg-white px-5 py-2 font-semibold">
+              Share
+            </button>
+          </div>
+
+          {/* HISTORY CHAT */}
+          <div className="h-fit w-72 px-4 py-2 text-sm">
+            <div className="flex">
+              <h1 className="text-white">Chat History</h1>
+              <p className="bg-[#033828] rounded mx-2 px-2 text-white">3/20</p>
+            </div>
+
+            {/* HISTORY CHAT */}
+            <ul className="mt-5 h-96 w-full overflow-y-auto p-2">
+              <li className="flex rounded-xl bg-[#033828] p-2">
+                <input
+                  type="checkbox"
+                  className="mx-2 mt-1 rounded bg-[#033828]"
+                />
+                <div>
+                  <h3 className="text-white">Apa ciri anak stunting ?</h3>
+                  <p className="line-clamp-2 text-white/30">
+                    Stunting adalah kondisi di mana pertumbuhan anak terhambat
+                    sehingga tinggi badan mereka lebih rendah dari standar
+                    usianya. Beberapa ciri yang paling menonjol dari anak yang
+                    terkena stunting adalah: Pertumbuhan Tinggi Badan Terhambat:
+                    Anak lebih pendek dibandingkan teman-teman seusianya.
+                  </p>
+                  <div className="mt-3 flex justify-between">
+                    <img
+                      src={defaultProfile}
+                      alt="user images profile"
+                      className="h-5 w-5 rounded-full"
+                    />
+                    <p>Baru saja</p>
+                  </div>
+                </div>
+              </li>
+
+              <li className="border-bgChatBot my-2 flex rounded-xl border p-2">
+                <input
+                  type="checkbox"
+                  className="mx-2 mt-1 rounded bg-[#033828]"
+                />
+                <div>
+                  <h3 className="text-white">Contoh anak terkena stunting?</h3>
+                  <p className="line-clamp-2 text-white/30">
+                    Stunting adalah kondisi di mana pertumbuhan anak terhambat
+                    sehingga tinggi badan mereka lebih rendah dari standar
+                    usianya. Beberapa ciri yang paling menonjol dari anak yang
+                    terkena stunting adalah: Pertumbuhan Tinggi Badan Terhambat:
+                    Anak lebih pendek dibandingkan teman-teman seusianya.
+                  </p>
+                  <div className="mt-3 flex justify-between">
+                    <img
+                      src={defaultProfile}
+                      alt="user images profile"
+                      className="h-5 w-5 rounded-full"
+                    />
+                    <p className="text-sm text-white/20">Baru saja</p>
+                  </div>
+                </div>
+              </li>
+
+              <li className="border-bgChatBot my-2 flex rounded-xl border p-2">
+                <input
+                  type="checkbox"
+                  className="mx-2 mt-1 rounded bg-[#033828]"
+                />
+                <div>
+                  <h3 className="text-white">
+                    Rata-rata lingkar kepala stunting?
+                  </h3>
+                  <p className="line-clamp-2 text-white/30">
+                    Stunting adalah kondisi di mana pertumbuhan anak terhambat
+                    sehingga tinggi badan mereka lebih rendah dari standar
+                    usianya. Beberapa ciri yang paling menonjol dari anak yang
+                    terkena stunting adalah: Pertumbuhan Tinggi Badan Terhambat:
+                    Anak lebih pendek dibandingkan teman-teman seusianya.
+                  </p>
+                  <div className="mt-3 flex justify-between">
+                    <img
+                      src={defaultProfile}
+                      alt="user images profile"
+                      className="h-5 w-5 rounded-full"
+                    />
+                    <p className="text-sm text-white/20">7 hari lalu</p>
+                  </div>
+                </div>
+              </li>
+
+              <li className="border-bgChatBot flex rounded-xl border p-2">
+                <input
+                  type="checkbox"
+                  className="mx-2 mt-1 rounded bg-[#033828]"
+                />
+                <div>
+                  <h3 className="text-white">Berat badan idealnya?</h3>
+                  <p className="line-clamp-2 text-white/30">
+                    Stunting adalah kondisi di mana pertumbuhan anak terhambat
+                    sehingga tinggi badan mereka lebih rendah dari standar
+                    usianya. Beberapa ciri yang paling menonjol dari anak yang
+                    terkena stunting adalah: Pertumbuhan Tinggi Badan Terhambat:
+                    Anak lebih pendek dibandingkan teman-teman seusianya.
+                  </p>
+                  <div className="mt-3 flex justify-between">
+                    <img
+                      src={defaultProfile}
+                      alt="user images profile"
+                      className="h-5 w-5 rounded-full"
+                    />
+                    <p className="text-sm text-white/20">30 Hari lalu</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            {/* BUTTON CHAT */}
+            <div className="bottom-0 left-0 mt-4 flex h-24 w-full items-center justify-center">
+              <button className="mx-2 h-10 w-full rounded-xl bg-white">
+                <p className="text-semibold">Membuat ChatBot Baru</p>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -161,22 +296,3 @@ const ChatBot = () => {
 };
 
 export default ChatBot;
-
-//  {/* HISTORY CHAT */}
-//  <ul className="w-[25%] px-4 py-2 text-sm">
-//  <h1 className="text-white">Chat History</h1>
-//  <li></li>
-// </ul>
-// {/* HISTORY CHAT */}
-
-{
-  /* <div className="flex h-24 w-[25%] items-center gap-5 border-b-2 border-b-black/20 px-12 py-7">
-            <div>
-              <img src="" alt="gambar profile" />
-            </div>
-
-            <button className="text-darkGreen rounded-lg bg-white px-5 py-2 font-semibold">
-              Share
-            </button>
-          </div> */
-}

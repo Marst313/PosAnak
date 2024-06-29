@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { customFetchKegiatan } from "../../utils/axios";
+import { customFetchKegiatan } from "../../../utils/axios";
 
 const initialState = {
   dataKegiatan: [],
