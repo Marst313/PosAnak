@@ -1,6 +1,8 @@
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 const Kids = require('./../models/Kids');
+const User = require('./../models/User');
 
 exports.getAllKids = catchAsync(async (req, res, next) => {
   const data = await Kids.find();
@@ -31,7 +33,7 @@ exports.editKid = catchAsync(async (req, res, next) => {
   });
 
   if (!document) {
-    return next(new AppError('No document found with that id', 401));
+    return next(new AppError('Tidak ada anak dengan id tersebut!', 401));
   }
 
   res.status(200).json({
@@ -44,7 +46,7 @@ exports.singleKid = catchAsync(async (req, res, next) => {
   const data = await Kids.findById(req.params.id);
 
   if (!data) {
-    return next(new AppError('No document found with that ID', 404));
+    return next(new AppError('Tidak ada anak dengan id tersebut!', 404));
   }
 
   res.status(200).json({
@@ -57,11 +59,40 @@ exports.deleteKid = catchAsync(async (req, res, next) => {
   const document = await Kids.findByIdAndDelete(req.params.id);
 
   if (!document) {
-    return next(new AppError('No document found with that id', 404));
+    return next(new AppError('Tidak ada anak dengan id tersebut!', 404));
   }
 
   res.status(204).json({
     message: 'success',
     data: null,
+  });
+});
+
+exports.connectKid = catchAsync(async (req, res, next) => {
+  const nikArray = req.body.nik; // Expecting an array of NIKs
+
+  //! 1. Check if each NIK exists in the Kids collection
+  for (const nik of nikArray) {
+    const kid = await Kids.findOne({ nik });
+    if (!kid) {
+      return next(new AppError(`Tidak ada anak dengan NIK ${nik}, silahkan daftarkan terlebih dahulu`, 404));
+    }
+  }
+
+  //! 2. Check if each NIK is already used by another user
+  for (const nik of nikArray) {
+    const userWithNik = await User.findOne({ nikKids: nik });
+    if (userWithNik && userWithNik.id !== req.user.id) {
+      return next(new AppError(`NIK ${nik} sudah digunakan oleh user lain!`, 400));
+    }
+  }
+
+  //! 3. Update nikKids in the User model
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, { nikKids: nikArray }, { new: true, runValidators: true });
+
+  //! 4. Send success response
+  res.status(200).json({
+    message: 'success',
+    data: updatedUser,
   });
 });

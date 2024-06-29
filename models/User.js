@@ -10,12 +10,12 @@ const PosyanduUserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'User must be fill the email !'],
-    unique: true,
+    unique: [true, 'Email sudah terdaftar gunakan email lain!'],
   },
   password: {
     type: String,
     required: [true, 'User must be fill the password !'],
-    minlength: [8, 'Password minimum be 8 character'],
+    minlength: [8, 'Password harus lebih dari 8 karakter!'],
   },
   photo: {
     type: String,
@@ -27,7 +27,14 @@ const PosyanduUserSchema = new mongoose.Schema({
     default: 'user',
   },
   nikKids: {
-    type: Number,
+    type: [Number],
+    validate: {
+      validator: function (v) {
+        return v.every((num) => /^\d{16}$/.test(num));
+      },
+      message: 'NIK anak harus memiliki 16 digit!',
+    },
+    unique: [true, 'NIK sudah digunakan!'],
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
