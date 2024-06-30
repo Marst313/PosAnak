@@ -34,7 +34,7 @@ const ChatBot = () => {
   return (
     <div className="bg-bgChatBot relative flex h-screen p-10 text-white">
       <aside
-         className={"mr-5 flex w-[25%] flex-col"}
+         className="mr-5 flex w-[25%] flex-col"
       >
         {/* Header ASIDE */}
         <div className="flex items-center justify-start gap-10">
@@ -116,7 +116,7 @@ const ChatBot = () => {
 
       {/* Content */}
       <div
-        className={`bg-darkGreen flex w-full rounded-3xl transition-all duration-500 ${isSidebarOpen ? "ml-0" : "-ml-"}`}
+        className={`bg-darkGreen hidden lg:flex w-full rounded-3xl transition-all duration-500 ${isSidebarOpen ? "ml-0" : "-ml-"}`}
       >
         <div className="flex w-3/4 flex-col">
           {/* HEADER CONTENT */}
