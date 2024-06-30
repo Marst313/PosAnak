@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { customFetchAnak } from '../../utils/axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { customFetchAnak } from "../../utils/axios";
 
 const initialState = {
   dataAnak: [],
@@ -11,21 +11,41 @@ const initialState = {
   graphShow: false,
   edit: false,
 
-  searchAnak: '',
+  searchAnak: "",
 
   newAnak: {
-    nama: '',
-    nik: '',
-    namaIbu: '',
-    tanggalLahir: '',
+    nama: "",
+    nik: "",
+    namaIbu: "",
+    tanggalLahir: "",
+  },
+
+  isKidsThere: false,
+
+  kidsBio: {
+    nama: "",
+    nik: 0,
+    namaIbu: "",
   },
 
   message: {
     open: false,
-    text: '',
-    status: 'success',
+    text: "",
+    status: "success",
   },
 };
+
+const connectAnakThunk = async (data, thunkAPI) => {
+  try {
+    console.log(data);
+    const resp = await customFetchAnak.post(`/connect`, data);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
 const anakThunk = async (data, thunkAPI) => {
   try {
     const resp = await customFetchAnak.get();
@@ -38,7 +58,7 @@ const anakThunk = async (data, thunkAPI) => {
 
 const newAnakThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchAnak.post('', data);
+    const resp = await customFetchAnak.post("", data);
 
     return resp.data;
   } catch (error) {
@@ -75,14 +95,22 @@ const updateAnakThunk = async (data, thunkAPI) => {
   }
 };
 
-export const getDataAnak = createAsyncThunk('getAllAnak', anakThunk);
-export const getSingleDataAnak = createAsyncThunk('getSingleAnak', singleAnakThunk);
-export const newDataAnak = createAsyncThunk('newAnak', newAnakThunk);
-export const deleteDataAnak = createAsyncThunk('deleteAnak', deleteAnakThunk);
-export const updateDataAnak = createAsyncThunk('updateAnak', updateAnakThunk);
+export const connectDataAnak = createAsyncThunk(
+  "connectDataAnak",
+  connectAnakThunk,
+);
+
+export const getDataAnak = createAsyncThunk("getAllAnak", anakThunk);
+export const getSingleDataAnak = createAsyncThunk(
+  "getSingleAnak",
+  singleAnakThunk,
+);
+export const newDataAnak = createAsyncThunk("newAnak", newAnakThunk);
+export const deleteDataAnak = createAsyncThunk("deleteAnak", deleteAnakThunk);
+export const updateDataAnak = createAsyncThunk("updateAnak", updateAnakThunk);
 
 export const kidSlice = createSlice({
-  name: 'kids',
+  name: "kids",
   initialState,
   reducers: {
     // ? Setting new anak to redux
@@ -146,15 +174,15 @@ export const kidSlice = createSlice({
         state.isLoading = false;
 
         state.message.open = true;
-        state.message.text = 'Berhasil membuat data baru.';
-        state.message.status = 'success';
+        state.message.text = "Berhasil membuat data baru.";
+        state.message.status = "success";
       })
       .addCase(newDataAnak.rejected, (state, { payload }) => {
         state.isLoading = false;
 
         state.message.open = true;
         state.message.text = payload;
-        state.message.status = 'error';
+        state.message.status = "error";
       })
 
       //! Delete Data Anak
@@ -164,9 +192,9 @@ export const kidSlice = createSlice({
       .addCase(deleteDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
 
-        state.message.text = 'Berhasil menghapus data anak.';
+        state.message.text = "Berhasil menghapus data anak.";
         state.message.open = true;
-        state.message.status = 'error';
+        state.message.status = "error";
       })
       .addCase(deleteDataAnak.rejected, (state) => {
         state.isLoading = false;
@@ -193,15 +221,35 @@ export const kidSlice = createSlice({
         state.isLoading = false;
         state.singleDataAnak = payload;
 
-        state.message.text = 'Berhasil update data anak.';
+        state.message.text = "Berhasil update data anak.";
         state.message.open = true;
-        state.message.status = 'success';
+        state.message.status = "success";
       })
       .addCase(updateDataAnak.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      //! Connect Data Anak
+      .addCase(connectDataAnak.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(connectDataAnak.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isKidsThere = true;
+      })
+      .addCase(connectDataAnak.rejected, (state) => {
         state.isLoading = false;
       });
   },
 });
 
-export const { setNewAnak, setDataPertumbuhan, setTambahDataAnak, setGraph, setEditAnak, setSearchAnak, setMessageOpen } = kidSlice.actions;
+export const {
+  setNewAnak,
+  setDataPertumbuhan,
+  setTambahDataAnak,
+  setGraph,
+  setEditAnak,
+  setSearchAnak,
+  setMessageOpen,
+} = kidSlice.actions;
 export default kidSlice.reducer;
