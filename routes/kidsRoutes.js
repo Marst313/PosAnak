@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-router.route('/connect').post(kidsController.connectKid);
+router.route('/connect').post(kidsController.connectKidNik);
 
 router
   .route('/') //

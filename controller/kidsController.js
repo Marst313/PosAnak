@@ -66,7 +66,7 @@ exports.deleteKid = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.connectKid = catchAsync(async (req, res, next) => {
+exports.connectKidNik = catchAsync(async (req, res, next) => {
   const nikArray = req.body.nik; //! Expecting an array of NIKs
 
   //! 1. Check if each NIK exists in the Kids collection
