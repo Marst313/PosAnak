@@ -171,7 +171,7 @@ const DashboardAnak = () => {
           </div>
         </>
       ) : (
-        <button onClick={connectDataAnak}>Tmabah data baru</button>
+        <button onClick={connectDataAnak}>Tambah data baru</button>
       )}
     </section>
   );

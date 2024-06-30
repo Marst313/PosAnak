@@ -20,7 +20,7 @@ const initialState = {
     tanggalLahir: "",
   },
 
-  isKidsThere: false,
+  isKidsThere: true,
 
   kidsBio: {
     nama: "",
