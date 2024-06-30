@@ -180,7 +180,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       </div>
 
       {/* LOGOUT */}
-      <div className={`overflow-y-auto overflow-x-hidden absolute left-36 top-0 right-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full  bg-white/30 backdrop-blur-sm ${open ? 'flex' : 'hidden'} `}>
+      <div className={`overflow-y-auto overflow-x-hidden absolute lg:left-36 top-0 right-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full  bg-white/30 backdrop-blur-sm ${open ? 'flex' : 'hidden'} `}>
         <div className="relative p-4 w-full max-w-md max-h-full">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <button

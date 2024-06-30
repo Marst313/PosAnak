@@ -294,3 +294,23 @@ button:hover .hover-svg {
     transform: rotate(1turn);
   }
 }
+
+/* Customize the scrollbar for webkit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px; /* Width of the entire scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #033828; /* Color of the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #036346; /* Color of the thumb */
+  border-radius: 6px; /* Roundness of the thumb */
+  border: 1px solid #F5F2F1 ; /* Creates padding around the thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #036346; /* Color of the thumb when hovered */
+}
+

@@ -25,6 +25,8 @@ import union from "./Union.svg";
 import arrowLeft from "./arrowLeft.svg";
 import iconChatBotBook from "./iconChatBotBook.svg";
 import editChat from "./editChat.svg";
+import arrowtop from "./arrowtop.svg";
+import arrowbottom from "./arrowbottom.svg";
 
 export {
   airdrop,
@@ -54,4 +56,6 @@ export {
   arrowLeft,
   iconChatBotBook,
   editChat,
+  arrowtop,
+  arrowbottom,
 };

@@ -1,7 +1,17 @@
-import React from "react";
-import { arrowLeft, iconChatBotBook, editChat } from "../images/icons";
+import React, { useState } from "react";
+import {
+  arrowLeft,
+  iconChatBotBook,
+  editChat,
+  arrowtop,
+  arrowbottom,
+  send,
+} from "../images/icons";
 import { useNavigate } from "react-router-dom";
 import logoWhite from "../images/logoWhite.png";
+import pengaturan from "../images/pengaturan.png";
+import faq from "../images/faq.png";
+import chat from "../images/chat.png";
 import defaultProfile from "../images/defaultProfile.png";
 
 const ChatBot = () => {
@@ -10,9 +20,22 @@ const ChatBot = () => {
     navigate(-1);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="bg-bgChatBot flex h-screen p-10 text-white">
-      <aside className="mr-5 flex w-[25%] flex-col">
+    <div className="bg-bgChatBot relative flex h-screen p-10 text-white">
+      <aside
+         className={"mr-5 flex w-[25%] flex-col"}
+      >
         {/* Header ASIDE */}
         <div className="flex items-center justify-start gap-10">
           <button onClick={handleClickBack}>
@@ -24,13 +47,77 @@ const ChatBot = () => {
             <h1 className="text-2xl text-white">Posanak</h1>
           </div>
 
-          <img src={iconChatBotBook} alt="logo buku" className="w-10" />
+          <img
+            src={iconChatBotBook}
+            alt="logo buku"
+            className="w-10 cursor-pointer"
+            onClick={toggleSidebar}
+          />
         </div>
         {/* Header ASIDE */}
+
+        <div className="mb-2 mt-10 h-[70%]">
+          <ul>
+            <li className="my-2 flex cursor-pointer" onClick={toggleDropdown}>
+              <img
+                src={isOpen ? arrowtop : arrowbottom}
+                alt="arrow image"
+                className="mx-2"
+              />
+              <p>Menu Utama</p>
+            </li>
+            {isOpen && (
+              <ul className="absolute mt-2 w-72 rounded-lg bg-white p-2 shadow-lg">
+                <li className="text-darkGreen p-2">Coming Soon</li>
+                <li className="text-darkGreen p-2">Coming Soon</li>
+                <li className="text-darkGreen p-2">Coming Soon</li>
+              </ul>
+            )}
+            <li
+              className={`my-5 flex h-10 items-center rounded-xl bg-[#036346] transition-transform duration-500 ${
+                isOpen ? "translate-y-36" : "translate-y-0"
+              }`}
+            >
+              <img src={chat} alt="chat image" className="mx-2 h-6 w-6" />
+              <p className="text-white">Chatbot</p>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div className="flex">
+            <img src={faq} alt="faq image" className="h-5 w-5" />
+            <p className="mx-2 text-sm text-white">FAQ</p>
+          </div>
+
+          <div className="my-5 flex">
+            <img src={pengaturan} alt="pengaturan image" className="h-5 w-5" />
+            <p className="mx-2 text-sm text-white">Pengaturan</p>
+          </div>
+
+          <div className="rounded-xl bg-[#036346] p-2">
+            <section className="flex p-2">
+              <img
+                src={defaultProfile}
+                alt="user images profile"
+                className="mx-2 h-10 w-10 rounded-full"
+              />
+              <div className="mx-2">
+                <p className="text-sm text-white">Sumarni</p>
+                <p className="text-sm text-white/50">Sumarni@gmail.com</p>
+              </div>
+            </section>
+            <button className="h-10 w-full rounded-xl bg-white">
+              <p className="text-semibold">Membuat ChatBot Baru</p>
+            </button>
+          </div>
+        </div>
       </aside>
 
       {/* Content */}
-      <div className="bg-darkGreen flex w-full rounded-3xl">
+      <div
+        className={`bg-darkGreen flex w-full rounded-3xl transition-all duration-500 ${isSidebarOpen ? "ml-0" : "-ml-"}`}
+      >
         <div className="flex w-3/4 flex-col">
           {/* HEADER CONTENT */}
           <div className="h-20 border-b-2 border-b-black/20 px-12 py-5">
@@ -39,7 +126,7 @@ const ChatBot = () => {
           {/* HEADER CONTENT */}
 
           {/* CHAT CONTENT */}
-          <ul className="flex h-fit w-full flex-col gap-5 overflow-y-auto border-r-2 border-r-black/20 px-12 pb-20">
+          <ul className="custom-scrollbar flex h-fit w-full flex-col gap-5 overflow-y-auto border-r-2 border-r-black/20 px-12 pb-20">
             {/* SINGLE CHAT */}
             <li className="flex flex-col gap-5 py-5">
               <div className="bg-bgChatBot flex w-full flex-col gap-5 rounded-3xl p-5">
@@ -148,17 +235,20 @@ const ChatBot = () => {
           </ul>
 
           {/* CHAT CONTENT */}
-          <div className="bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center">
+          <form className="relative bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center">
             <input
               type="text"
               placeholder="Kirim pesan ke Chatbot"
               className="bg-darkGreen border-bgChatBot focus:border-bgChatBot h-full w-[54.2%] translate-x-5 rounded-lg border placeholder:text-white focus:ring-0"
             />
-          </div>
+            <button className="absolute right-48 w-5">
+              <img src={send} alt="" />
+            </button>
+          </form>
         </div>
 
         {/* HEADER RIGHT */}
-        <div className="w-72">
+        <div className="flex w-72 flex-col">
           <div className="flex h-20 w-full items-center justify-center gap-5 border-b-2 border-b-black/20 px-12 py-7">
             <img
               src={defaultProfile}
@@ -172,13 +262,13 @@ const ChatBot = () => {
 
           {/* HISTORY CHAT */}
           <div className="h-fit w-72 px-4 py-2 text-sm">
-            <div className="flex">
+            <div className="flex w-full">
               <h1 className="text-white">Chat History</h1>
-              <p className="bg-[#033828] rounded mx-2 px-2 text-white">3/20</p>
+              <p className="mx-2 rounded bg-[#033828] px-2 text-white">3/20</p>
             </div>
 
             {/* HISTORY CHAT */}
-            <ul className="mt-5 h-96 w-full overflow-y-auto p-2">
+            <ul className="custom-scrollbar mt-5 flex h-96 w-full flex-col gap-5 overflow-y-auto p-2">
               <li className="flex rounded-xl bg-[#033828] p-2">
                 <input
                   type="checkbox"

@@ -10,12 +10,21 @@ import ruller from "../images/dashboard/ruller.png";
 import arrow from "../images/dashboard/arrow.png";
 import timbangan from "../images/dashboard/scales.png";
 import Charts from "../components/Charts";
+import StuntingResult from "../components/user/modalStunting";
 
 const DashboardAnak = () => {
   const { dataAnak, isLoading, graphShow, singleDataAnak } = useSelector(
     (store) => store.kids,
   );
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (graphShow && singleDataAnak?.child_growth) {
@@ -34,11 +43,14 @@ const DashboardAnak = () => {
       <div className="mt-16 flex h-fit w-full gap-3 lg:mt-4">
         <SearchBarUser data="anak" />
 
-        <button className="border-lightGreen bg-stabiloGreen text-darkGreen flex h-fit items-center justify-center gap-2 rounded-lg p-3 lg:p-2 font-semibold">
+        <button className="border-lightGreen bg-stabiloGreen text-darkGreen flex h-fit items-center justify-center gap-2 rounded-lg p-3 font-semibold lg:p-2">
           <img src={editAnak} alt="icon edit" />
         </button>
 
-        <button className="border-lightGreen bg-coldGreen text-darkGreen hover:bg-lightGreen group flex h-10 w-60 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg py-2 font-semibold duration-500 lg:px-8">
+        <button
+          className="border-lightGreen bg-coldGreen text-darkGreen hover:bg-lightGreen group flex h-10 w-60 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg py-2 font-semibold duration-500 lg:px-8"
+          onClick={openModal}
+        >
           <p className="-translate-y-[120%] transition-all duration-500 group-hover:flex group-hover:translate-y-4">
             Cek Stunting{" "}
           </p>
@@ -46,10 +58,11 @@ const DashboardAnak = () => {
             Cek Stunting{" "}
           </p>
         </button>
+        <StuntingResult isModalOpen={isModalOpen} closeModal={closeModal} />
       </div>
 
       <div className="mb-5 w-full justify-between gap-5 lg:flex">
-        <div className="text-darkGreen flex items-start gap-5 rounded-xl bg-white p-10 lg:w-2/3 my-5 lg:my-0">
+        <div className="text-darkGreen my-5 flex items-start gap-5 rounded-xl bg-white p-10 lg:my-0 lg:w-2/3">
           <img
             src={gambarAnak}
             alt="gambar anak"
