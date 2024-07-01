@@ -21,6 +21,7 @@ const initialState = {
   },
 
   isKidsThere: false,
+  allDataAnak: [],
 
   kidsBio: {
     nama: "",
@@ -124,6 +125,11 @@ export const kidSlice = createSlice({
     // ? Setting new anak to redux
     setDataPertumbuhan(state, { payload }) {
       state.dataPertumbuhan = payload;
+    },
+
+    // ? Change Status is kids There
+    setIsKidThere(state, { payload }) {
+      state.isKidsThere = payload;
     },
 
     // ? Open Modal Tambah Data Anak
@@ -251,5 +257,6 @@ export const {
   setEditAnak,
   setSearchAnak,
   setMessageOpen,
+  setIsKidThere,
 } = kidSlice.actions;
 export default kidSlice.reducer;

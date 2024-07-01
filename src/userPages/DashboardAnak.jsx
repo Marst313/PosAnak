@@ -12,7 +12,7 @@ import timbangan from "../images/dashboard/scales.png";
 import Charts from "../components/Charts";
 import StuntingResult from "../components/user/modalStunting";
 import AddAnak from "../components/user/modalTambahAnak";
-import { connectDataAnak } from "../features/kids/kids";
+import { connectDataAnak, setIsKidThere } from "../features/kids/kids";
 
 const DashboardAnak = () => {
   const {
@@ -22,6 +22,7 @@ const DashboardAnak = () => {
     singleDataAnak,
     isKidsThere,
     kidsBio,
+    allDataAnak,
   } = useSelector((store) => store.kids);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,8 +44,9 @@ const DashboardAnak = () => {
     setIsModalOpenAnak(false);
   };
 
-  const connectDataAnak = () => {
+  const handleConnectDataAnak = () => {
     dispatch(connectDataAnak({ nik: kidsBio.nik }));
+    dispatch(setIsKidThere(true));
   };
 
   useEffect(() => {
@@ -54,6 +56,10 @@ const DashboardAnak = () => {
       setDataPertumbuhan(result);
     }
   }, [graphShow, singleDataAnak]);
+
+  useEffect(() => {
+    dispatch(connectDataAnak());
+  }, [dispatch]);
 
   if (isLoading) {
     return <Loading />;
@@ -86,9 +92,30 @@ const DashboardAnak = () => {
       </div>
 
       {/* Content */}
-      {isKidsThere ? (
+      {allDataAnak.length === 0 ? (
+        <div className="mb-4 h-10 w-fit rounded-xl bg-[#57C9A7] p-2">
+          <button onClick={openModalAnak} className="flex text-white">
+            <img src={add} alt="image add" className="mr-2" />
+            Tambah data
+          </button>
+          <AddAnak
+            isModalOpenAnak={isModalOpenAnak}
+            closeModalAnak={closeModalAnak}
+          />
+        </div>
+      ) : (
         <>
           {" "}
+          <div className="mb-4 h-10 w-fit rounded-xl bg-[#57C9A7] p-2">
+            <button onClick={openModalAnak} className="flex text-white">
+              <img src={add} alt="image add" className="mr-2" />
+              Tambah data
+            </button>
+            <AddAnak
+              isModalOpenAnak={isModalOpenAnak}
+              closeModalAnak={closeModalAnak}
+            />
+          </div>
           <div className="mb-5 w-full justify-between gap-5 lg:flex">
             <div className="text-darkGreen my-5 flex items-start gap-5 rounded-xl bg-white p-10 lg:my-0 lg:w-2/3">
               <img
@@ -180,19 +207,8 @@ const DashboardAnak = () => {
           </div>
           <div className="mb-5 hidden w-full lg:flex">
             <Charts />
-          </div>
+          </div>{" "}
         </>
-      ) : (
-        <div className="h-10 w-fit rounded-xl bg-[#57C9A7] p-2">
-          <button onClick={openModalAnak} className="flex text-white">
-            <img src={add} alt="image add" className="mr-2" />
-            Tambah data
-          </button>
-          <AddAnak
-            isModalOpenAnak={isModalOpenAnak}
-            closeModalAnak={closeModalAnak}
-          />
-        </div>
       )}
     </section>
   );
