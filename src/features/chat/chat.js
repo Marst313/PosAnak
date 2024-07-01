@@ -1,131 +1,149 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { customFetchKegiatan } from "../../utils/axios";
+import { customFetchChat, customFetchKegiatan } from "../../utils/axios";
 
 const initialState = {
-  dataKegiatan: [],
-  data: [],
-  singleDataKegiatan: [],
-
   message: "",
-  filterWaktu: "",
-  filterKategori: "",
-  filterNamaKegiatan: "",
-  searchKegiatan: "",
+  currentActive: 0,
 
-  edit: false,
-  openModalNewActivity: false,
   isLoading: true,
 
-  newKegiatan: {
-    judulKegiatan: "",
-    deskripsiKegiatan: "",
-    waktuMulai: "",
-    waktuSelesai: "",
-    tanggalKegiatan: "",
-  },
+  multiChat: [],
+  history: [],
+  allChat: [],
 };
-const kegiatanThunk = async (data, thunkAPI) => {
+
+const generateNewChatThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchKegiatan.get();
+    const resp = await customFetchChat.post("", { message: data });
 
     return resp.data;
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
-const newKegiatanThunk = async (data, thunkAPI) => {
+const getCurrentUserChatThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchKegiatan.post("", data);
+    const resp = await customFetchChat.get("/user");
 
     return resp.data;
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
-const deleteKegiatanThunk = async (id, thunkAPI) => {
+const getSingleChatThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchKegiatan.delete(`/${id}`);
+    const resp = await customFetchChat.get(`/${data}`);
 
     return resp.data;
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
-const singleKegiatanThunk = async (data, thunkAPI) => {
+const generateNextChatThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchKegiatan.get(`/${data}`);
+    const resp = await customFetchChat.post(`/${data.id}`, {
+      message: data.message,
+    });
 
     return resp.data;
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
 
-const updateKegiatanThunk = async (data, thunkAPI) => {
-  try {
-    const resp = await customFetchKegiatan.patch(`/${data.id}`, data);
-    return resp.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data.message);
-  }
-};
-
-export const getDataKegiatan = createAsyncThunk(
-  "getAllKegiatan",
-  kegiatanThunk,
+export const generateNewChat = createAsyncThunk(
+  "newChat",
+  generateNewChatThunk,
 );
 
-export const newDataKegiatan = createAsyncThunk(
-  "newKegiatan",
-  newKegiatanThunk,
+export const generateNextChat = createAsyncThunk(
+  "nextChat",
+  generateNextChatThunk,
 );
-
-export const deleteDataKegiatan = createAsyncThunk(
-  "deleteKegiatan",
-  deleteKegiatanThunk,
+export const getCurrentUserChat = createAsyncThunk(
+  "currentUserChat",
+  getCurrentUserChatThunk,
 );
-
-export const getSingleDataKegiatan = createAsyncThunk(
-  "getSingleKegiatan",
-  singleKegiatanThunk,
-);
-export const updateDataKegiatan = createAsyncThunk(
-  "updateKegiatan",
-  updateKegiatanThunk,
-);
+export const getSingleChat = createAsyncThunk("singleChat", getSingleChatThunk);
 
 export const activitySlice = createSlice({
-  name: "activity",
+  name: "chat",
   initialState,
   reducers: {
     //! Open Modal New Kegiatan
     setOpenModal(state, { payload }) {
       state.openModalNewActivity = payload;
     },
+
+    //! Chat Message
+    setChat(state, { payload }) {
+      state.message = payload;
+    },
+
+    //! Current Chat
+    setCurrentChat(state, { payload }) {
+      state.currentActive = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getDataKegiatan.pending, (state, action) => {
+
+      // ! Create new chat
+      .addCase(generateNewChat.pending, (state, action) => {
         state.isLoading = true;
       })
-      .addCase(getDataKegiatan.fulfilled, (state, { payload }) => {
+      .addCase(generateNewChat.fulfilled, (state, { payload }) => {
         state.isLoading = false;
       })
-      .addCase(getDataKegiatan.rejected, (state, action) => {
+      .addCase(generateNewChat.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      // ! Create next
+      .addCase(generateNextChat.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(generateNextChat.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(generateNextChat.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      // ! Get Current user chat
+      .addCase(getCurrentUserChat.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getCurrentUserChat.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.allChat = payload.data;
+      })
+      .addCase(getCurrentUserChat.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      // ! Get Single user chat
+      .addCase(getSingleChat.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingleChat.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.multiChat = JSON.parse(payload.data.multiChat);
+      })
+      .addCase(getSingleChat.rejected, (state, action) => {
         state.isLoading = false;
       });
   },
 });
 
-export const {
-  setOpenModal,
-  setNewActivity,
-  setData,
-  setEditKegiatan,
-  setFilterKegiatan,
-  setSearchKegiatan,
-} = activitySlice.actions;
+export const { setOpenModal, setChat, setCurrentChat } = activitySlice.actions;
 export default activitySlice.reducer;
