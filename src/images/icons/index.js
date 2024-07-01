@@ -27,6 +27,8 @@ import iconChatBotBook from "./iconChatBotBook.svg";
 import editChat from "./editChat.svg";
 import arrowtop from "./arrowtop.svg";
 import arrowbottom from "./arrowbottom.svg";
+import add from "./add.svg";
+import iconSend from "./Plane.svg";
 
 export {
   airdrop,
@@ -58,4 +60,6 @@ export {
   editChat,
   arrowtop,
   arrowbottom,
+  add,
+  iconSend,
 };

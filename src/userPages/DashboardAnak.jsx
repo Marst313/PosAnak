@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { parseStringJson } from "../utils/function";
 import { SearchBarUser, TableAnakUser } from "../components/user";
 import Loading from "../components/Loading";
-import { editAnak } from "../images/icons/";
+import { editAnak, add } from "../images/icons/";
 import gambarAnak from "../images/dashboard/gambarAnak.png";
 import ruller from "../images/dashboard/ruller.png";
 import arrow from "../images/dashboard/arrow.png";
 import timbangan from "../images/dashboard/scales.png";
 import Charts from "../components/Charts";
 import StuntingResult from "../components/user/modalStunting";
+import AddAnak from "../components/user/modalTambahAnak";
 import { connectDataAnak } from "../features/kids/kids";
 
 const DashboardAnak = () => {
@@ -24,14 +25,22 @@ const DashboardAnak = () => {
   } = useSelector((store) => store.kids);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenAnak, setIsModalOpenAnak] = useState(false);
 
   const dispatch = useDispatch();
 
-  const openModal = () => {
+  const openModalstunting = () => {
     setIsModalOpen(true);
   };
-  const closeModal = () => {
+  const closeModalstunting = () => {
     setIsModalOpen(false);
+  };
+
+  const openModalAnak = () => {
+    setIsModalOpenAnak(true);
+  };
+  const closeModalAnak = () => {
+    setIsModalOpenAnak(false);
   };
 
   const connectDataAnak = () => {
@@ -61,7 +70,7 @@ const DashboardAnak = () => {
 
         <button
           className="border-lightGreen bg-coldGreen text-darkGreen hover:bg-lightGreen group flex h-10 w-60 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg py-2 font-semibold duration-500 lg:px-8"
-          onClick={openModal}
+          onClick={openModalstunting}
         >
           <p className="-translate-y-[120%] transition-all duration-500 group-hover:flex group-hover:translate-y-4">
             Cek Stunting{" "}
@@ -70,7 +79,10 @@ const DashboardAnak = () => {
             Cek Stunting{" "}
           </p>
         </button>
-        <StuntingResult isModalOpen={isModalOpen} closeModal={closeModal} />
+        <StuntingResult
+          isModalOpen={isModalOpen}
+          closeModalstunting={closeModalstunting}
+        />
       </div>
 
       {/* Content */}
@@ -171,7 +183,16 @@ const DashboardAnak = () => {
           </div>
         </>
       ) : (
-        <button onClick={connectDataAnak}>Tambah data baru</button>
+        <div className="h-10 w-fit rounded-xl bg-[#57C9A7] p-2">
+          <button onClick={openModalAnak} className="flex text-white">
+            <img src={add} alt="image add" className="mr-2" />
+            Tambah data
+          </button>
+          <AddAnak
+            isModalOpenAnak={isModalOpenAnak}
+            closeModalAnak={closeModalAnak}
+          />
+        </div>
       )}
     </section>
   );
