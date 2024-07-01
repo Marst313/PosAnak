@@ -5,25 +5,20 @@ const createAxiosInstance = (path, isExternal = false) => {
   const baseURL = isExternal
     ? path
     : `${import.meta.env.VITE_BASE_URL}/${path}`;
-
   const jwt = Cookies.get("jwt");
 
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
   if (jwt) {
-    return axios.create({
-      baseURL,
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-        "Content-Type": "application/json",
-      },
-    });
-  } else {
-    return axios.create({
-      baseURL,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    headers["Authorization"] = `Bearer ${jwt}`;
   }
+
+  return axios.create({
+    baseURL,
+    headers,
+  });
 };
 
 export const customFetchAnak = createAxiosInstance("kid");
