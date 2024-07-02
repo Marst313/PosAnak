@@ -31,16 +31,25 @@ import Loading from "../components/Loading";
 
 const ChatBot = () => {
   const dispatch = useDispatch();
+  const params = useParams();
+  const navigate = useNavigate();
+  const jwt = Cookies.get("jwt");
+  const { id } = jwtDecode(jwt);
+
   const { message, allChat, isLoading, idChat } = useSelector(
     (store) => store.chat,
   );
-  const user = useSelector((store) => store.user);
-  const { id } = useParams();
-
-  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  async function getDataUser(id) {
+    try {
+      await dispatch(getSingleUser(id));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -59,9 +68,9 @@ const ChatBot = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (id) {
-      await dispatch(generateNextChat({ id, message }));
-      await dispatch(getSingleChat(id));
+    if (params.id) {
+      await dispatch(generateNextChat({ id: params.id, message }));
+      await dispatch(getSingleChat(params.id));
       await dispatch(setChat(""));
     } else {
       await dispatch(generateNewChat(message));
@@ -73,7 +82,6 @@ const ChatBot = () => {
     if (idChat) {
       navigate(`/chatbot/${idChat}`);
       dispatch(getSingleChat(idChat));
-      dispatch(getCurrentUserChat());
     }
   }, [idChat]);
 
@@ -82,29 +90,22 @@ const ChatBot = () => {
   }, [allChat]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(getSingleChat(id));
+    if (params.id) {
+      dispatch(getSingleChat(params.id));
+    } else {
+      dispatch(setToken({ jwt, id }));
+
+      getDataUser(id);
     }
-  }, [id]);
+  }, [params.id]);
 
+  // initial render
   useEffect(() => {
-    const jwt = Cookies.get("jwt");
-
     if (!jwt) {
       navigate("/");
     } else {
-      const { id } = jwtDecode(jwt);
       dispatch(setToken({ jwt, id }));
-
-      async function getDataUser(id) {
-        try {
-          await dispatch(getSingleUser(id));
-          await dispatch(getCurrentUserChat());
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
+      dispatch(getCurrentUserChat(id));
       getDataUser(id);
     }
   }, []);
@@ -202,7 +203,7 @@ const ChatBot = () => {
           {/* HEADER CONTENT */}
 
           {/* CHAT CONTENT */}
-          {id && <ContentChatBot />}
+          {params.id && <ContentChatBot />}
           {/* CHAT CONTENT */}
 
           {isLoading ? (

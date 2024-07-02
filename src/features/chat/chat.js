@@ -26,7 +26,7 @@ const generateNewChatThunk = async (data, thunkAPI) => {
 
 const getCurrentUserChatThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchChat.get("/user");
+    const resp = await customFetchChat.post("/user", { id: data });
 
     return resp.data;
   } catch (error) {
@@ -142,7 +142,7 @@ export const activitySlice = createSlice({
 
         state.multiChat = JSON.parse(payload.data.multiChat);
       })
-      .addCase(getSingleChat.rejected, (state, action) => {
+      .addCase(getSingleChat.rejected, (state, { payload }) => {
         state.isLoading = false;
       });
   },

@@ -10,8 +10,8 @@ const HistoryChatBot = () => {
 
   const dispatch = useDispatch();
 
-  const handleChangeChat = (id) => {
-    dispatch(setCurrentChat(id));
+  const handleChangeChat = (index) => {
+    dispatch(setCurrentChat(index));
   };
   return (
     <ul className="custom-scrollbar mt-5 flex h-96 w-full flex-col gap-5 overflow-y-auto p-2">
