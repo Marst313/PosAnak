@@ -10,7 +10,7 @@ import { loginUser, setMessage } from "../features/users/user";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { message } = useSelector((store) => store.user);
+  const { message, jwt } = useSelector((store) => store.user);
 
   const [user, setUser] = useState({
     email: "",
@@ -38,7 +38,6 @@ const Login = () => {
         );
 
       await dispatch(loginUser({ email, password }));
-      navigate("/dashboard/menu");
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +49,7 @@ const Login = () => {
     if (jwt) {
       navigate("/dashboard/menu");
     }
-  }, []);
+  }, [jwt]);
 
   return (
     <section className="flex overflow-hidden px-5">

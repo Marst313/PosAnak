@@ -101,6 +101,10 @@ const userSlice = createSlice({
       state.message.status = payload.status;
       state.message.text = payload.text;
     },
+
+    setJwt(state, { payload }) {
+      state.jwt = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -162,5 +166,6 @@ export const {
   setToken,
   setOpenPopUp,
   setMessage,
+  setJwt,
 } = userSlice.actions;
 export default userSlice.reducer;
