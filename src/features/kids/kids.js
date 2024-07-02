@@ -101,14 +101,15 @@ export const connectDataAnak = createAsyncThunk(
   connectAnakThunk,
 );
 
-export const getDataAnak = createAsyncThunk("getAllAnak", anakThunk);
 export const getSingleDataAnak = createAsyncThunk(
   "getSingleAnak",
   singleAnakThunk,
 );
+
 export const newDataAnak = createAsyncThunk("newAnak", newAnakThunk);
 export const deleteDataAnak = createAsyncThunk("deleteAnak", deleteAnakThunk);
 export const updateDataAnak = createAsyncThunk("updateAnak", updateAnakThunk);
+export const getDataAnak = createAsyncThunk("getAllAnak", anakThunk);
 
 export const kidSlice = createSlice({
   name: "kids",

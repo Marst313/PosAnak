@@ -12,7 +12,12 @@ import timbangan from "../images/dashboard/scales.png";
 import Charts from "../components/Charts";
 import StuntingResult from "../components/user/modalStunting";
 import AddAnak from "../components/user/modalTambahAnak";
-import { connectDataAnak, setIsKidThere } from "../features/kids/kids";
+import SingleDataAnak from "../components/user/SingleDataAnak";
+import {
+  connectDataAnak,
+  setIsKidThere,
+  getDataAnak,
+} from "../features/kids/kids";
 
 const DashboardAnak = () => {
   const {
@@ -56,10 +61,6 @@ const DashboardAnak = () => {
       setDataPertumbuhan(result);
     }
   }, [graphShow, singleDataAnak]);
-
-  useEffect(() => {
-    dispatch(connectDataAnak());
-  }, [dispatch]);
 
   if (isLoading) {
     return <Loading />;
@@ -116,98 +117,7 @@ const DashboardAnak = () => {
               closeModalAnak={closeModalAnak}
             />
           </div>
-          <div className="mb-5 w-full justify-between gap-5 lg:flex">
-            <div className="text-darkGreen my-5 flex items-start gap-5 rounded-xl bg-white p-10 lg:my-0 lg:w-2/3">
-              <img
-                src={gambarAnak}
-                alt="gambar anak"
-                className="hidden w-72 lg:block"
-              />
-
-              <ul className="mt-5 flex flex-col justify-start gap-10">
-                <li>
-                  <h5>NIK</h5>
-                  <p className="mt-3 text-3xl font-medium">6132234565432345</p>
-                </li>
-
-                <li>
-                  <h5>NAMA</h5>
-                  <p className="mt-3 text-3xl font-medium">
-                    Abyan Adelio Adnan
-                  </p>
-                </li>
-
-                <li>
-                  <h5>Umur</h5>
-                  <p className="mt-3 text-3xl font-medium">4 Bulan</p>
-                </li>
-              </ul>
-            </div>
-
-            <ul className="mt-5 flex h-full flex-col justify-between gap-3 lg:mt-0 lg:w-1/2">
-              {/* Tinggi */}
-              <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
-                <div className="flex">
-                  <img src={ruller} alt="gambar penggaris" />
-                  <img src={arrow} alt="gambar panah" />
-                </div>
-
-                <div className="relative flex flex-col">
-                  <h5>Tinggi</h5>
-                  <h1 className="text-5xl font-semibold ordinal">
-                    24{" "}
-                    <span className="absolute top-7 text-sm font-medium">
-                      Cm
-                    </span>
-                  </h1>
-                </div>
-              </li>
-
-              {/* Berat */}
-              <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
-                <div className="flex">
-                  <img src={timbangan} alt="gambar timbangan" />
-                </div>
-
-                <div className="relative flex flex-col">
-                  <h5>Berat</h5>
-                  <h1 className="text-5xl font-semibold">
-                    4{" "}
-                    <span className="absolute top-7 text-sm font-medium">
-                      Kg
-                    </span>
-                  </h1>
-                </div>
-              </li>
-
-              {/* Tanggal Lahir */}
-              <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
-                <div className="from-stabiloGreen to-stabiloLightGreen relative flex h-28 w-28 flex-col items-center justify-center gap-3 rounded-lg bg-gradient-to-l">
-                  <h1 className="mr-7 text-4xl font-bold">
-                    23 <span className="absolute ml-2 text-lg">rd</span>
-                  </h1>
-                  <h5 className="text-lg font-semibold">January</h5>
-                </div>
-
-                <div className="relative flex flex-col">
-                  <h1 className="text-3xl font-semibold lg:text-4xl">
-                    Tanggal{" "}
-                  </h1>
-                  <h1 className="text-3xl font-semibold lg:text-5xl">Lahir </h1>
-                </div>
-              </li>
-
-              {/* Chart Mobile */}
-              <li>
-                <div className="flex w-full lg:hidden">
-                  <Charts />
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="mb-5 hidden w-full lg:flex">
-            <Charts />
-          </div>{" "}
+          <SingleDataAnak data={singleDataAnak} />
         </>
       )}
     </section>
