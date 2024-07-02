@@ -1,28 +1,42 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { customFetchLogin, customFetchRegister, customFetchUser } from '../../utils/axios';
-import Cookies from 'js-cookie';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  customFetchLogin,
+  customFetchRegister,
+  customFetchUser,
+} from "../../utils/axios";
+import Cookies from "js-cookie";
 
 const initialState = {
-  name: '',
-  email: '',
-  role: '',
-  token: '',
-  photo: '',
-  uuid: '',
-  jwt: '',
+  name: "",
+  email: "",
+  role: "",
+  token: "",
+  photo: "",
+  uuid: "",
+  jwt: "",
   allUser: [],
   singleUser: [],
+
+  message: {
+    open: false,
+    text: "",
+    status: "success",
+  },
 
   openPopUp: false,
 };
 
 const loginThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchLogin.post('', data);
+    const resp = await customFetchLogin.post("", data);
 
     if (resp.data.token) {
       // Save the token
-      Cookies.set('jwt', resp.data.token, { expires: 7, secure: true, sameSite: 'Strict' });
+      Cookies.set("jwt", resp.data.token, {
+        expires: 7,
+        secure: true,
+        sameSite: "Strict",
+      });
 
       ``;
     }
@@ -45,7 +59,11 @@ const userThunk = async (data, thunkAPI) => {
 
 const registerThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchRegister.post(`/`, { name: data.name, email: data.email, password: data.password });
+    const resp = await customFetchRegister.post(`/`, {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
 
     return resp.data;
   } catch (error) {
@@ -53,13 +71,13 @@ const registerThunk = async (data, thunkAPI) => {
   }
 };
 
-export const loginUser = createAsyncThunk('loginUser', loginThunk);
-export const registerUser = createAsyncThunk('registerUser', registerThunk);
+export const loginUser = createAsyncThunk("loginUser", loginThunk);
+export const registerUser = createAsyncThunk("registerUser", registerThunk);
 
-export const getSingleUser = createAsyncThunk('singleUser', userThunk);
+export const getSingleUser = createAsyncThunk("singleUser", userThunk);
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setDataUser(state, { payload }) {
@@ -76,6 +94,12 @@ const userSlice = createSlice({
     },
     setOpenPopUp(state, { payload }) {
       state.openPopUp = payload;
+    },
+
+    setMessage(state, { payload }) {
+      state.message.open = payload.open;
+      state.message.status = payload.status;
+      state.message.text = payload.text;
     },
   },
   extraReducers: (builder) => {
@@ -124,9 +148,19 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, { payload }) => {
         state.isLoading = false;
+
+        state.message.open = true;
+        state.message.status = "error";
+        state.message.text = payload;
       });
   },
 });
 
-export const { setDataUser, setSingleUser, setToken, setOpenPopUp } = userSlice.actions;
+export const {
+  setDataUser,
+  setSingleUser,
+  setToken,
+  setOpenPopUp,
+  setMessage,
+} = userSlice.actions;
 export default userSlice.reducer;
