@@ -1,10 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import { DashboardAdmin } from '../adminPages';
-import { WelcomeBanner, JadwalKegiatanUser, TableAnakUser } from '../components/user/';
-import { Calender, Loading, ScheduleRight } from '../components/';
-import logo from '../images/logo-posyandu.webp';
+import { DashboardAdmin } from "../adminPages";
+import {
+  WelcomeBanner,
+  JadwalKegiatanUser,
+  TableAnakUser,
+} from "../components/user/";
+import { Calender, Loading, ScheduleRight } from "../components/";
+import logo from "../images/logo-posyandu.webp";
 
 const DashboardUser = () => {
   const { role, name, email } = useSelector((store) => store.user);
@@ -14,17 +18,17 @@ const DashboardUser = () => {
     return <Loading />;
   }
 
-  if (role === 'admin') {
+  if (role === "admin") {
     return <DashboardAdmin />;
   }
 
   return (
-    <section className="relative w-screen flex flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
+    <section className="relative flex w-screen flex-col overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[#57C9A7] to-white bg-cover lg:bg-none">
       <main>
-        <div className="px-4 lg:px-8 py-8 w-full max-w-9xl mx-auto relative flex flex-col lg:flex-row justify-between">
-          <div className="lg:hidden items-center flex justify-center mb-5">
+        <div className="max-w-9xl relative mx-auto flex w-full flex-col justify-between px-4 py-8 lg:flex-row lg:px-8">
+          <div className="mb-5 flex items-center justify-center lg:hidden">
             <img src={logo} alt="logo poysandu" width="50px" />
-            <h1 className="text-3xl mx-3">
+            <h1 className="mx-3 text-3xl">
               <span className="text-lightGreen">Pos</span>anak
             </h1>
           </div>
@@ -33,20 +37,23 @@ const DashboardUser = () => {
           <WelcomeBanner />
 
           <div className="mt-10 lg:mt-0">
-            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">Kalender</h1>
+            <h1 className="mb-2 flex justify-center text-3xl font-bold lg:hidden">
+              Kalender
+            </h1>
             <Calender />
           </div>
 
           <div className="mt-10 lg:hidden">
-            <h1 className="font-bold text-3xl flex justify-center lg:hidden mb-2">Jadwal Kegiatan</h1>
+            <h1 className="mb-2 flex justify-center text-3xl font-bold lg:hidden">
+              Jadwal Kegiatan
+            </h1>
             <ScheduleRight />
           </div>
         </div>
 
-        <div className="hidden px-6 lg:px-8 w-full max-w-9xl mx-auto relative lg:block">
+        <div className="max-w-9xl relative mx-auto hidden w-full px-6 lg:block lg:px-8">
           <JadwalKegiatanUser style="mb-10" dataKegiatan={dataKegiatan} />
           <ScheduleRight style="float-right" />
-          <TableAnakUser dataAnak={dataAnak} className="hidden" />
         </div>
       </main>
     </section>

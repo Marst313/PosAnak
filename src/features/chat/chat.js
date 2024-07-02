@@ -6,6 +6,7 @@ const initialState = {
   currentActive: 0,
 
   isLoading: true,
+  idChat: 0,
 
   multiChat: [],
   history: [],
@@ -101,6 +102,8 @@ export const activitySlice = createSlice({
       })
       .addCase(generateNewChat.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+
+        state.idChat = payload.id;
       })
       .addCase(generateNewChat.rejected, (state, action) => {
         state.isLoading = false;
