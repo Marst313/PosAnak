@@ -25,7 +25,6 @@ const PosyanduKidSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Tanggal lahir tidak boleh kosong!'],
   },
-  age: Number,
   child_growth: {
     type: String,
   },

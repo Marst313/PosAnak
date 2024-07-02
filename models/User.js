@@ -36,6 +36,9 @@ const PosyanduUserSchema = new mongoose.Schema({
     },
     unique: [true, 'NIK sudah digunakan!'],
   },
+  noWa: {
+    type: Number,
+  },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,

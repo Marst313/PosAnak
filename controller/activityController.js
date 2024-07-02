@@ -2,6 +2,8 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Activity = require('./../models/Activity');
 
+const { whatsappNotif } = require('../utils/whatsapp');
+
 exports.getAllActivity = catchAsync(async (req, res, next) => {
   const data = await Activity.find();
 
@@ -14,6 +16,10 @@ exports.getAllActivity = catchAsync(async (req, res, next) => {
 
 exports.createNewActivity = catchAsync(async (req, res, next) => {
   const newDocument = await Activity.create(req.body);
+
+  const messageWa = `${req.body.title} akan dilaksanakan pada tanggal ${req.body.date} pada pukul ${req.body.waktuMulai} - ${req.body.waktuSelesai}`;
+
+  await whatsappNotif(messageWa, process.env.WHATSAPP_NUMBER);
 
   res.status(201).json({
     status: 'success',
