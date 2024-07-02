@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   arrowLeft,
   iconChatBotBook,
-  editChat,
   arrowtop,
   arrowbottom,
   send,
@@ -22,22 +21,35 @@ import {
   setChat,
   setCurrentChat,
 } from "../features/chat/chat";
+import HistoryChatBot from "../components/HistoryChatBot";
+import ContentChatBot from "../components/ContentChatBot";
+import Cookies from "js-cookie";
+
+import { getSingleUser, setToken } from "../features/users/user";
+import { jwtDecode } from "jwt-decode";
+import Loading from "../components/Loading";
 
 const ChatBot = () => {
   const dispatch = useDispatch();
-  const { message, allChat, currentActive, multiChat, isLoading } = useSelector(
+  const params = useParams();
+  const navigate = useNavigate();
+  const jwt = Cookies.get("jwt");
+  const { id } = jwtDecode(jwt);
+
+  const { message, allChat, isLoading, idChat } = useSelector(
     (store) => store.chat,
   );
 
-  const { id } = useParams();
-
-  const navigate = useNavigate();
-  const handleClickBack = () => {
-    navigate(-1);
-  };
-
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  async function getDataUser(id) {
+    try {
+      await dispatch(getSingleUser(id));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -52,35 +64,50 @@ const ChatBot = () => {
     dispatch(setChat(e.target.value));
   };
 
-  // Change history chat
-  const handleChangeChat = (id) => {
-    dispatch(setCurrentChat(id));
-  };
-
   // Submit message
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (id) {
-      await dispatch(generateNextChat({ id, message }));
-      await dispatch(getSingleChat(id));
+    if (params.id) {
+      await dispatch(generateNextChat({ id: params.id, message }));
+      await dispatch(getSingleChat(params.id));
+      await dispatch(setChat(""));
     } else {
       await dispatch(generateNewChat(message));
+      await dispatch(setChat(""));
     }
-
-    await dispatch(setChat(""));
   };
 
   useEffect(() => {
-    if (id) {
-      dispatch(getSingleChat(id));
-    } else {
-      dispatch(setCurrentChat(0));
+    if (idChat) {
+      navigate(`/chatbot/${idChat}`);
+      dispatch(getSingleChat(idChat));
     }
-  }, [id]);
+  }, [idChat]);
 
   useEffect(() => {
-    dispatch(getCurrentUserChat());
+    dispatch(setCurrentChat(allChat.length - 1));
+  }, [allChat]);
+
+  useEffect(() => {
+    if (params.id) {
+      dispatch(getSingleChat(params.id));
+    } else {
+      dispatch(setToken({ jwt, id }));
+
+      getDataUser(id);
+    }
+  }, [params.id]);
+
+  // initial render
+  useEffect(() => {
+    if (!jwt) {
+      navigate("/");
+    } else {
+      dispatch(setToken({ jwt, id }));
+      dispatch(getCurrentUserChat(id));
+      getDataUser(id);
+    }
   }, []);
 
   return (
@@ -88,14 +115,14 @@ const ChatBot = () => {
       <aside className="mr-5 flex w-[25%] flex-col">
         {/* Header ASIDE */}
         <div className="flex items-center justify-start gap-10">
-          <button onClick={handleClickBack}>
+          <Link to="/dashboard/menu">
             <img src={arrowLeft} alt="back icon" />
-          </button>
+          </Link>
 
-          <div className="flex items-center gap-5">
+          <Link className="flex items-center gap-5" to="/dashboard/menu">
             <img src={logoWhite} alt="logo putih" className="w-10" />
             <h1 className="text-2xl text-white">Posanak</h1>
-          </div>
+          </Link>
 
           <img
             src={iconChatBotBook}
@@ -176,64 +203,31 @@ const ChatBot = () => {
           {/* HEADER CONTENT */}
 
           {/* CHAT CONTENT */}
-          {id && (
-            <ul className="custom-scrollbar flex h-fit w-full flex-col gap-5 overflow-y-auto border-r-2 border-r-black/20 px-12 pb-20">
-              {/* Single Chat */}
-              {multiChat.map((item, index) => {
-                return (
-                  <li className="flex flex-col gap-5 py-5" key={index}>
-                    <div className="bg-bgChatBot flex w-full flex-col gap-5 rounded-3xl p-5">
-                      <div className="bg-darkGreen flex w-full items-center gap-5 rounded-xl px-5 py-2">
-                        <img
-                          src={defaultProfile}
-                          alt="user images profile"
-                          className="h-10 w-10 rounded-full"
-                        />
-                        <p className="text-white">{item.question}</p>
-
-                        <img
-                          src={editChat}
-                          alt="icon edit"
-                          className="ml-auto h-7 w-7"
-                        />
-                      </div>
-
-                      <p className="text-justify text-white">{item.answer}</p>
-                    </div>
-
-                    <div className="flex items-center gap-5">
-                      <p className="text-white">Baru Saja</p>
-
-                      <button className="bg-bgChatBot h-8 w-16 rounded-md">
-                        Copy
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
+          {params.id && <ContentChatBot />}
           {/* CHAT CONTENT */}
 
-          <form
-            className="relative bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center"
-            onSubmit={handleSubmit}
-          >
-            <input
-              onChange={handleOnChange}
-              value={message}
-              disabled={isLoading}
-              type="text"
-              placeholder="Kirim pesan ke Chatbot"
-              className="bg-darkGreen border-bgChatBot focus:border-bgChatBot h-full w-[54.2%] translate-x-5 rounded-lg border placeholder:text-white focus:ring-0"
-            />
-            <button
-              className={`absolute right-48 w-5 ${isLoading ? "opacity-80" : "opacity-100"}`}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <form
+              className="relative bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center"
+              onSubmit={handleSubmit}
             >
-              <img src={send} alt="icon send" />
-            </button>
-          </form>
+              <input
+                onChange={handleOnChange}
+                value={message}
+                disabled={isLoading}
+                type="text"
+                placeholder="Kirim pesan ke Chatbot"
+                className="bg-darkGreen border-bgChatBot focus:border-bgChatBot h-full w-[54.2%] translate-x-5 rounded-lg border placeholder:text-white focus:ring-0"
+              />
+              <button
+                className={`absolute right-48 w-5 ${isLoading ? "opacity-80" : "opacity-100"}`}
+              >
+                <img src={send} alt="icon send" />
+              </button>
+            </form>
+          )}
         </div>
 
         {/* HEADER RIGHT */}
@@ -258,51 +252,8 @@ const ChatBot = () => {
               </p>
             </div>
 
+            <HistoryChatBot />
             {/* HISTORY CHAT */}
-            <ul className="custom-scrollbar mt-5 flex h-96 w-full flex-col gap-5 overflow-y-auto p-2">
-              {allChat.map((chat, index) => {
-                const jsonHistory = JSON.parse(chat.history);
-
-                // Filter untuk mendapatkan parts dari objek dengan role 'model'
-                const modelParts = jsonHistory
-                  .filter((item) => item.role === "model")
-                  .map((item) => item.parts.map((part) => part.text).join(" "))
-                  .join(" ");
-
-                return (
-                  <Link
-                    to={`/chatbot/${chat._id}`}
-                    key={chat._id}
-                    onClick={() => handleChangeChat(index)}
-                  >
-                    <li
-                      className={`flex rounded-xl border p-4 ${currentActive === index ? "bg-[#033828]" : "border-bgChatBot border"}`}
-                    >
-                      <div>
-                        <h3 className="capitalize text-white">
-                          {chat.question}
-                        </h3>
-                        <p className="line-clamp-2 text-white/30">
-                          {modelParts}
-                        </p>
-                        <div className="mt-3 flex justify-between">
-                          <img
-                            src={defaultProfile}
-                            alt="user images profile"
-                            className="h-5 w-5 rounded-full"
-                          />
-                          <p
-                            className={`${currentActive === index ? "" : "text-bgChatBot text-sm"}`}
-                          >
-                            Baru saja
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  </Link>
-                );
-              })}
-            </ul>
 
             {/* BUTTON CHAT */}
             <div className="bottom-0 left-0 mt-4 flex h-24 w-full items-center justify-center">
@@ -315,6 +266,7 @@ const ChatBot = () => {
             </div>
           </div>
         </div>
+        {/* HEADER RIGHT */}
       </div>
     </div>
   );

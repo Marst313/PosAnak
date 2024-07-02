@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
-import { Sidebar, Header, PopUpChatBot } from './';
-import { useDispatch } from 'react-redux';
-import { getDataAnak } from '../features/kids/kids';
-import { getDataKeluarga } from '../features/family/family';
-import { getDataBerita } from '../features/news/news';
-import { getDataKegiatan } from '../features/activity/activity';
+import { Sidebar, Header, PopUpChatBot } from "./";
+import { useDispatch } from "react-redux";
+import { getDataAnak } from "../features/kids/kids";
+import { getDataKeluarga } from "../features/family/family";
+import { getDataBerita } from "../features/news/news";
+import { getDataKegiatan } from "../features/activity/activity";
 
-import Cookies from 'js-cookie';
-import { getSingleUser, setToken } from '../features/users/user';
-import { jwtDecode } from 'jwt-decode';
+import Cookies from "js-cookie";
+import { getSingleUser, setToken } from "../features/users/user";
+import { jwtDecode } from "jwt-decode";
 
 const SharedLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -27,10 +27,10 @@ const SharedLayout = () => {
 
     fetchData();
 
-    const jwt = Cookies.get('jwt');
+    const jwt = Cookies.get("jwt");
 
     if (!jwt) {
-      navigate('/');
+      navigate("/");
     } else {
       const { id } = jwtDecode(jwt);
       dispatch(setToken({ jwt, id }));
@@ -48,7 +48,7 @@ const SharedLayout = () => {
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-coldWhite ">
+    <div className="bg-coldWhite flex h-screen overflow-hidden">
       <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 

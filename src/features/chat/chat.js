@@ -6,6 +6,7 @@ const initialState = {
   currentActive: 0,
 
   isLoading: true,
+  idChat: 0,
 
   multiChat: [],
   history: [],
@@ -25,7 +26,7 @@ const generateNewChatThunk = async (data, thunkAPI) => {
 
 const getCurrentUserChatThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchChat.get("/user");
+    const resp = await customFetchChat.post("/user", { id: data });
 
     return resp.data;
   } catch (error) {
@@ -101,6 +102,8 @@ export const activitySlice = createSlice({
       })
       .addCase(generateNewChat.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+
+        state.idChat = payload.id;
       })
       .addCase(generateNewChat.rejected, (state, action) => {
         state.isLoading = false;
@@ -139,7 +142,7 @@ export const activitySlice = createSlice({
 
         state.multiChat = JSON.parse(payload.data.multiChat);
       })
-      .addCase(getSingleChat.rejected, (state, action) => {
+      .addCase(getSingleChat.rejected, (state, { payload }) => {
         state.isLoading = false;
       });
   },
