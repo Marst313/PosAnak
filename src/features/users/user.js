@@ -17,6 +17,12 @@ const initialState = {
   allUser: [],
   singleUser: [],
 
+  profile: {
+    name: "",
+    email: "",
+    photo: "",
+  },
+
   message: {
     open: false,
     text: "",
@@ -141,9 +147,10 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, { payload }) => {
-        state.email = payload.data.user.email;
-        state.name = payload.data.user.name;
-        state.photo = payload.data.user.photo;
+        state.profile.email = payload.data.user.email;
+        state.profile.name = payload.data.user.name;
+        state.profile.photo = payload.data.user.photo;
+
         state.role = payload.data.user.role;
         state.jwt = payload.data.user.token;
         state.uuid = payload.data.user._id;
