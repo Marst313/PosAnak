@@ -49,7 +49,6 @@ const connectAnakThunk = async (data, thunkAPI) => {
 const getNikAnakThunk = async (data, thunkAPI) => {
   try {
     const resp = await customFetchAnak.post(`/nik`, { nikKids: data });
-    console.log(data);
 
     return resp.data;
   } catch (error) {

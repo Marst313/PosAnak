@@ -4,6 +4,7 @@ import ruller from "../../images/dashboard/ruller.png";
 import arrow from "../../images/dashboard/arrow.png";
 import timbangan from "../../images/dashboard/scales.png";
 import Charts from "../Charts";
+import { convertUsia } from "../../utils/function";
 
 const SingleDataAnak = ({ item }) => {
   const { nik, nama, age, child_growth, tanggalLahir } = item;
@@ -18,6 +19,8 @@ const SingleDataAnak = ({ item }) => {
   };
 
   const growthData = parseJSON(child_growth);
+
+  console.log(growthData);
 
   const latestGrowth = growthData[growthData.length - 1] || {};
   const height = latestGrowth.height || 0;
@@ -46,7 +49,9 @@ const SingleDataAnak = ({ item }) => {
 
             <li>
               <h5>Umur</h5>
-              <p className="mt-3 text-3xl font-medium">{age} Bulan</p>
+              <p className="mt-3 text-3xl font-medium">
+                {convertUsia(tanggalLahir)}
+              </p>
             </li>
           </ul>
         </div>
@@ -86,9 +91,8 @@ const SingleDataAnak = ({ item }) => {
           {/* Tanggal Lahir */}
           <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
             <div className="from-stabiloGreen to-stabiloLightGreen relative flex h-28 w-28 flex-col items-center justify-center gap-3 rounded-lg bg-gradient-to-l">
-              <h1 className="mr-7 text-4xl font-bold">
-                {new Date(tanggalLahir).getDate()}{" "}
-                <span className="absolute ml-2 text-lg">rd</span>
+              <h1 className="text-4xl font-bold">
+                {new Date(tanggalLahir).getDate()}
               </h1>
               <h5 className="text-lg font-semibold">
                 {new Date(tanggalLahir).toLocaleString("default", {

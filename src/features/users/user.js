@@ -7,15 +7,14 @@ import {
 import Cookies from "js-cookie";
 
 const initialState = {
-  name: "",
-  email: "",
-  role: "",
-  token: "",
-  photo: "",
-  uuid: "",
-  jwt: "",
   allUser: [],
   singleUser: [],
+  allUserNikKids: [],
+
+  role: "",
+  token: "",
+  uuid: "",
+  jwt: "",
 
   profile: {
     name: "",
@@ -126,6 +125,8 @@ const userSlice = createSlice({
         state.photo = payload.data.photo;
         state.role = payload.data.role;
         state.uuid = payload.data._id;
+
+        state.allUserNikKids = payload.data.nikKids;
       })
       .addCase(getSingleUser.rejected, (state, { payload }) => {
         state.isLoading = false;

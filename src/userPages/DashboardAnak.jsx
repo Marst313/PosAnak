@@ -30,6 +30,9 @@ const DashboardAnak = () => {
     kidsBio,
     allDataAnakNik,
   } = useSelector((store) => store.kids);
+
+  const { allUserNikKids } = useSelector((store) => store.user);
+
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenAnak, setIsModalOpenAnak] = useState(false);
@@ -64,7 +67,7 @@ const DashboardAnak = () => {
   }, [graphShow, singleDataAnak]);
 
   useEffect(() => {
-    dispatch(getNikDataAnak([]));
+    dispatch(getNikDataAnak([allUserNikKids]));
   }, []);
 
   console.log();
