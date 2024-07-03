@@ -1,4 +1,3 @@
-import React from "react";
 import gambarAnak from "../../images/dashboard/gambarAnak.png";
 import ruller from "../../images/dashboard/ruller.png";
 import arrow from "../../images/dashboard/arrow.png";
@@ -17,10 +16,13 @@ const SingleDataAnak = ({ item }) => {
       return [];
     }
   };
-
   const growthData = parseJSON(child_growth);
 
-  console.log(growthData);
+  const dataPertumbuhan = growthData.map((data) => ({
+    weight: data.weight || 0,
+    height: data.height || 0,
+    date: new Date(data.date).toLocaleDateString("id-ID"),
+  }));
 
   const latestGrowth = growthData[growthData.length - 1] || {};
   const height = latestGrowth.height || 0;
@@ -74,7 +76,7 @@ const SingleDataAnak = ({ item }) => {
           </li>
 
           {/* Berat */}
-          <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
+          <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5 lg:mt-6">
             <div className="flex">
               <img src={timbangan} alt="gambar timbangan" />
             </div>
@@ -89,7 +91,7 @@ const SingleDataAnak = ({ item }) => {
           </li>
 
           {/* Tanggal Lahir */}
-          <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
+          <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5 lg:mt-5">
             <div className="from-stabiloGreen to-stabiloLightGreen relative flex h-28 w-28 flex-col items-center justify-center gap-3 rounded-lg bg-gradient-to-l">
               <h1 className="text-4xl font-bold">
                 {new Date(tanggalLahir).getDate()}
@@ -110,13 +112,13 @@ const SingleDataAnak = ({ item }) => {
           {/* Chart Mobile */}
           <li>
             <div className="flex w-full lg:hidden">
-              <Charts />
+              <Charts dataPertumbuhan={dataPertumbuhan} />
             </div>
           </li>
         </ul>
       </div>
       <div className="mb-5 hidden w-full lg:flex">
-        <Charts />
+        <Charts dataPertumbuhan={dataPertumbuhan} />
       </div>
     </div>
   );

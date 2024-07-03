@@ -22,14 +22,14 @@ const Profiles = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    if (user !== null) {
-      setDataProfile({
-        email: profile.email,
-        name: profile.name,
-      });
-    }
-  }, [isLoading]);
+  // useEffect(() => {
+  //   if (user !== null) {
+  //     setDataProfile({
+  //       email: profile.email,
+  //       name: profile.name,
+  //     });
+  //   }
+  // }, [isLoading]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;

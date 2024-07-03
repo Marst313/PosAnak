@@ -2,34 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { parseStringJson } from "../utils/function";
-import { SearchBarUser, TableAnakUser } from "../components/user";
+import { SearchBarUser } from "../components/user";
 import Loading from "../components/Loading";
 import { editAnak, add } from "../images/icons/";
-import gambarAnak from "../images/dashboard/gambarAnak.png";
-import ruller from "../images/dashboard/ruller.png";
-import arrow from "../images/dashboard/arrow.png";
-import timbangan from "../images/dashboard/scales.png";
-import Charts from "../components/Charts";
 import StuntingResult from "../components/user/modalStunting";
 import AddAnak from "../components/user/modalTambahAnak";
 import SingleDataAnak from "../components/user/SingleDataAnak";
 import {
   connectDataAnak,
   setIsKidThere,
-  getDataAnak,
   getNikDataAnak,
 } from "../features/kids/kids";
 
 const DashboardAnak = () => {
-  const {
-    dataAnak,
-    isLoading,
-    graphShow,
-    singleDataAnak,
-    isKidsThere,
-    kidsBio,
-    allDataAnakNik,
-  } = useSelector((store) => store.kids);
+  const { isLoading, graphShow, singleDataAnak, kidsBio, allDataAnakNik } =
+    useSelector((store) => store.kids);
 
   const { allUserNikKids } = useSelector((store) => store.user);
 
@@ -69,8 +56,6 @@ const DashboardAnak = () => {
   useEffect(() => {
     dispatch(getNikDataAnak([allUserNikKids]));
   }, []);
-
-  console.log();
 
   if (isLoading) {
     return <Loading />;
