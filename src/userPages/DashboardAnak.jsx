@@ -17,6 +17,7 @@ import {
   connectDataAnak,
   setIsKidThere,
   getDataAnak,
+  getNikDataAnak,
 } from "../features/kids/kids";
 
 const DashboardAnak = () => {
@@ -27,7 +28,7 @@ const DashboardAnak = () => {
     singleDataAnak,
     isKidsThere,
     kidsBio,
-    allDataAnak,
+    allDataAnakNik,
   } = useSelector((store) => store.kids);
   const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,6 +63,12 @@ const DashboardAnak = () => {
     }
   }, [graphShow, singleDataAnak]);
 
+  useEffect(() => {
+    dispatch(getNikDataAnak([]));
+  }, []);
+
+  console.log();
+
   if (isLoading) {
     return <Loading />;
   }
@@ -93,7 +100,7 @@ const DashboardAnak = () => {
       </div>
 
       {/* Content */}
-      {allDataAnak.length === 0 ? (
+      {allDataAnakNik?.length === 0 ? (
         <div className="mb-4 h-10 w-fit rounded-xl bg-[#57C9A7] p-2">
           <button onClick={openModalAnak} className="flex text-white">
             <img src={add} alt="image add" className="mr-2" />
@@ -106,7 +113,6 @@ const DashboardAnak = () => {
         </div>
       ) : (
         <>
-          {" "}
           <div className="mb-4 h-10 w-fit rounded-xl bg-[#57C9A7] p-2">
             <button onClick={openModalAnak} className="flex text-white">
               <img src={add} alt="image add" className="mr-2" />
@@ -117,7 +123,9 @@ const DashboardAnak = () => {
               closeModalAnak={closeModalAnak}
             />
           </div>
-          <SingleDataAnak data={singleDataAnak} />
+          {allDataAnakNik.map((item) => (
+            <SingleDataAnak key={item._id} item={item} />
+          ))}
         </>
       )}
     </section>

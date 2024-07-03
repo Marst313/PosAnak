@@ -4,9 +4,10 @@ import { customFetchAnak } from "../../utils/axios";
 const initialState = {
   dataAnak: [],
   singleDataAnak: [],
+  allDataAnakNik: [],
+  dataPertumbuhan: [],
 
   tambahDataAnak: false,
-  dataPertumbuhan: [],
   isLoading: true,
   graphShow: false,
   edit: false,
@@ -21,7 +22,6 @@ const initialState = {
   },
 
   isKidsThere: false,
-  allDataAnak: [],
 
   kidsBio: {
     nama: "",
@@ -38,8 +38,18 @@ const initialState = {
 
 const connectAnakThunk = async (data, thunkAPI) => {
   try {
-    console.log(data);
     const resp = await customFetchAnak.post(`/connect`, data);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+const getNikAnakThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchAnak.post(`/nik`, { nikKids: data });
+    console.log(data);
 
     return resp.data;
   } catch (error) {
@@ -110,6 +120,7 @@ export const newDataAnak = createAsyncThunk("newAnak", newAnakThunk);
 export const deleteDataAnak = createAsyncThunk("deleteAnak", deleteAnakThunk);
 export const updateDataAnak = createAsyncThunk("updateAnak", updateAnakThunk);
 export const getDataAnak = createAsyncThunk("getAllAnak", anakThunk);
+export const getNikDataAnak = createAsyncThunk("getNikAnak", getNikAnakThunk);
 
 export const kidSlice = createSlice({
   name: "kids",
@@ -245,6 +256,19 @@ export const kidSlice = createSlice({
         state.isKidsThere = true;
       })
       .addCase(connectDataAnak.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      //! Nik Data Anak
+      .addCase(getNikDataAnak.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getNikDataAnak.fulfilled, (state, { payload }) => {
+        state.allDataAnakNik = payload.data;
+        state.isLoading = false;
+        state.isKidsThere = true;
+      })
+      .addCase(getNikDataAnak.rejected, (state) => {
         state.isLoading = false;
       });
   },

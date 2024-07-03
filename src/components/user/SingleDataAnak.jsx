@@ -5,8 +5,23 @@ import arrow from "../../images/dashboard/arrow.png";
 import timbangan from "../../images/dashboard/scales.png";
 import Charts from "../Charts";
 
-const SingleDataAnak = ({ data }) => {
-  const { nik, nama, umur, tinggi, berat, tanggal_lahir } = data;
+const SingleDataAnak = ({ item }) => {
+  const { nik, nama, age, child_growth, tanggalLahir } = item;
+
+  const parseJSON = (str) => {
+    try {
+      return JSON.parse(str);
+    } catch (e) {
+      console.error("Gagal parse JSON:", e);
+      return [];
+    }
+  };
+
+  const growthData = parseJSON(child_growth);
+
+  const latestGrowth = growthData[growthData.length - 1] || {};
+  const height = latestGrowth.height || 0;
+  const weight = latestGrowth.weight || 0;
 
   return (
     <div>
@@ -31,7 +46,7 @@ const SingleDataAnak = ({ data }) => {
 
             <li>
               <h5>Umur</h5>
-              <p className="mt-3 text-3xl font-medium">{umur}</p>
+              <p className="mt-3 text-3xl font-medium">{age} Bulan</p>
             </li>
           </ul>
         </div>
@@ -47,7 +62,7 @@ const SingleDataAnak = ({ data }) => {
             <div className="relative flex flex-col">
               <h5>Tinggi</h5>
               <h1 className="text-5xl font-semibold ordinal">
-                {tinggi}{" "}
+                {height}{" "}
                 <span className="absolute top-7 text-sm font-medium">Cm</span>
               </h1>
             </div>
@@ -62,7 +77,7 @@ const SingleDataAnak = ({ data }) => {
             <div className="relative flex flex-col">
               <h5>Berat</h5>
               <h1 className="text-5xl font-semibold">
-                {berat}{" "}
+                {weight}{" "}
                 <span className="absolute top-7 text-sm font-medium">Kg</span>
               </h1>
             </div>
@@ -72,11 +87,11 @@ const SingleDataAnak = ({ data }) => {
           <li className="flex h-1/3 items-center gap-20 rounded-lg bg-white p-5">
             <div className="from-stabiloGreen to-stabiloLightGreen relative flex h-28 w-28 flex-col items-center justify-center gap-3 rounded-lg bg-gradient-to-l">
               <h1 className="mr-7 text-4xl font-bold">
-                {new Date(tanggal_lahir).getDate()}{" "}
+                {new Date(tanggalLahir).getDate()}{" "}
                 <span className="absolute ml-2 text-lg">rd</span>
               </h1>
               <h5 className="text-lg font-semibold">
-                {new Date(tanggal_lahir).toLocaleString("default", {
+                {new Date(tanggalLahir).toLocaleString("default", {
                   month: "long",
                 })}
               </h5>
@@ -98,7 +113,7 @@ const SingleDataAnak = ({ data }) => {
       </div>
       <div className="mb-5 hidden w-full lg:flex">
         <Charts />
-      </div>{" "}
+      </div>
     </div>
   );
 };
