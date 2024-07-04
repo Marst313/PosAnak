@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const WelcomeBanner = () => {
   const [greeting, setGreeting] = useState("");
-  const { email } = useSelector((store) => store.user);
+  const { name } = useSelector((store) => store.user);
 
   useEffect(() => {
     const getGreeting = () => {
@@ -25,25 +25,25 @@ const WelcomeBanner = () => {
   }, []);
 
   return (
-    <div className="lg:flex h-1/2 rounded-3xl float-left gap-3 2xl:w-2/3 bg-white shadow-xl">
+    <div className="float-left h-1/2 gap-3 rounded-3xl bg-white shadow-xl lg:flex 2xl:w-2/3">
       <div className="p-6">
-        <h1 className="text-2xl md:text-3xl  font-bold mb-1">
-          {greeting}, {email.split("@gmail.com")[0]}! 👋
+        <h1 className="mb-1 text-2xl font-bold md:text-3xl">
+          {greeting}, {name}! 👋
         </h1>
-        <div className=" flex justify-center lg:hidden ">
+        <div className="flex justify-center lg:hidden">
           <img
             src={heroImgDashboard}
             alt="hero image dashboard"
-            className="2xl:flex w-52 my-5"
+            className="my-5 w-52 2xl:flex"
           />
         </div>
-        <p className="text-justify text-opacity-50 max-w-md">
+        <p className="max-w-md text-justify text-opacity-50">
           "Kesehatan adalah harta yang paling berharga, tetapi tidak ada yang
           menyadarinya sampai ia hilang."
         </p>
-        <p className="text-opacity-50 ">-William Shakespeare</p>
+        <p className="text-opacity-50">-William Shakespeare</p>
 
-        <div className="mt-5 flex gap-5 text-xs lg:text-3xl items-center text-darkGreen ">
+        <div className="text-darkGreen mt-5 flex items-center gap-5 text-xs lg:text-3xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width={100}
@@ -66,7 +66,7 @@ const WelcomeBanner = () => {
       <img
         src={heroImgDashboard}
         alt="hero image dashboard"
-        className=" hidden 2xl:flex w-52"
+        className="hidden w-52 2xl:flex"
       />
     </div>
   );
