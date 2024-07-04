@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  arrowLeft,
-  iconChatBotBook,
-  arrowtop,
-  arrowbottom,
-  send,
-} from "../images/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import logoWhite from "../images/logoWhite.png";
-import pengaturan from "../images/pengaturan.png";
-import faq from "../images/faq.png";
-import chat from "../images/chat.png";
-import defaultProfile from "../images/defaultProfile.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   generateNewChat,
@@ -20,21 +8,28 @@ import {
   getSingleChat,
   setChat,
   setCurrentChat,
+  setIdChat,
 } from "../features/chat/chat";
-import HistoryChatBot from "../components/HistoryChatBot";
-import ContentChatBot from "../components/ContentChatBot";
-import Cookies from "js-cookie";
 
-import { getSingleUser, setToken } from "../features/users/user";
+import { send } from "../images/icons";
+import { defaultProfile } from "../images/";
+
+import {
+  SidebarChatbot,
+  HistoryChatBot,
+  ContentChatBot,
+  Loading,
+} from "../components";
+
 import { jwtDecode } from "jwt-decode";
-import Loading from "../components/Loading";
+import Cookies from "js-cookie";
 
 const ChatBot = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
-  const jwt = Cookies.get("jwt");
-  const { id } = jwtDecode(jwt);
+
+  const jwt = jwtDecode(Cookies.get("jwt"));
 
   const { message, allChat, isLoading, idChat } = useSelector(
     (store) => store.chat,
@@ -43,28 +38,21 @@ const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  async function getDataUser(id) {
+  const initialRender = async () => {
     try {
-      await dispatch(getSingleUser(id));
+      await dispatch(getCurrentUserChat(jwt.id));
+      dispatch(setIdChat(0));
     } catch (error) {
       console.log(error);
     }
-  }
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  // Change message text
+  // CHandle Change message
   const handleOnChange = (e) => {
     dispatch(setChat(e.target.value));
   };
 
-  // Submit message
+  // Create new chat or next chat
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,8 +62,12 @@ const ChatBot = () => {
       await dispatch(setChat(""));
     } else {
       await dispatch(generateNewChat(message));
+      await dispatch(getCurrentUserChat(params.id));
+      await dispatch(setCurrentChat(allChat.length));
       await dispatch(setChat(""));
     }
+
+    await dispatch(getCurrentUserChat(jwt.id));
   };
 
   useEffect(() => {
@@ -86,112 +78,17 @@ const ChatBot = () => {
   }, [idChat]);
 
   useEffect(() => {
-    dispatch(setCurrentChat(allChat.length - 1));
-  }, [allChat]);
-
-  useEffect(() => {
-    if (params.id) {
-      dispatch(getSingleChat(params.id));
-    } else {
-      dispatch(setToken({ jwt, id }));
-
-      getDataUser(id);
-    }
-  }, [params.id]);
-
-  // initial render
-  useEffect(() => {
-    if (!jwt) {
-      navigate("/");
-    } else {
-      dispatch(setToken({ jwt, id }));
-      dispatch(getCurrentUserChat(id));
-      getDataUser(id);
-    }
+    initialRender();
   }, []);
 
   return (
     <div className="bg-bgChatBot relative flex h-screen p-10 text-white">
-      <aside className="mr-5 flex w-[25%] flex-col">
-        {/* Header ASIDE */}
-        <div className="flex items-center justify-start gap-10">
-          <Link to="/dashboard/menu">
-            <img src={arrowLeft} alt="back icon" />
-          </Link>
-
-          <Link className="flex items-center gap-5" to="/dashboard/menu">
-            <img src={logoWhite} alt="logo putih" className="w-10" />
-            <h1 className="text-2xl text-white">Posanak</h1>
-          </Link>
-
-          <img
-            src={iconChatBotBook}
-            alt="logo buku"
-            className="w-10 cursor-pointer"
-            onClick={toggleSidebar}
-          />
-        </div>
-        {/* Header ASIDE */}
-
-        <div className="mb-2 mt-10 h-[70%]">
-          <ul>
-            <li className="my-2 flex cursor-pointer" onClick={toggleDropdown}>
-              <img
-                src={isOpen ? arrowtop : arrowbottom}
-                alt="arrow image"
-                className="mx-2"
-              />
-              <p>Menu Utama</p>
-            </li>
-            {isOpen && (
-              <ul className="absolute mt-2 w-72 rounded-lg bg-white p-2 shadow-lg">
-                <li className="text-darkGreen p-2">Coming Soon</li>
-                <li className="text-darkGreen p-2">Coming Soon</li>
-                <li className="text-darkGreen p-2">Coming Soon</li>
-              </ul>
-            )}
-            <li
-              className={`my-5 flex h-10 items-center rounded-xl bg-[#036346] transition-transform duration-500 ${
-                isOpen ? "translate-y-36" : "translate-y-0"
-              }`}
-            >
-              <img src={chat} alt="chat image" className="mx-2 h-6 w-6" />
-              <p className="text-white">Chatbot</p>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <div className="flex">
-            <img src={faq} alt="faq image" className="h-5 w-5" />
-            <p className="mx-2 text-sm text-white">FAQ</p>
-          </div>
-
-          <div className="my-5 flex">
-            <img src={pengaturan} alt="pengaturan image" className="h-5 w-5" />
-            <p className="mx-2 text-sm text-white">Pengaturan</p>
-          </div>
-
-          <div className="rounded-xl bg-[#036346] p-2">
-            <section className="flex p-2">
-              <img
-                src={defaultProfile}
-                alt="user images profile"
-                className="mx-2 h-10 w-10 rounded-full"
-              />
-              <div className="mx-2">
-                <p className="text-sm text-white">Sumarni</p>
-                <p className="text-sm text-white/50">Sumarni@gmail.com</p>
-              </div>
-            </section>
-            <button className="h-10 w-full rounded-xl bg-white">
-              <p className="text-semibold">Membuat ChatBot Baru</p>
-            </button>
-          </div>
-        </div>
-      </aside>
-
-      {/* Content */}
+      <SidebarChatbot
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
       <div
         className={`bg-darkGreen hidden w-full rounded-3xl transition-all duration-500 lg:flex ${isSidebarOpen ? "ml-0" : "-ml-"}`}
       >

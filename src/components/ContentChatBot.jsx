@@ -7,11 +7,12 @@ import Loading from "./Loading";
 
 const ContentChatBot = () => {
   const { multiChat } = useSelector((store) => store.chat);
+
   return (
     <ul className="custom-scrollbar flex h-fit w-full flex-col gap-5 overflow-y-auto border-r-2 border-r-black/20 px-12 pb-20">
       {/* Single Chat */}
 
-      {multiChat.map((item, index) => {
+      {multiChat?.map((item, index) => {
         return (
           <li className="flex flex-col gap-5 py-5" key={index}>
             <div className="bg-bgChatBot flex w-full flex-col gap-5 rounded-3xl p-5">

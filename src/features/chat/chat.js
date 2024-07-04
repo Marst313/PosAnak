@@ -9,7 +9,6 @@ const initialState = {
   idChat: 0,
 
   multiChat: [],
-  history: [],
   allChat: [],
 };
 
@@ -19,7 +18,6 @@ const generateNewChatThunk = async (data, thunkAPI) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
@@ -30,7 +28,6 @@ const getCurrentUserChatThunk = async (data, thunkAPI) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
@@ -41,7 +38,6 @@ const getSingleChatThunk = async (data, thunkAPI) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
@@ -54,7 +50,16 @@ const generateNextChatThunk = async (data, thunkAPI) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error);
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+const deleteChatThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchChat.delete(`/${data}`);
+
+    return resp.data;
+  } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
@@ -73,6 +78,7 @@ export const getCurrentUserChat = createAsyncThunk(
   getCurrentUserChatThunk,
 );
 export const getSingleChat = createAsyncThunk("singleChat", getSingleChatThunk);
+export const deleteSingleChat = createAsyncThunk("deleteChat", deleteChatThunk);
 
 export const activitySlice = createSlice({
   name: "chat",
@@ -91,6 +97,10 @@ export const activitySlice = createSlice({
     //! Current Chat
     setCurrentChat(state, { payload }) {
       state.currentActive = payload;
+    },
+
+    setIdChat(state, { payload }) {
+      state.idChat = payload;
     },
   },
   extraReducers: (builder) => {
@@ -144,9 +154,21 @@ export const activitySlice = createSlice({
       })
       .addCase(getSingleChat.rejected, (state, { payload }) => {
         state.isLoading = false;
+      })
+
+      // ! Delete Single user chat
+      .addCase(deleteSingleChat.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteSingleChat.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+      })
+      .addCase(deleteSingleChat.rejected, (state, { payload }) => {
+        state.isLoading = false;
       });
   },
 });
 
-export const { setOpenModal, setChat, setCurrentChat } = activitySlice.actions;
+export const { setOpenModal, setChat, setCurrentChat, setIdChat } =
+  activitySlice.actions;
 export default activitySlice.reducer;

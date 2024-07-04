@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const PopUpChatBot = () => {
   const [guide, setGuide] = useState(true);
-  const { uuid } = useSelector((store) => store.user);
 
   const handleCloseMessage = () => {
     setGuide(false);
@@ -14,13 +13,13 @@ const PopUpChatBot = () => {
   useEffect(() => {
     setTimeout(() => {
       setGuide(false);
-    }, 15 * 1000);
+    }, 10 * 1000);
   }, []);
 
   return (
     <>
       <Link
-        to={`/chatbot`}
+        to={`/chatbot/`}
         className="bg-greenPrimary group fixed bottom-10 right-3 flex h-12 w-24 animate-bounce items-center justify-center rounded-full p-1 text-white hover:animate-none lg:right-20"
       >
         Chat Bot
