@@ -120,11 +120,13 @@ const userSlice = createSlice({
       })
       .addCase(getSingleUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.email = payload.data.email;
-        state.name = payload.data.name;
-        state.photo = payload.data.photo;
+
         state.role = payload.data.role;
         state.uuid = payload.data._id;
+
+        state.profile.email = payload.data.email;
+        state.profile.name = payload.data.name;
+        state.profile.photo = payload.data.photo;
 
         state.allUserNikKids = payload.data.nikKids;
       })

@@ -10,10 +10,12 @@ import Sidebar from "./Sidebar";
 import SidebarChatbot from "./SidebarChatbot";
 import HistoryChatBot from "./HistoryChatBot";
 import ContentChatBot from "./ContentChatBot";
+import EditProfile from "./EditProfile";
 
 export {
   Calender,
   Error,
+  EditProfile,
   ProtectedRoute,
   ScheduleRight,
   SharedLayout,

@@ -14,7 +14,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const { email, name, role } = useSelector((store) => store.user);
+  const { email, name, role, profile } = useSelector((store) => store.user);
 
   const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
   const [sidebarExpanded, setSidebarExpanded] = useState(
@@ -119,13 +119,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         >
           <div className="border-lightGreen rounded-full border p-1">
             <img
-              src={profilePict}
+              src={profile.photo}
               alt="gambar profile"
               className="h-32 w-32 rounded-full"
             />
           </div>
-          <h2 className="text-2xl capitalize">{name}</h2>
-          <h5>{email}</h5>
+          <h2 className="text-2xl capitalize">{profile.name}</h2>
+          <h5>{profile.email}</h5>
         </Link>
 
         <hr />
