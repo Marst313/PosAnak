@@ -9,12 +9,15 @@ import {
   arrowtop,
   arrowbottom,
 } from "../images/icons";
+import { useSelector } from "react-redux";
 const SidebarChatbot = ({
   isOpen,
   isSidebarOpen,
   setIsSidebarOpen,
   setIsOpen,
 }) => {
+  const user = useSelector((store) => store.user);
+
   // Dropdown navbar
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -88,13 +91,13 @@ const SidebarChatbot = ({
         <div className="rounded-xl bg-[#036346] p-2">
           <section className="flex p-2">
             <img
-              src={defaultProfile}
+              src={user.photo || defaultProfile}
               alt="user images profile"
               className="mx-2 h-10 w-10 rounded-full"
             />
             <div className="mx-2">
-              <p className="text-sm text-white">Sumarni</p>
-              <p className="text-sm text-white/50">Sumarni@gmail.com</p>
+              <p className="text-sm text-white">{user.name}</p>
+              <p className="text-sm text-white/50">{user.email}</p>
             </div>
           </section>
           <button className="h-10 w-full rounded-xl bg-white">
