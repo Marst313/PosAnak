@@ -23,7 +23,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const handleLogout = () => {
     Cookies.remove("jwt");
-
     navigate("/");
   };
 

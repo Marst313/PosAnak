@@ -23,6 +23,7 @@ import {
 
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { getSingleUser } from "../features/users/user";
 
 const ChatBot = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const ChatBot = () => {
   const { message, allChat, isLoading, idChat } = useSelector(
     (store) => store.chat,
   );
+  const { profile } = useSelector((store) => store.user);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -41,6 +43,7 @@ const ChatBot = () => {
   const initialRender = async () => {
     try {
       await dispatch(getCurrentUserChat(jwt.id));
+      await dispatch(getSingleUser(jwt.id));
       dispatch(setIdChat(0));
     } catch (error) {
       console.log(error);
@@ -131,13 +134,10 @@ const ChatBot = () => {
         <div className="flex w-72 flex-col">
           <div className="flex h-20 w-full items-center justify-center gap-5 border-b-2 border-b-black/20 px-12 py-7">
             <img
-              src={defaultProfile}
+              src={profile.photo || defaultProfile}
               alt="user images profile"
               className="h-10 w-10 rounded-full"
             />
-            <button className="text-darkGreen mx-2 rounded-lg bg-white px-5 py-2 font-semibold">
-              Share
-            </button>
           </div>
 
           {/* HISTORY CHAT */}

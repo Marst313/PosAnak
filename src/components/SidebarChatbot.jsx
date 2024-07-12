@@ -16,7 +16,7 @@ const SidebarChatbot = ({
   setIsSidebarOpen,
   setIsOpen,
 }) => {
-  const user = useSelector((store) => store.user);
+  const { profile } = useSelector((store) => store.user);
 
   // Dropdown navbar
   const toggleDropdown = () => {
@@ -91,13 +91,13 @@ const SidebarChatbot = ({
         <div className="rounded-xl bg-[#036346] p-2">
           <section className="flex p-2">
             <img
-              src={user.photo || defaultProfile}
+              src={profile.photo || defaultProfile}
               alt="user images profile"
               className="mx-2 h-10 w-10 rounded-full"
             />
             <div className="mx-2">
-              <p className="text-sm text-white">{user.name}</p>
-              <p className="text-sm text-white/50">{user.email}</p>
+              <p className="text-sm text-white">{profile.name}</p>
+              <p className="text-sm text-white/50">{profile.email}</p>
             </div>
           </section>
           <button className="h-10 w-full rounded-xl bg-white">
