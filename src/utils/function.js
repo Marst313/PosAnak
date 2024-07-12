@@ -1,21 +1,21 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 export const convertUsia = (tanggalLahir) => {
-  const today = new Date().toLocaleDateString('en-GB');
+  const today = new Date().toLocaleDateString("en-GB");
 
-  const [yearBirth, monthBirth, dayBirth] = tanggalLahir.split('-');
+  const [yearBirth, monthBirth, dayBirth] = tanggalLahir.split("-");
 
-  const [day, month, year] = today.split('/');
-  let format = 'Tahun';
+  const [day, month, year] = today.split("/");
+  let format = "Tahun";
 
   let umur = +year - +yearBirth;
   if (umur < 1) {
     umur = +month - +monthBirth;
-    format = 'Bulan';
+    format = "Bulan";
 
     if (umur < 1) {
       umur = +day - +dayBirth;
-      format = 'Hari';
+      format = "Hari";
     }
   }
 
@@ -29,24 +29,24 @@ export const parseStringJson = (string) => {
     const result = JSON.parse(correctedJsonString);
     return result;
   } catch (error) {
-    console.error('Error parsing JSON:', error);
+    console.error("Error parsing JSON:", error);
   }
 };
 
 export const converDateId = (date) => {
-  const formattedDate = new Date(date).toLocaleDateString('id-ID', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
+  const formattedDate = new Date(date).toLocaleDateString("id-ID", {
+    weekday: "long",
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
   });
 
   return formattedDate;
 };
 
 export const convertTime = (time) => {
-  const hours = String(Math.floor(time / 3600)).padStart(2, '0');
-  const minutes = String(Math.floor((time % 3600) / 60)).padStart(2, '0');
+  const hours = String(Math.floor(time / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((time % 3600) / 60)).padStart(2, "0");
 
   const formattedTime = `${hours}:${minutes}`;
 
@@ -54,7 +54,7 @@ export const convertTime = (time) => {
 };
 
 export const convertHoursToSecond = (time) => {
-  const [jam, menit] = time.split(':').map(Number);
+  const [jam, menit] = time.split(":").map(Number);
   // Hitung total detik
   const detik = jam * 3600 + menit * 60;
 
@@ -85,7 +85,12 @@ export const countPostNewsDateCreated = (date) => {
   }
 };
 
-export const filteringData = (data, filterNamaKegiatan, filterKategori, filterWaktu) => {
+export const filteringData = (
+  data,
+  filterNamaKegiatan,
+  filterKategori,
+  filterWaktu,
+) => {
   const filteredData = data
     ?.filter((item) => item.title.toLowerCase().includes(filterNamaKegiatan))
     ?.filter((item) => item.description.toLowerCase().includes(filterKategori))
@@ -97,7 +102,7 @@ export const filteringData = (data, filterNamaKegiatan, filterKategori, filterWa
 export function convertDateString(dateStr) {
   const date = new Date(dateStr);
   const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // getUTCMonth() returns month from 0-11
-  const day = String(date.getUTCDate()).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // getUTCMonth() returns month from 0-11
+  const day = String(date.getUTCDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
