@@ -106,28 +106,25 @@ const ChatBot = () => {
           {params.id && <ContentChatBot />}
           {/* CHAT CONTENT */}
 
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <form
-              className="relative bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center"
-              onSubmit={handleSubmit}
+          <form
+            className="relative bottom-0 left-0 m-4 flex h-24 w-full items-center justify-center"
+            onSubmit={handleSubmit}
+          >
+            <input
+              onChange={handleOnChange}
+              value={message}
+              disabled={isLoading}
+              type="text"
+              placeholder="Kirim pesan ke Chatbot"
+              className="bg-darkGreen border-bgChatBot focus:border-bgChatBot h-full w-[54.2%] translate-x-5 rounded-lg border placeholder:text-white focus:ring-0"
+            />
+            <button
+              disabled={isLoading}
+              className={`absolute right-48 w-5 ${isLoading ? "opacity-80" : "opacity-100"}`}
             >
-              <input
-                onChange={handleOnChange}
-                value={message}
-                disabled={isLoading}
-                type="text"
-                placeholder="Kirim pesan ke Chatbot"
-                className="bg-darkGreen border-bgChatBot focus:border-bgChatBot h-full w-[54.2%] translate-x-5 rounded-lg border placeholder:text-white focus:ring-0"
-              />
-              <button
-                className={`absolute right-48 w-5 ${isLoading ? "opacity-80" : "opacity-100"}`}
-              >
-                <img src={send} alt="icon send" />
-              </button>
-            </form>
-          )}
+              <img src={send} alt="icon send" />
+            </button>
+          </form>
         </div>
 
         {/* HEADER RIGHT */}
