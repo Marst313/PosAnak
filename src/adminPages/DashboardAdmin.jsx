@@ -10,7 +10,7 @@ const DashboardAdmin = () => {
   const { dataKeluarga } = useSelector((store) => store.family);
   const { dataAnak, isLoading } = useSelector((store) => store.kids);
   const { dataKegiatan } = useSelector((store) => store.activity);
-  const { name } = useSelector((store) => store.user);
+  const { profile } = useSelector((store) => store.user);
   const [newKegiatan, setNewKegiatan] = useState(false);
   const [countAnak, setCountAnak] = useState({ balita: 0, bayi: 0 });
   const [greeting, setGreeting] = useState("");
@@ -69,7 +69,7 @@ const DashboardAdmin = () => {
       <main>
         <div className="max-w-9xl relative mx-auto mt-5 flex w-full flex-col gap-5 px-4 py-8 sm:px-6 lg:px-8">
           <h1 className="text-darkGreen mt-2 text-3xl font-semibold lg:mt-0">
-            {greeting}, {name}!
+            {greeting}, {profile.name}!
           </h1>
 
           <div className="mt-5 flex w-full flex-col justify-between lg:flex-row">

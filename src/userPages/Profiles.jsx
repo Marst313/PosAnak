@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import profile from "../images/contohProfile.jpeg";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import EditProfile from "../components/EditProfile";
+import { setEditProfiles } from "../features/users/user";
 
 const Profiles = () => {
   const dispatch = useDispatch();
 
-  const { isLoading, profile } = useSelector((store) => store.user);
-  const [edit, setEdit] = useState(false);
+  const { isLoading, profile, editProfile } = useSelector(
+    (store) => store.user,
+  );
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -16,7 +16,7 @@ const Profiles = () => {
 
   return (
     <section className="relative flex w-full flex-col items-center overflow-auto bg-white pb-14 lg:items-stretch lg:rounded-3xl lg:px-20">
-      {edit ? (
+      {editProfile ? (
         <EditProfile />
       ) : (
         <>
@@ -32,7 +32,7 @@ const Profiles = () => {
             />
             <button
               type="button"
-              onClick={() => setEdit(true)}
+              onClick={() => dispatch(setEditProfiles(true))}
               className="hover:border-greenPrimary hover:text-greenPrimary mt-10 hidden gap-3 rounded-3xl border bg-[#F9A319] px-5 py-2 font-semibold text-white transition-all hover:bg-white lg:mt-0 lg:flex"
             >
               <svg
@@ -100,7 +100,7 @@ const Profiles = () => {
 
             <button
               type="button"
-              onClick={() => setEdit(true)}
+              onClick={() => dispatch(setEditProfiles(true))}
               className="hover:border-greenPrimary hover:text-greenPrimary mt-5 flex gap-3 rounded-3xl border bg-[#F9A319] px-5 py-2 font-semibold text-white transition-all hover:bg-white lg:mt-0 lg:hidden"
             >
               <svg

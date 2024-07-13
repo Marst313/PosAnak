@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const WelcomeBanner = () => {
   const [greeting, setGreeting] = useState("");
-  const { name } = useSelector((store) => store.user);
+  const { profile } = useSelector((store) => store.user);
 
   useEffect(() => {
     const getGreeting = () => {
@@ -28,7 +28,7 @@ const WelcomeBanner = () => {
     <div className="float-left h-1/2 gap-3 rounded-3xl bg-white shadow-xl lg:flex 2xl:w-2/3">
       <div className="p-6">
         <h1 className="mb-1 text-2xl font-bold md:text-3xl">
-          {greeting}, {name}! 👋
+          {greeting}, {profile.name}! 👋
         </h1>
         <div className="flex justify-center lg:hidden">
           <img

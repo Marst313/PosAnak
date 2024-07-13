@@ -120,7 +120,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             <img
               src={profile.photo}
               alt="gambar profile"
-              className="h-32 w-32 rounded-full"
+              className="h-32 w-32 rounded-full object-cover"
             />
           </div>
           <h2 className="text-2xl capitalize">{profile.name}</h2>

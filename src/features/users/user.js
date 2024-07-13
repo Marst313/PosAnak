@@ -28,7 +28,18 @@ const initialState = {
     status: "success",
   },
 
+  editProfile: false,
   openPopUp: false,
+};
+
+const updateThunkProfile = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchUser.post("/updateMe", data);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
 };
 
 const loginThunk = async (data, thunkAPI) => {
@@ -80,6 +91,10 @@ export const loginUser = createAsyncThunk("loginUser", loginThunk);
 export const registerUser = createAsyncThunk("registerUser", registerThunk);
 
 export const getSingleUser = createAsyncThunk("singleUser", userThunk);
+export const updateUserProfile = createAsyncThunk(
+  "updateUserProfile",
+  updateThunkProfile,
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -109,6 +124,14 @@ const userSlice = createSlice({
 
     setJwt(state, { payload }) {
       state.jwt = payload;
+    },
+
+    setEditProfiles(state, { payload }) {
+      state.editProfile = payload;
+    },
+
+    setMessageOpenProfile(state, { payload }) {
+      state.message.open = payload;
     },
   },
   extraReducers: (builder) => {
@@ -166,6 +189,25 @@ const userSlice = createSlice({
         state.message.open = true;
         state.message.status = "error";
         state.message.text = payload;
+      })
+
+      // ! Update Profiles
+      .addCase(updateUserProfile.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.message.status = "success";
+        state.message.open = true;
+        state.message.text = "Berhasil update profile!";
+      })
+      .addCase(updateUserProfile.rejected, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.message.status = "error";
+        state.message.open = true;
+        state.message.text = payload;
       });
   },
 });
@@ -177,5 +219,7 @@ export const {
   setOpenPopUp,
   setMessage,
   setJwt,
+  setEditProfiles,
+  setMessageOpenProfile,
 } = userSlice.actions;
 export default userSlice.reducer;
