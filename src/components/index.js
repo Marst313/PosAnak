@@ -11,7 +11,6 @@ import SidebarChatbot from "./SidebarChatbot";
 import HistoryChatBot from "./HistoryChatBot";
 import ContentChatBot from "./ContentChatBot";
 import EditProfile from "./EditProfile";
-import FormEditProfile from "./FormEditProfile";
 
 export {
   Calender,
@@ -27,5 +26,4 @@ export {
   SidebarChatbot,
   HistoryChatBot,
   ContentChatBot,
-  FormEditProfile,
 };
