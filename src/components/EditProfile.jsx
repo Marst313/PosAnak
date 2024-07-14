@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleUser, updateUserProfile } from "../features/users/user";
+import {
+  getSingleUser,
+  setMessage,
+  updateUserProfile,
+} from "../features/users/user";
 import PopUp from "./PopUp";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const EditProfile = () => {
-  const { profile, message, uuid, isLoading } = useSelector(
-    (store) => store.user,
-  );
+  const { profile, message } = useSelector((store) => store.user);
+  const jwt = jwtDecode(Cookies.get("jwt"));
+
   const dispatch = useDispatch();
 
   const [loadingImages, setLoadingImages] = useState(false);
@@ -50,11 +56,22 @@ const EditProfile = () => {
 
     setImages(file);
   };
+
   const handleSubmitProfile = async (e) => {
     e.preventDefault();
+
+    if (!data.email || !data.name) {
+      return dispatch(
+        setMessage({
+          open: true,
+          status: "error",
+          text: "Nama atau Email tidak boleh kosong!",
+        }),
+      );
+    }
     setLoadingImages(true);
     try {
-      let imageUrl = images;
+      let imageUrl = images || data.photo;
 
       if (images instanceof File) {
         imageUrl = await uploadImageAndGetUrl(images);
@@ -62,7 +79,7 @@ const EditProfile = () => {
 
       const updatedData = { ...data, photo: imageUrl };
       await dispatch(updateUserProfile(updatedData));
-      await dispatch(getSingleUser(uuid));
+      await dispatch(getSingleUser(jwt.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -108,6 +125,7 @@ const EditProfile = () => {
               id="nama"
               name="name"
               value={data.name}
+              required
               className="border-grey mt-2 rounded-xl focus:ring-0"
               onChange={handleChangeProfile}
             />
@@ -120,6 +138,7 @@ const EditProfile = () => {
                 type="text"
                 id="email"
                 name="email"
+                required
                 className="border-grey mt-2 rounded-xl focus:ring-0"
                 value={data.email}
                 onChange={handleChangeProfile}

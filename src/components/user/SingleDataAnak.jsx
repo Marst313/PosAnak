@@ -3,22 +3,15 @@ import ruller from "../../images/dashboard/ruller.png";
 import arrow from "../../images/dashboard/arrow.png";
 import timbangan from "../../images/dashboard/scales.png";
 import Charts from "../Charts";
-import { convertUsia } from "../../utils/function";
+import { convertDateString, convertUsia } from "../../utils/function";
 
-const SingleDataAnak = ({ item }) => {
-  const { nik, nama, age, child_growth, tanggalLahir } = item;
+const SingleDataAnak = ({ nik, nama, child_growth, tanggalLahir }) => {
+  const growthData = child_growth ? JSON.parse(child_growth) : [];
 
-  const parseJSON = (str) => {
-    try {
-      return JSON.parse(str);
-    } catch (e) {
-      console.error("Gagal parse JSON:", e);
-      return [];
-    }
-  };
-  const growthData = parseJSON(child_growth);
+  const formattedDate = convertDateString(tanggalLahir);
+  const usia = convertUsia(formattedDate);
 
-  const dataPertumbuhan = growthData.map((data) => ({
+  const dataPertumbuhan = growthData?.map((data) => ({
     weight: data.weight || 0,
     height: data.height || 0,
     date: new Date(data.date).toLocaleDateString("id-ID"),
@@ -51,9 +44,7 @@ const SingleDataAnak = ({ item }) => {
 
             <li>
               <h5>Umur</h5>
-              <p className="mt-3 text-3xl font-medium">
-                {convertUsia(tanggalLahir)}
-              </p>
+              <p className="mt-3 text-3xl font-medium">{usia}</p>
             </li>
           </ul>
         </div>

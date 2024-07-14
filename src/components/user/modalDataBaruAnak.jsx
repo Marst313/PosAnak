@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { iconSend, iconClose } from "../../images/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { connectDataAnak, newDataAnak } from "../../features/kids/kids";
+import { convertDateString } from "../../utils/function";
+import { setAllUserNikKids } from "../../features/users/user";
 
 const AddAnak = ({ isModalOpen, closeModal }) => {
+  const dispatch = useDispatch();
+
+  const { profile, allUserNikKids } = useSelector((store) => store.user);
+
   const [formData, setFormData] = useState({
     nama: "",
-    namaIbu: "",
+    namaIbu: profile.name,
     nik: "",
     tanggalLahir: "",
-    umur: "",
   });
 
   const handleChange = (e) => {
@@ -18,18 +25,26 @@ const AddAnak = ({ isModalOpen, closeModal }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form data submitted:", formData);
-    closeModal();
+
+    await dispatch(
+      newDataAnak({
+        ...formData,
+        nik: +formData.nik,
+        tanggalLahir: convertDateString(formData.tanggalLahir),
+      }),
+    );
+
+    await dispatch(setAllUserNikKids(+formData.nik));
+    await dispatch(connectDataAnak(allUserNikKids));
   };
 
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center backdrop-blur-sm ${isModalOpen ? "flex" : "hidden"}`}
     >
-      <div className="relative w-96 rounded-2xl bg-white p-8 shadow-lg mx-5 mt-14 lg:mx-0 lg:mt-0 border-2 border-[#57C9A7]">
+      <div className="relative mx-5 mt-14 w-96 rounded-2xl border-2 border-[#57C9A7] bg-white p-8 shadow-lg lg:mx-0 lg:mt-0">
         <button
           type="button"
           className="absolute -right-1 top-0 mr-3 mt-2 w-6"
@@ -70,8 +85,9 @@ const AddAnak = ({ isModalOpen, closeModal }) => {
               name="namaIbu"
               id="namaIbu"
               value={formData.namaIbu}
+              disabled={true}
               onChange={handleChange}
-              className="focus:shadow-outline w-full appearance-none rounded-xl border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+              className="focus:shadow-outline w-full appearance-none rounded-xl border bg-black/10 px-3 py-2 leading-tight text-gray-600 shadow focus:outline-none"
               required
             />
           </div>
@@ -109,23 +125,7 @@ const AddAnak = ({ isModalOpen, closeModal }) => {
               required
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="mb-2 block text-sm font-bold text-green-700"
-              htmlFor="umur"
-            >
-              Umur
-            </label>
-            <input
-              type="number"
-              name="umur"
-              id="umur"
-              value={formData.umur}
-              onChange={handleChange}
-              className="focus:shadow-outline w-full appearance-none rounded-xl border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-              required
-            />
-          </div>
+
           <button
             type="submit"
             className="focus:shadow-outline flex w-full items-center justify-center rounded-full bg-[#036346] px-4 py-2 font-bold text-white hover:bg-green-700 focus:outline-none"

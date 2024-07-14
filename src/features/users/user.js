@@ -133,6 +133,10 @@ const userSlice = createSlice({
     setMessageOpenProfile(state, { payload }) {
       state.message.open = payload;
     },
+
+    setAllUserNikKids(state, { payload }) {
+      state.allUserNikKids = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -221,5 +225,6 @@ export const {
   setJwt,
   setEditProfiles,
   setMessageOpenProfile,
+  setAllUserNikKids,
 } = userSlice.actions;
 export default userSlice.reducer;

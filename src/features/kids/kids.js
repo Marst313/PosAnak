@@ -38,7 +38,8 @@ const initialState = {
 
 const connectAnakThunk = async (data, thunkAPI) => {
   try {
-    const resp = await customFetchAnak.post(`/connect`, data);
+    console.log([+data]);
+    const resp = await customFetchAnak.post(`/connect`, { nik: [+data] });
 
     return resp.data;
   } catch (error) {

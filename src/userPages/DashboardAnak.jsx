@@ -55,7 +55,7 @@ const DashboardAnak = () => {
 
   useEffect(() => {
     dispatch(getNikDataAnak([allUserNikKids]));
-  }, []);
+  }, [allUserNikKids]);
 
   if (isLoading) {
     return <Loading />;
@@ -112,7 +112,7 @@ const DashboardAnak = () => {
             />
           </div>
           {allDataAnakNik.map((item) => (
-            <SingleDataAnak key={item._id} item={item} />
+            <SingleDataAnak key={item._id} {...item} />
           ))}
         </>
       )}
