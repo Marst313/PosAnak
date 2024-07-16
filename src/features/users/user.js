@@ -42,6 +42,16 @@ const updateThunkProfile = async (data, thunkAPI) => {
   }
 };
 
+const updateThunkPassword = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchUser.post("/updatePassword", data);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
 const loginThunk = async (data, thunkAPI) => {
   try {
     const resp = await customFetchLogin.post("", data);
@@ -94,6 +104,10 @@ export const getSingleUser = createAsyncThunk("singleUser", userThunk);
 export const updateUserProfile = createAsyncThunk(
   "updateUserProfile",
   updateThunkProfile,
+);
+export const updateUserPassword = createAsyncThunk(
+  "updateUserPassword",
+  updateThunkPassword,
 );
 
 const userSlice = createSlice({
@@ -207,6 +221,25 @@ const userSlice = createSlice({
         state.message.text = "Berhasil update profile!";
       })
       .addCase(updateUserProfile.rejected, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.message.status = "error";
+        state.message.open = true;
+        state.message.text = payload;
+      })
+
+      // ! Update Password
+      .addCase(updateUserPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserPassword.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.message.status = "success";
+        state.message.open = true;
+        state.message.text = "Berhasil update password!";
+      })
+      .addCase(updateUserPassword.rejected, (state, { payload }) => {
         state.isLoading = false;
 
         state.message.status = "error";

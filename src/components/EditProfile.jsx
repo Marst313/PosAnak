@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getSingleUser,
   setMessage,
+  updateUserPassword,
   updateUserProfile,
 } from "../features/users/user";
 import PopUp from "./PopUp";
@@ -14,18 +15,22 @@ import Cookies from "js-cookie";
 
 const EditProfile = () => {
   const { profile, message } = useSelector((store) => store.user);
-  const jwt = jwtDecode(Cookies.get("jwt"));
-
   const dispatch = useDispatch();
 
+  const jwt = jwtDecode(Cookies.get("jwt"));
+
   const [loadingImages, setLoadingImages] = useState(false);
+  const [images, setImages] = useState("");
+  const [dataPassword, setDataPassword] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
   const [data, setData] = useState({
     name: profile.name,
     email: profile.email,
     photo: profile.photo,
   });
-
-  const [images, setImages] = useState("");
 
   const uploadImageAndGetUrl = async (imageFile) => {
     const imageRef = ref(storage, `profiles/${imageFile.name + uuidv4()}`);
@@ -89,8 +94,24 @@ const EditProfile = () => {
 
   const handleSubmitPassword = (e) => {
     e.preventDefault();
+
+    if (dataPassword.newPassword !== dataPassword.confirmPassword) {
+      return dispatch(
+        setMessage({
+          open: true,
+          status: "error",
+          text: "Password tidak sesuai",
+        }),
+      );
+    }
+
+    dispatch(updateUserPassword(dataPassword));
   };
 
+  const handleChangePassword = (e) => {
+    const { name, value } = e.target;
+    setDataPassword({ ...dataPassword, [name]: value });
+  };
   const handleChangeProfile = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -157,29 +178,43 @@ const EditProfile = () => {
 
       <hr className="bg-greenPrimary/20 mt-32 h-full w-1" />
 
+      {/* Ubah kata sandi */}
       <form
-        className="b mt-5 flex w-1/2 flex-col items-start justify-end gap-5"
+        className="mt-5 flex w-1/2 flex-col items-start justify-end gap-10"
         onSubmit={handleSubmitPassword}
       >
         <h1 className="text-2xl font-semibold">Ubah Kata Sandi</h1>
-        <div className="flex flex-col">
-          <label htmlFor="password">Kata Sandi Baru</label>
+
+        <div className="containerInput">
           <input
             type="password"
-            id="password"
-            className="border-grey mt-2 rounded-xl focus:ring-0"
-            name="password"
+            required="required"
+            name="currentPassword"
+            onChange={handleChangePassword}
           />
+          <label>Kata Sandi Lama</label>
+          <i></i>
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="kataSandiBaru">Konfirmasi Kata Sandi Baru</label>
+        <div className="containerInput">
           <input
             type="password"
-            id="kataSandiBaru"
-            name="passwordConfirm"
-            className="border-grey mt-2 rounded-xl focus:ring-0"
+            required="required"
+            name="newPassword"
+            onChange={handleChangePassword}
           />
+          <label>Kata Sandi Baru</label>
+          <i></i>
+        </div>
+        <div className="containerInput">
+          <input
+            type="password"
+            required="required"
+            name="confirmPassword"
+            onChange={handleChangePassword}
+          />
+          <label>Konfirmasi Kata Sandi</label>
+          <i></i>
         </div>
 
         <button

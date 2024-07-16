@@ -25,8 +25,6 @@ const SharedLayout = () => {
       await dispatch(getDataBerita());
     }
 
-    fetchData();
-
     const jwt = Cookies.get("jwt");
 
     if (!jwt) {
@@ -38,6 +36,7 @@ const SharedLayout = () => {
       async function getDataUser(id) {
         try {
           await dispatch(getSingleUser(id));
+          await fetchData();
         } catch (error) {
           console.log(error);
         }
