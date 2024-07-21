@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import { iconSend } from "../../images/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { connectDataAnak } from "../../features/kids/kids";
-import { setAllUserNikKids } from "../../features/users/user";
 
 const ModalDataExistingAnak = ({ isModalOpen, closeModal }) => {
-  const [nik, setNik] = useState("");
+  const { allUserNikKids } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  const { allUserNikKids } = useSelector((store) => store.user);
+  console.log(allUserNikKids);
 
-  const handleSubmit = (e) => {
+  const [nik, setNik] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("hello world");
+    await dispatch(connectDataAnak(nik));
 
-    dispatch(setAllUserNikKids([...allUserNikKids, nik]));
-    dispatch(connectDataAnak(allUserNikKids));
+    await dispatch(getNikDataAnak(allUserNikKids));
   };
 
   return (

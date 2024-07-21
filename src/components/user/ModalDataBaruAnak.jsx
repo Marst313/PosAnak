@@ -8,7 +8,7 @@ import { setAllUserNikKids } from "../../features/users/user";
 const AddAnak = ({ isModalOpen, closeModal }) => {
   const dispatch = useDispatch();
 
-  const { profile, allUserNikKids } = useSelector((store) => store.user);
+  const { profile } = useSelector((store) => store.user);
 
   const [formData, setFormData] = useState({
     nama: "",
@@ -36,8 +36,7 @@ const AddAnak = ({ isModalOpen, closeModal }) => {
       }),
     );
 
-    await dispatch(setAllUserNikKids(+formData.nik));
-    await dispatch(connectDataAnak(allUserNikKids));
+    await dispatch(connectDataAnak(formData.nik));
   };
 
   return (

@@ -10,7 +10,10 @@ import { loginUser, setMessage } from "../features/users/user";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { message, jwt } = useSelector((store) => store.user);
+
+  const jwt = Cookies.get("jwt");
+
+  const { message } = useSelector((store) => store.user);
 
   const [user, setUser] = useState({
     email: "",
@@ -44,8 +47,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const jwt = Cookies.get("jwt");
-
     if (jwt) {
       navigate("/dashboard/menu");
     }

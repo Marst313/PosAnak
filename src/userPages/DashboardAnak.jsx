@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { parseStringJson } from "../utils/function";
-import { SearchBarUser } from "../components/user";
-import Loading from "../components/Loading";
 import { editAnak, add } from "../images/icons/";
-import StuntingResult from "../components/user/modalStunting";
-import AddAnak from "../components/user/modalTambahAnak";
-import SingleDataAnak from "../components/user/SingleDataAnak";
+
 import {
-  connectDataAnak,
-  setIsKidThere,
-  getNikDataAnak,
-} from "../features/kids/kids";
+  SearchBarUser,
+  ModalStunting,
+  SingleDataAnak,
+  AddAnak,
+} from "../components/user";
+import { Loading } from "../components/";
+import { getNikDataAnak } from "../features/kids/kids";
 
 const DashboardAnak = () => {
-  const { isLoading, graphShow, singleDataAnak, kidsBio, allDataAnakNik } =
-    useSelector((store) => store.kids);
+  const { isLoading, allDataAnakNik } = useSelector((store) => store.kids);
 
   const { allUserNikKids } = useSelector((store) => store.user);
 
-  const [dataPertumbuhan, setDataPertumbuhan] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenAnak, setIsModalOpenAnak] = useState(false);
 
   const dispatch = useDispatch();
 
-  const openModalstunting = () => {
+  const calculateStunting = () => {
     setIsModalOpen(true);
   };
   const closeModalstunting = () => {
@@ -40,21 +36,8 @@ const DashboardAnak = () => {
     setIsModalOpenAnak(false);
   };
 
-  const handleConnectDataAnak = () => {
-    dispatch(connectDataAnak({ nik: kidsBio.nik }));
-    dispatch(setIsKidThere(true));
-  };
-
   useEffect(() => {
-    if (graphShow && singleDataAnak?.child_growth) {
-      const result = parseStringJson(singleDataAnak.child_growth);
-
-      setDataPertumbuhan(result);
-    }
-  }, [graphShow, singleDataAnak]);
-
-  useEffect(() => {
-    dispatch(getNikDataAnak([allUserNikKids]));
+    dispatch(getNikDataAnak(allUserNikKids));
   }, [allUserNikKids]);
 
   if (isLoading) {
@@ -72,7 +55,7 @@ const DashboardAnak = () => {
 
         <button
           className="border-lightGreen bg-coldGreen text-darkGreen hover:bg-lightGreen group flex h-10 w-60 flex-col items-center justify-center gap-2 overflow-hidden rounded-lg py-2 font-semibold duration-500 lg:px-8"
-          onClick={openModalstunting}
+          onClick={calculateStunting}
         >
           <p className="-translate-y-[120%] transition-all duration-500 group-hover:flex group-hover:translate-y-4">
             Cek Stunting{" "}
@@ -81,7 +64,7 @@ const DashboardAnak = () => {
             Cek Stunting{" "}
           </p>
         </button>
-        <StuntingResult
+        <ModalStunting
           isModalOpen={isModalOpen}
           closeModalstunting={closeModalstunting}
         />

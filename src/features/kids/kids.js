@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { customFetchAnak } from "../../utils/axios";
+import { customFetchAnak, customFetchCalculate } from "../../utils/axios";
 
 const initialState = {
   dataAnak: [],
@@ -36,13 +36,42 @@ const initialState = {
   },
 };
 
-const connectAnakThunk = async (data, thunkAPI) => {
+const calculateAnakThunk = async (data, thunkAPI) => {
   try {
-    console.log([+data]);
-    const resp = await customFetchAnak.post(`/connect`, { nik: [+data] });
+    const resp = await customFetchCalculate.post("", {
+      umur: data.umur,
+      jenis_kelamin: data.jenisKelamin,
+      tinggi_badan: data.tinggiBadan,
+    });
+
+    console.log(resp);
 
     return resp.data;
   } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+const connectAnakThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchAnak.post(`/connect`, { nik: data });
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
+const connectAnakAdminThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchAnak.post(`/connectAdmin`, {
+      nikKids: [+data.nikKids],
+      namaIbu: data.namaIbu,
+    });
+
+    return resp.data;
+  } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.message);
   }
 };
@@ -106,16 +135,22 @@ const updateAnakThunk = async (data, thunkAPI) => {
   }
 };
 
+export const calculateAnak = createAsyncThunk(
+  "calculateAnak",
+  calculateAnakThunk,
+);
+export const connectDataAnakAdmin = createAsyncThunk(
+  "connectDataAnakAdmin",
+  connectAnakAdminThunk,
+);
 export const connectDataAnak = createAsyncThunk(
   "connectDataAnak",
   connectAnakThunk,
 );
-
 export const getSingleDataAnak = createAsyncThunk(
   "getSingleAnak",
   singleAnakThunk,
 );
-
 export const newDataAnak = createAsyncThunk("newAnak", newAnakThunk);
 export const deleteDataAnak = createAsyncThunk("deleteAnak", deleteAnakThunk);
 export const updateDataAnak = createAsyncThunk("updateAnak", updateAnakThunk);
@@ -254,8 +289,28 @@ export const kidSlice = createSlice({
       .addCase(connectDataAnak.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isKidsThere = true;
+
+        state.message.text = "Berhasil menyambungkan data anak.";
+        state.message.open = true;
+        state.message.status = "success";
       })
-      .addCase(connectDataAnak.rejected, (state) => {
+      .addCase(connectDataAnak.rejected, (state, { payload }) => {
+        state.isLoading = false;
+
+        state.message.text = payload;
+        state.message.open = true;
+        state.message.status = "error";
+      })
+
+      //! Connect Data Anak
+      .addCase(connectDataAnakAdmin.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(connectDataAnakAdmin.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isKidsThere = true;
+      })
+      .addCase(connectDataAnakAdmin.rejected, (state, { payload }) => {
         state.isLoading = false;
       })
 
@@ -269,6 +324,17 @@ export const kidSlice = createSlice({
         state.isKidsThere = true;
       })
       .addCase(getNikDataAnak.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      //! Nik Data Anak
+      .addCase(calculateAnak.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(calculateAnak.fulfilled, (state, { payload }) => {
+        state.allDataAnakNik = payload.data;
+      })
+      .addCase(calculateAnak.rejected, (state) => {
         state.isLoading = false;
       });
   },

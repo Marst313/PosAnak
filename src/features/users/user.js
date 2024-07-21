@@ -7,7 +7,7 @@ import {
 import Cookies from "js-cookie";
 
 const initialState = {
-  allUser: [],
+  allUserName: [],
   singleUser: [],
   allUserNikKids: [],
 
@@ -97,6 +97,16 @@ const registerThunk = async (data, thunkAPI) => {
   }
 };
 
+const allUserThunk = async (data, thunkAPI) => {
+  try {
+    const resp = await customFetchUser.get(`/`);
+
+    return resp.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+};
+
 export const loginUser = createAsyncThunk("loginUser", loginThunk);
 export const registerUser = createAsyncThunk("registerUser", registerThunk);
 
@@ -109,6 +119,7 @@ export const updateUserPassword = createAsyncThunk(
   "updateUserPassword",
   updateThunkPassword,
 );
+export const getAllUser = createAsyncThunk("getAllUser", allUserThunk);
 
 const userSlice = createSlice({
   name: "user",
@@ -154,6 +165,21 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+
+      //! Get All User
+      .addCase(getAllUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+
+        const data = payload.data.map((item) => item.name);
+
+        state.allUserName = data;
+      })
+      .addCase(getAllUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+      })
 
       //! Get Single User
       .addCase(getSingleUser.pending, (state) => {

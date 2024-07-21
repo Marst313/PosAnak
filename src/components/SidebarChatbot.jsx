@@ -93,7 +93,7 @@ const SidebarChatbot = ({
             <img
               src={profile.photo || defaultProfile}
               alt="user images profile"
-              className="mx-2 h-10 w-10 rounded-full"
+              className="mx-2 h-10 w-10 rounded-full object-cover"
             />
             <div className="mx-2">
               <p className="text-sm text-white">{profile.name}</p>

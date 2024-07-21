@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import existdata from "../../images/existdata.png";
 import adddata from "../../images/adddata.png";
 import { iconClose } from "../../images/icons";
-import AddAnakNew from "../user/modalDataBaruAnak";
-import AddAnakExisting from "../user/modalDataExistingAnak";
+import AddAnakNew from "./ModalDataBaruAnak";
+import AddAnakExisting from "./ModalDataExistingAnak";
+import PopUp from "../PopUp";
+import { useSelector } from "react-redux";
 
 const ModalTambahAnak = ({ isModalOpenAnak, closeModalAnak }) => {
   const [activeForm, setActiveForm] = useState(null);
+
+  const { message } = useSelector((store) => store.kids);
 
   const openForm = (formType) => {
     setActiveForm(formType);
@@ -70,6 +74,12 @@ const ModalTambahAnak = ({ isModalOpenAnak, closeModalAnak }) => {
             <AddAnakExisting isModalOpen={true} closeModal={closeForm} />
           )}
         </div>
+
+        <PopUp
+          message={message.text}
+          open={message.open}
+          type={message.status}
+        />
       </div>
     </div>
   );

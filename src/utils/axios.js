@@ -21,6 +21,13 @@ const createAxiosInstance = (path, isExternal = false) => {
   });
 };
 
+const calculateAxiosInstance = () => {
+  return axios.create({
+    baseURL: "https://absolute-lamprey-posanak-41bfd0ab.koyeb.app/",
+  });
+};
+
+export const customFetchCalculate = calculateAxiosInstance();
 export const customFetchAnak = createAxiosInstance("kid");
 export const customFetchKeluarga = createAxiosInstance("family");
 export const customFetchKegiatan = createAxiosInstance("activity");

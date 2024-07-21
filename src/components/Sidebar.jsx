@@ -14,7 +14,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const { email, name, role, profile } = useSelector((store) => store.user);
+  const { role, profile } = useSelector((store) => store.user);
 
   const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
   const [sidebarExpanded, setSidebarExpanded] = useState(

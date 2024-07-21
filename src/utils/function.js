@@ -1,5 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-
 export const convertUsia = (tanggalLahir) => {
   const today = new Date().toLocaleDateString("en-GB");
 
@@ -105,4 +103,26 @@ export function convertDateString(dateStr) {
   const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // getUTCMonth() returns month from 0-11
   const day = String(date.getUTCDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+export function getAgeInMonths(dateString) {
+  // Convert the input date string to a Date object
+  const birthDate = new Date(dateString);
+
+  // Get the current date
+  const currentDate = new Date();
+
+  // Calculate the total number of months
+  const yearsDiff = currentDate.getFullYear() - birthDate.getFullYear();
+  const monthsDiff = currentDate.getMonth() - birthDate.getMonth();
+
+  // Calculate the total number of months
+  let totalMonths = yearsDiff * 12 + monthsDiff;
+
+  // If the current day of the month is before the birth day of the month, subtract one month
+  if (currentDate.getDate() < birthDate.getDate()) {
+    totalMonths -= 1;
+  }
+
+  return totalMonths === 0 ? 1 : totalMonths;
 }

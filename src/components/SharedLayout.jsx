@@ -4,12 +4,11 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Sidebar, Header, PopUpChatBot } from "./";
 import { useDispatch } from "react-redux";
 import { getDataAnak } from "../features/kids/kids";
-import { getDataKeluarga } from "../features/family/family";
 import { getDataBerita } from "../features/news/news";
 import { getDataKegiatan } from "../features/activity/activity";
 
 import Cookies from "js-cookie";
-import { getSingleUser, setToken } from "../features/users/user";
+import { getAllUser, getSingleUser, setToken } from "../features/users/user";
 import { jwtDecode } from "jwt-decode";
 
 const SharedLayout = () => {
@@ -17,34 +16,26 @@ const SharedLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const jwt = Cookies.get("jwt");
+
   useEffect(() => {
-    async function fetchData() {
-      await dispatch(getDataAnak());
-      // await dispatch(getDataKeluarga());
-      await dispatch(getDataKegiatan());
-      await dispatch(getDataBerita());
-    }
-
-    const jwt = Cookies.get("jwt");
-
     if (!jwt) {
       navigate("/");
     } else {
       const { id } = jwtDecode(jwt);
       dispatch(setToken({ jwt, id }));
 
-      async function getDataUser(id) {
-        try {
-          await dispatch(getSingleUser(id));
-          await fetchData();
-        } catch (error) {
-          console.log(error);
-        }
+      function getDataUser(id) {
+        dispatch(getSingleUser(id));
+        dispatch(getDataAnak());
+        dispatch(getAllUser());
+        dispatch(getDataKegiatan());
+        dispatch(getDataBerita());
       }
 
       getDataUser(id);
     }
-  }, []);
+  }, [jwt]);
 
   return (
     <div className="bg-coldWhite flex h-screen overflow-hidden">

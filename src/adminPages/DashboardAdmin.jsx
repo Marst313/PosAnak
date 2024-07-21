@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import Calender from "../components/Calender";
 import { Loading, ScheduleRight } from "../components/";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataKeluarga } from "../features/family/family";
-import { SingleJadwalKegiatan, TableKeluargaAdmin } from "../components/admin";
+
 import { JadwalKegiatanUser, TableAnakUser } from "../components/user/";
 
 const DashboardAdmin = () => {
-  const { dataKeluarga } = useSelector((store) => store.family);
   const { dataAnak, isLoading } = useSelector((store) => store.kids);
   const { dataKegiatan } = useSelector((store) => store.activity);
   const { profile } = useSelector((store) => store.user);

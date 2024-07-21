@@ -28,23 +28,15 @@ const SingleDataAnak = ({ child, index }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await dispatch(deleteDataAnak(child._id));
-      await dispatch(getDataAnak());
-      setPopUp(false);
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch(deleteDataAnak(child._id));
+    await dispatch(getDataAnak());
+    setPopUp(false);
   };
 
   const handleEdit = async (id) => {
-    try {
-      await dispatch(getSingleDataAnak(id));
-      dispatch(setTambahDataAnak(true));
-      dispatch(setEditAnak(true));
-    } catch (error) {
-      console.log(error);
-    }
+    await dispatch(getSingleDataAnak(id));
+    await dispatch(setTambahDataAnak(true));
+    dispatch(setEditAnak(true));
   };
 
   const handleGraphShow = async () => {

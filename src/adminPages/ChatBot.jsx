@@ -133,7 +133,7 @@ const ChatBot = () => {
             <img
               src={profile.photo || defaultProfile}
               alt="user images profile"
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 rounded-full object-cover"
             />
           </div>
 
